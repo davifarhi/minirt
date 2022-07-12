@@ -6,7 +6,7 @@
 #    By: ybentaye <ybentaye@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/11 12:17:38 by dfarhi            #+#    #+#              #
-#    Updated: 2022/07/12 16:11:29 by dfarhi           ###   ########.fr        #
+#    Updated: 2022/07/12 20:31:27 by davifah          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,27 +29,32 @@ INCLUDES	= -I./includes -I./libft/includes
 LIB			= -L./libft/ -lft
 LIBFT		= libft/libft.a
 LIBFT_ARGS	=
+MINILIBX_V	=
 MINILIBX	=
 
 SYSTEM		= $(shell uname -s)
 
 ifeq ($(SYSTEM), Linux)
-LIB			:= $(LIB) -lXext -lX11
-INCLUDES	:= $(INCLUDES) -I./minilibx_linux
-MINILIBX	= minilibx_linux/libmlx.a
+MINILIBX_V	= minilibx_linux
+MINILIBX	= $(MINILIBX_V)/libmlx.a
+LIB			:= $(LIB) -lXext -lX11 -L./$(MINILIBX_V) -lmlx
 else
-LIB			:= $(LIB) -framework OpenGL -framework AppKit
-INCLUDES	:= $(INCLUDES) -I./minilibx_macos
-MINILIBX	= minilibx_macos/libmlx.a
+MINILIBX_V	= minilibx_macos
+MINILIBX	= $(MINILIBX_V)/libmlx.a
+LIB			:= $(LIB) -framework OpenGL -framework AppKit -L./$(MINILIBX_V) -lmlx
 endif
+INCLUDES	:= $(INCLUDES) -I./$(MINILIBX_V)
 
-${NAME}:	${LIBFT} ${OBJS}
+${NAME}:	${LIBFT} ${OBJS} ${MINILIBX}
 			${CC} ${INCLUDES} -o ${NAME} ${OBJS} ${LIB}
 
 .c.o:
 			${CC} -c ${INCLUDES} $< -o ${<:.c=.o}
 
 all:		${NAME}
+
+${MINILIBX}:
+			$(MAKE) -C ./$(MINILIBX_V)
 
 AddressSanitizer:	CC := ${CC} -fsanitize=address -g
 ifeq ($(SYSTEM), Linux)
@@ -74,6 +79,7 @@ git:
 clean:
 			rm -f ${OBJS}
 			make -C ./libft clean
+			make -C ./$(MINILIBX_V) clean
 
 fclean:		clean
 			rm -f ${NAME} libft/libft.a
