@@ -1,0 +1,17 @@
+*.out
+*.exe
+*.swp
+*.swo
+*.dylib
+*.DS_Store
+*.a
+*.o
+.lvimrc
+.test_arg*
+.test_max
+vgcore.*
+analysis.txt
+gmon.out
+test.c
+*.test
+minirt
