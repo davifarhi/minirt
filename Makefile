@@ -6,13 +6,16 @@
 #    By: ybentaye <ybentaye@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/11 12:17:38 by dfarhi            #+#    #+#              #
-#    Updated: 2022/07/12 14:25:27 by dfarhi           ###   ########.fr        #
+#    Updated: 2022/07/12 15:01:41 by dfarhi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FILES		=
 
-FILES		:= $(FILES)
+FILES_D		=
+FILES_M		=
+
+FILES		:= $(FILES) $(FILES_D) $(FILES_M)
 FILES		:= $(addprefix src/, ${FILES})
 FILES		:= $(addsuffix .c, ${FILES})
 OBJS		= ${FILES:.c=.o}
@@ -36,11 +39,6 @@ ${NAME}:	${LIBFT} ${OBJS}
 			${CC} -c ${INCLUDES} $< -o ${<:.c=.o}
 
 all:		${NAME}
-
-ifeq ($(SYSTEM), Darwin)
-LIB			:= $(LIB) -L $(HOME)/.brew/opt/readline/lib
-INCLUDES	:= $(INCLUDES) -I$(HOME)/.brew/opt/readline/include
-endif
 
 AddressSanitizer:	CC := ${CC} -fsanitize=address -g
 ifeq ($(SYSTEM), Linux)
