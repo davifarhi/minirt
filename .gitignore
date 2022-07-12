@@ -6,6 +6,8 @@
 *.DS_Store
 *.a
 *.o
+*.swiftmodule
+*.swiftdoc
 .lvimrc
 .test_arg*
 .test_max
