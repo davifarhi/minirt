@@ -6,7 +6,7 @@
 #    By: ybentaye <ybentaye@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/11 12:17:38 by dfarhi            #+#    #+#              #
-#    Updated: 2022/07/12 15:02:26 by dfarhi           ###   ########.fr        #
+#    Updated: 2022/07/12 16:11:29 by dfarhi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,11 +26,22 @@ CC			= gcc -Wall -Wextra -Werror
 
 INCLUDES	= -I./includes -I./libft/includes
 
-LIB			= -L./libft/ -lft -lreadline
+LIB			= -L./libft/ -lft
 LIBFT		= libft/libft.a
 LIBFT_ARGS	=
+MINILIBX	=
 
 SYSTEM		= $(shell uname -s)
+
+ifeq ($(SYSTEM), Linux)
+LIB			:= $(LIB) -lXext -lX11
+INCLUDES	:= $(INCLUDES) -I./minilibx_linux
+MINILIBX	= minilibx_linux/libmlx.a
+else
+LIB			:= $(LIB) -framework OpenGL -framework AppKit
+INCLUDES	:= $(INCLUDES) -I./minilibx_macos
+MINILIBX	= minilibx_macos/libmlx.a
+endif
 
 ${NAME}:	${LIBFT} ${OBJS}
 			${CC} ${INCLUDES} -o ${NAME} ${OBJS} ${LIB}
