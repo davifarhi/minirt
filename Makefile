@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ybentaye <ybentaye@student.42lausanne.c    +#+  +:+       +#+         #
+#    By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/11 12:17:38 by dfarhi            #+#    #+#              #
-#    Updated: 2022/07/12 20:31:27 by davifah          ###   ########.fr        #
+#    Updated: 2022/07/14 22:19:12 by mreymond         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
