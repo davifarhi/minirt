@@ -17,3 +17,4 @@ gmon.out
 test.c
 *.test
 minirt
+.vscode/

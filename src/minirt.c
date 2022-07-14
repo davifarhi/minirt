@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfarhi <dfarhi@student.42lausanne.ch>      +#+  +:+       +#+        */
+/*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:03:24 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/07/12 20:32:40 by davifah          ###   ########.fr       */
+/*   Updated: 2022/07/14 15:15:14 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,6 @@ int	main(int ac, char **av)
 {
 	(void)ac;
 	(void)av;
+	printf("Youpidou\n");
 	return (0);
 }
