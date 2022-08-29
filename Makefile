@@ -6,13 +6,13 @@
 #    By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/11 12:17:38 by dfarhi            #+#    #+#              #
-#    Updated: 2022/07/14 22:19:12 by mreymond         ###   ########.fr        #
+#    Updated: 2022/08/29 11:56:52 by davifah          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FILES		= minirt
 
-FILES_D		=
+FILES_D		= mlx_setup mlx_utils
 FILES_M		=
 
 FILES		:= $(FILES) $(FILES_D) $(FILES_M)
@@ -39,6 +39,7 @@ MINILIBX_V	= minilibx_linux
 MINILIBX	= $(MINILIBX_V)/libmlx.a
 LIB			:= $(LIB) -lXext -lX11 -L./$(MINILIBX_V) -lmlx
 else
+INCLUDES	:= ${INCLUDES} -d MACOS
 MINILIBX_V	= minilibx_macos
 MINILIBX	= $(MINILIBX_V)/libmlx.a
 LIB			:= $(LIB) -framework OpenGL -framework AppKit -L./$(MINILIBX_V) -lmlx
