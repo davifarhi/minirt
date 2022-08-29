@@ -6,13 +6,13 @@
 #    By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/11 12:17:38 by dfarhi            #+#    #+#              #
-#    Updated: 2022/08/29 11:56:52 by davifah          ###   ########.fr        #
+#    Updated: 2022/08/29 12:18:13 by davifah          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FILES		= minirt
 
-FILES_D		= mlx_setup mlx_utils
+FILES_D		= mlx_setup mlx_utils colors_utils
 FILES_M		=
 
 FILES		:= $(FILES) $(FILES_D) $(FILES_M)

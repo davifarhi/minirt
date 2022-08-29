@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:11:40 by davifah           #+#    #+#             */
-/*   Updated: 2022/08/29 12:06:17 by davifah          ###   ########.fr       */
+/*   Updated: 2022/08/29 12:16:34 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_mlx
 }	t_mlx;
 
 t_mlx	mlx_setup(void);
-int		create_trgb(int t, int r, int g, int b);
 int		print_key(int key, void *param);
 void	fill_image(t_mlx *mlx, unsigned int color);
 void	ft_pixel_put(t_mlx *mlx, int x, int y, unsigned int color);

@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:04:14 by davifah           #+#    #+#             */
-/*   Updated: 2022/08/29 12:03:04 by davifah          ###   ########.fr       */
+/*   Updated: 2022/08/29 12:10:20 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ t_mlx	mlx_setup(void)
 	mlx.img.img = mlx_new_image(mlx.mlx, RESOLUTION_X, RESOLUTION_Y);
 	mlx.img.addr = mlx_get_data_addr(mlx.img.img, &mlx.img.bpp,
 			&mlx.img.line_len, &mlx.img.endian);
-	fill_image(&mlx, create_trgb(1, 65, 105, 225));
+	fill_image(&mlx, create_trgb(255, 0, 0, 0));
+	fill_image(&mlx, create_trgb(255, 65, 105, 225));
 	mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img.img, 0, 0);
 	mlx_loop(mlx.mlx);
 	return (mlx);

@@ -6,17 +6,12 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:44:22 by davifah           #+#    #+#             */
-/*   Updated: 2022/08/29 11:51:00 by davifah          ###   ########.fr       */
+/*   Updated: 2022/08/29 12:11:51 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "mlx_config.h"
-
-int	create_trgb(int t, int r, int g, int b)
-{
-	return (t << 24 | r << 16 | g << 8 | b);
-}
 
 int	print_key(int key, void *param)
 {
