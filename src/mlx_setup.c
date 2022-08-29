@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:04:14 by davifah           #+#    #+#             */
-/*   Updated: 2022/08/29 12:10:20 by davifah          ###   ########.fr       */
+/*   Updated: 2022/08/29 12:51:08 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_mlx	mlx_setup(void)
 	mlx.img.img = mlx_new_image(mlx.mlx, RESOLUTION_X, RESOLUTION_Y);
 	mlx.img.addr = mlx_get_data_addr(mlx.img.img, &mlx.img.bpp,
 			&mlx.img.line_len, &mlx.img.endian);
-	fill_image(&mlx, create_trgb(255, 0, 0, 0));
 	fill_image(&mlx, create_trgb(255, 65, 105, 225));
 	mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img.img, 0, 0);
 	mlx_loop(mlx.mlx);
@@ -38,8 +37,11 @@ static int	deal_key(int key, void *param)
 {
 	if (key == ESC_KEY)
 	{
-		printf("Escape pressed, quitting_program...\n");
+		printf("Escape pressed, quitting program...\n");
+		mlx_destroy_image(((t_mlx *)param)->mlx, ((t_mlx *)param)->img.img);
 		mlx_destroy_window(((t_mlx *)param)->mlx, ((t_mlx *)param)->win);
+		mlx_destroy_display(((t_mlx *)param)->mlx);
+		free(((t_mlx *)param)->mlx);
 		exit(0);
 	}
 	return (0);
