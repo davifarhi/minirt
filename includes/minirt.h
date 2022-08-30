@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/08/30 14:12:58 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/08/30 17:16:54 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,15 @@
 # include <stdio.h>
 # include "expanded.h"
 
-enum e_objs{ambiant, cam, light, sphere, plan, cylinder};
+typedef enum e_objs
+{
+	ambiant,
+	cam,
+	light,
+	sphere,
+	plan,
+	cylinder
+}	t_objs;
 
 typedef struct s_coord
 {
@@ -36,10 +44,10 @@ typedef struct s_vector
 
 typedef struct s_obj
 {
-	enum e_objs	type;
-	t_coord		coord;
-	int			color;
-	void		*param;
+	t_objs	type;
+	t_coord	coord;
+	int		color;
+	void	*param;
 }	t_obj;
 
 typedef struct s_cam
