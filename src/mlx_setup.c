@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_setup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
+/*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:04:14 by davifah           #+#    #+#             */
-/*   Updated: 2022/08/29 12:51:08 by davifah          ###   ########.fr       */
+/*   Updated: 2022/08/30 12:40:50 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	deal_key(int key, void *param)
 		printf("Escape pressed, quitting program...\n");
 		mlx_destroy_image(((t_mlx *)param)->mlx, ((t_mlx *)param)->img.img);
 		mlx_destroy_window(((t_mlx *)param)->mlx, ((t_mlx *)param)->win);
-		mlx_destroy_display(((t_mlx *)param)->mlx);
+		// mlx_destroy_display(((t_mlx *)param)->mlx);
 		free(((t_mlx *)param)->mlx);
 		exit(0);
 	}

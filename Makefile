@@ -6,7 +6,7 @@
 #    By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/11 12:17:38 by dfarhi            #+#    #+#              #
-#    Updated: 2022/08/29 12:18:13 by davifah          ###   ########.fr        #
+#    Updated: 2022/08/30 12:42:01 by mreymond         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ FILES		:= $(addprefix src/, ${FILES})
 FILES		:= $(addsuffix .c, ${FILES})
 OBJS		= ${FILES:.c=.o}
 
-NAME		= minirt
+NAME		= miniRT
 
 CC			= gcc -Wall -Wextra -Werror
 
@@ -39,7 +39,7 @@ MINILIBX_V	= minilibx_linux
 MINILIBX	= $(MINILIBX_V)/libmlx.a
 LIB			:= $(LIB) -lXext -lX11 -L./$(MINILIBX_V) -lmlx
 else
-INCLUDES	:= ${INCLUDES} -d MACOS
+INCLUDES	:= ${INCLUDES} #-d MACOS
 MINILIBX_V	= minilibx_macos
 MINILIBX	= $(MINILIBX_V)/libmlx.a
 LIB			:= $(LIB) -framework OpenGL -framework AppKit -L./$(MINILIBX_V) -lmlx
