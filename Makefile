@@ -6,7 +6,7 @@
 #    By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/11 12:17:38 by dfarhi            #+#    #+#              #
-#    Updated: 2022/08/30 13:33:17 by mreymond         ###   ########.fr        #
+#    Updated: 2022/08/30 17:00:10 by davifah          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ MINILIBX_V	= minilibx_linux
 MINILIBX	= $(MINILIBX_V)/libmlx.a
 LIB			:= $(LIB) -lXext -lX11 -L./$(MINILIBX_V) -lmlx
 else
-INCLUDES	:= ${INCLUDES} #-d MACOS
+INCLUDES	:= ${INCLUDES} -D MACOS
 MINILIBX_V	= minilibx_macos
 MINILIBX	= $(MINILIBX_V)/libmlx.a
 LIB			:= $(LIB) -framework OpenGL -framework AppKit -L./$(MINILIBX_V) -lmlx

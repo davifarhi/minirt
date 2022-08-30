@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:04:14 by davifah           #+#    #+#             */
-/*   Updated: 2022/08/30 12:40:50 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/08/30 17:01:28 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ static int	deal_key(int key, void *param)
 		printf("Escape pressed, quitting program...\n");
 		mlx_destroy_image(((t_mlx *)param)->mlx, ((t_mlx *)param)->img.img);
 		mlx_destroy_window(((t_mlx *)param)->mlx, ((t_mlx *)param)->win);
-		// mlx_destroy_display(((t_mlx *)param)->mlx);
+		if (ISLINUX)
+			mlx_destroy_display(((t_mlx *)param)->mlx);
 		free(((t_mlx *)param)->mlx);
 		exit(0);
 	}

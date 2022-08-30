@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:11:40 by davifah           #+#    #+#             */
-/*   Updated: 2022/08/29 12:16:34 by davifah          ###   ########.fr       */
+/*   Updated: 2022/08/30 17:00:56 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@
 # define RESOLUTION_Y 480
 
 # ifdef MACOS
+#  define ISLINUX 0
 #  define ESC_KEY 53
 # else
+#  define ISLINUX 1
 #  define ESC_KEY 65307
 # endif
 
