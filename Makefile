@@ -6,14 +6,14 @@
 #    By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/11 12:17:38 by dfarhi            #+#    #+#              #
-#    Updated: 2022/08/30 12:42:01 by mreymond         ###   ########.fr        #
+#    Updated: 2022/08/30 13:33:17 by mreymond         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FILES		= minirt
 
 FILES_D		= mlx_setup mlx_utils colors_utils
-FILES_M		=
+FILES_M		= parsing
 
 FILES		:= $(FILES) $(FILES_D) $(FILES_M)
 FILES		:= $(addprefix src/, ${FILES})
