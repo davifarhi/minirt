@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:04:14 by davifah           #+#    #+#             */
-/*   Updated: 2022/08/30 18:21:02 by davifah          ###   ########.fr       */
+/*   Updated: 2022/08/30 18:39:43 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,22 @@
 static int	on_win_close(int code, void *param);
 static int	deal_key(int key, void *param);
 
-t_mlx	mlx_setup(void)
+int	mlx_setup(void)
 {
 	t_mlx	mlx;
 
 	mlx.mlx = mlx_init();
+	if (!mlx.mlx)
+	{
+		perror("mlx_init");
+		return (1);
+	}
 	mlx.win = mlx_new_window(mlx.mlx, RESOLUTION_X, RESOLUTION_Y, "minirt");
+	if (!mlx.win)
+	{
+		perror("mlx_init");
+		return (1);
+	}
 	mlx.img.img = mlx_new_image(mlx.mlx, RESOLUTION_X, RESOLUTION_Y);
 	mlx.img.addr = mlx_get_data_addr(mlx.img.img, &mlx.img.bpp,
 			&mlx.img.line_len, &mlx.img.endian);
@@ -32,7 +42,7 @@ t_mlx	mlx_setup(void)
 	mlx_key_hook(mlx.win, deal_key, (void *)&mlx);
 	mlx_loop_hook(mlx.mlx, render_loop, (void *)&mlx);
 	mlx_loop(mlx.mlx);
-	return (mlx);
+	return (0);
 }
 
 static int	deal_key(int key, void *param)

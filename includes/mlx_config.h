@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:11:40 by davifah           #+#    #+#             */
-/*   Updated: 2022/08/30 17:12:09 by davifah          ###   ########.fr       */
+/*   Updated: 2022/08/30 18:38:51 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_mlx
 	t_data	img;
 }	t_mlx;
 
-t_mlx	mlx_setup(void);
+int		mlx_setup(void);
 int		print_key(int key, void *param);
 void	fill_image(t_mlx *mlx, unsigned int color);
 void	ft_pixel_put(t_mlx *mlx, int x, int y, unsigned int color);
