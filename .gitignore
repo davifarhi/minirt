@@ -16,5 +16,5 @@ analysis.txt
 gmon.out
 test.c
 *.test
-minirt
+miniRT
 .vscode/
