@@ -6,15 +6,17 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:17 by davifah           #+#    #+#             */
-/*   Updated: 2022/08/31 17:06:11 by davifah          ###   ########.fr       */
+/*   Updated: 2022/08/31 17:20:31 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "mlx_config.h"
 #include "debug.h"
+#include "render.h"
 
 static int	render_loop(void *param);
+static void	put_img_to_win(t_mlx *mlx);
 
 unsigned int	render_per_pixel(int x, int y, void *param)
 {
@@ -30,7 +32,7 @@ int	looper_mlx(void *param)
 
 	ret = render_loop(param);
 	c = -1;
-	while (!ret && ++c < RESOLUTION_X)
+	while (!ret && (!LINE_BY_LINE_RENDER || ++c < RESOLUTION_X))
 		ret = render_loop(param);
 	return (0);
 }
@@ -44,21 +46,26 @@ static int	render_loop(void *param)
 	{
 		x = 0;
 		y++;
-		mlx_put_image_to_window(((t_mlx *)param)->mlx, ((t_mlx *)param)->win,
-			((t_mlx *)param)->img.img, 0, 0);
+		if (LINE_BY_LINE_RENDER)
+			put_img_to_win((t_mlx *)param);
 	}
 	if (y >= RESOLUTION_Y)
 	{
-		if (y == RESOLUTION_Y)
-		{
-			y++;
-			if (DEBUG_LOOP_FINISHED)
-				ft_putstr_fd("Finished\n", 2);
-		}
-		return (1);
+		if (x < 0)
+			return (1);
+		if (!LINE_BY_LINE_RENDER)
+			put_img_to_win((t_mlx *)param);
+		if (DEBUG_LOOP_FINISHED)
+			ft_putstr_fd("Finished\n", 2);
+		x = -3;
 	}
 	if (DEBUG_LOOP_PIXEL)
 		printf("rendering pixel x %d - y %d\n", x, y);
 	ft_pixel_put((t_mlx *)param, x, y, render_per_pixel(x, y, param));
 	return (0);
+}
+
+static void	put_img_to_win(t_mlx *mlx)
+{
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.img, 0, 0);
 }
