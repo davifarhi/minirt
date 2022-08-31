@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:17 by davifah           #+#    #+#             */
-/*   Updated: 2022/08/31 17:20:31 by davifah          ###   ########.fr       */
+/*   Updated: 2022/08/31 20:10:02 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@ static void	put_img_to_win(t_mlx *mlx);
 
 unsigned int	render_per_pixel(int x, int y, void *param)
 {
+	t_vector	v;
+
+	v.x = 3;
+	v.y = -1;
+	v.z = -4;
+	render_get_camera_direction(&v, x, y);
+	printf("%dx%d - shifted\n(%f,%f,%f)\n", x, y, v.x, v.y, v.z);
 	(void)param;
 	return (create_trgb(255, (int)((float)x / RESOLUTION_X * 255.0f),
 		(int)((float)y / RESOLUTION_Y * 255.0f), 0));
@@ -58,6 +65,7 @@ static int	render_loop(void *param)
 		if (DEBUG_LOOP_FINISHED)
 			ft_putstr_fd("Finished\n", 2);
 		x = -3;
+		return (1);
 	}
 	if (DEBUG_LOOP_PIXEL)
 		printf("rendering pixel x %d - y %d\n", x, y);
