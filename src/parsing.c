@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/01 20:54:25 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/01 21:21:46 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,13 +112,7 @@ t_vector	split_vector(char **data, int index)
 	t_vector	newvector;
 
 	vector = ft_split(data[index], ',');
-	if (vector == NULL)
-	{
-		newvector.x = 0;
-		newvector.y = 0;
-		newvector.z = 0;
-	}
-	if (tab_len(vector) != 3)
+	if (vector == NULL || tab_len(vector) != 3)
 	{
 		tabfree(data);
 		tabfree(vector);
