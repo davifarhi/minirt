@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/09/01 16:00:10 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/01 19:57:48 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,12 @@ typedef struct s_cylinder
 
 typedef struct s_parse
 {
-	t_list			volumes;
-	int				cam;
-	int				ambient;
-	int				light;
+	t_list			*volumes;
+	unsigned char	is_there_cam;
 	t_coord			cam_coord;
 	t_vector		cam_v;
 	unsigned char	cam_fov;
+	unsigned char	is_there_amb;
 	double			ambient_intensity;
 	int				ambient_int;
 	unsigned char	is_there_light;

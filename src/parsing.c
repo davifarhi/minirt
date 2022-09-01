@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/01 17:30:23 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/01 19:59:00 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ void	add_ambiant(char *line, t_parse *setup)
 	char	**splitted;
 	char	**rgb;
 
-	if (setup->ambient != 0)
+	if (setup->is_there_amb != 0)
 	{
 		printf("Too much ambiant light in scene\n");
 		exit(EXIT_FAILURE);
 	}
-	setup->ambient = 1;
+	setup->is_there_amb = 1;
 	splitted = ft_split(line, ' ');
 	rgb = ft_split(splitted[2], ',');
 	if (tab_len(rgb) != 3)
@@ -122,12 +122,12 @@ void	add_cam(char *line, t_parse *setup)
 {
 	char	**splitted;
 
-	if (setup->cam != 0)
+	if (setup->is_there_cam != 0)
 	{
 		printf("Too much cameras in scene\n");
 		exit(EXIT_FAILURE);
 	}
-	setup->cam = 1;
+	setup->is_there_cam = 1;
 	splitted = ft_split(line, ' ');
 	if (tab_len(splitted) == 4)
 	{
@@ -141,12 +141,12 @@ void	add_cam(char *line, t_parse *setup)
 void	add_light(char *line, t_parse *setup)
 {
 	(void)line;
-	if (setup->light != 0)
+	if (setup->is_there_light != 0)
 	{
 		printf("Too much lights in scene\n");
 		exit(EXIT_FAILURE);
 	}
-	setup->light = 1;
+	setup->is_there_light = 1;
 }
 
 void	parse_line(char *line, t_parse *setup)
@@ -183,9 +183,9 @@ void	mrt_parsing(char *file, t_parse *setup)
 	char	*tmp;
 	int		fd;
 
-	setup->cam = 0;
-	setup->ambient = 0;
-	setup->light = 0;
+	setup->is_there_cam = 0;
+	setup->is_there_amb = 0;
+	setup->is_there_light = 0;
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 	{
@@ -207,7 +207,3 @@ void	mrt_parsing(char *file, t_parse *setup)
 // new.coord = coord;
 // new.color = 0;
 // objects = ft_lstnew(&new);
-
-// QUestions
-// int dans la struct de parsing?
-// tab et spaces?
