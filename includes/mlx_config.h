@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:11:40 by davifah           #+#    #+#             */
-/*   Updated: 2022/08/31 21:22:07 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/01 11:12:28 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define MLX_CONFIG_H
 
 # include "mlx.h"
-# define RESOLUTION_X 2
-# define RESOLUTION_Y 2
+# define RESOLUTION_X 854
+# define RESOLUTION_Y 480
 
 # ifdef MACOS
 #  define ISLINUX 0

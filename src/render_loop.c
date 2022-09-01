@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:17 by davifah           #+#    #+#             */
-/*   Updated: 2022/08/31 20:10:02 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/01 11:09:55 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ unsigned int	render_per_pixel(int x, int y, void *param)
 	v.y = -1;
 	v.z = -4;
 	render_get_camera_direction(&v, x, y);
-	printf("%dx%d - shifted\n(%f,%f,%f)\n", x, y, v.x, v.y, v.z);
 	(void)param;
 	return (create_trgb(255, (int)((float)x / RESOLUTION_X * 255.0f),
 		(int)((float)y / RESOLUTION_Y * 255.0f), 0));
