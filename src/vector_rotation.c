@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 19:14:53 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/01 11:19:46 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/01 11:50:02 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include "debug.h"
 #include "minirt_math.h"
 #include <math.h>
-
-#define FOV 70
 
 static void	vector_rotate_x(t_vector *v, double x_angle)
 {
@@ -41,33 +39,32 @@ static void	vector_rotate_y(t_vector *v, double y_angle)
 	*v = v2;
 }
 
-t_vector	render_get_camera_direction(t_vector *v, int x, int y)
+t_vector	render_get_camera_direction(
+		t_vector *v, t_render_data *render, int x, int y)
 {
-	double	*aspp;
 	double	x_pos;
 	double	y_pos;
 
-	aspp = get_angle_shift_per_pixel(FOV, RESOLUTION_X, RESOLUTION_Y);
-	x_pos = x - (double)(RESOLUTION_X - 1) / 2.0f;
-	y_pos = (RESOLUTION_Y - 1 - y) - (double)(RESOLUTION_Y - 1) / 2.0f;
-	if (RESOLUTION_X % 2 != 0)
+	x_pos = x - (double)(render->res_width - 1) / 2.0f;
+	y_pos = (render->res_height - 1 - y)
+		- (double)(render->res_height - 1) / 2.0f;
+	if (render->res_width % 2 != 0)
 	{
 		if (x_pos > 0)
 			x_pos = ceil(x_pos);
 		else
 			x_pos = floor(x_pos);
 	}
-	if (RESOLUTION_Y % 2 != 0)
+	if (render->res_height % 2 != 0)
 	{
 		if (y_pos > 0)
 			y_pos = ceil(y_pos);
 		else
 			y_pos = floor(y_pos);
 	}
-	vector_rotate_x(v, x_pos * aspp[1]);
-	vector_rotate_y(v, y_pos * aspp[0]);
+	vector_rotate_x(v, x_pos * render->aspp[1]);
+	vector_rotate_y(v, y_pos * render->aspp[0]);
 	if (DEBUG_SHIFTED_VECTOR)
 		printf("%dx%d - shifted\n(%f,%f,%f)\n", x, y, v->x, v->y, v->z);
-	free(aspp);
 	return (*v);
 }

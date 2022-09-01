@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:17 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/01 11:09:55 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/01 11:47:49 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,15 @@ static void	put_img_to_win(t_mlx *mlx);
 
 unsigned int	render_per_pixel(int x, int y, void *param)
 {
-	t_vector	v;
+	t_vector		v;
+	t_render_data	*render;
 
 	v.x = 3;
 	v.y = -1;
 	v.z = -4;
-	render_get_camera_direction(&v, x, y);
+	render = render_setup_data();
+	render_get_camera_direction(&v, render, x, y);
+	free_render_data(render);
 	(void)param;
 	return (create_trgb(255, (int)((float)x / RESOLUTION_X * 255.0f),
 		(int)((float)y / RESOLUTION_Y * 255.0f), 0));
