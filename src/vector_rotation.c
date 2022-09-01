@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 19:14:53 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/01 11:11:57 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/01 11:19:46 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,10 @@
 #include "mlx_config.h"
 #include "minirt.h"
 #include "debug.h"
+#include "minirt_math.h"
 #include <math.h>
 
 #define FOV 70
-
-long double	calculate_degree_to_radians(double degrees)
-{
-	return (degrees * (M_PI / 180.0));
-}
 
 static void	vector_rotate_x(t_vector *v, double x_angle)
 {
@@ -43,20 +39,6 @@ static void	vector_rotate_y(t_vector *v, double y_angle)
 	v2.y = v->y;
 	v2.z = (-v->x * sin(y_angle)) + (v->z * cos(y_angle));
 	*v = v2;
-}
-
-double	*get_angle_shift_per_pixel(unsigned char fov, int width, int height)
-{
-	double	*aspp;
-
-	aspp = ft_calloc(sizeof(double), 2);
-	if (width <= 1)
-		width = 2;
-	if (height <= 1)
-		height = 2;
-	aspp[0] = (double)fov / (width - 1);
-	aspp[1] = (double)fov / (height - 1);
-	return (aspp);
 }
 
 t_vector	render_get_camera_direction(t_vector *v, int x, int y)

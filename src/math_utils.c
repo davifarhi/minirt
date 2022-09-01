@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.h                                           :+:      :+:    :+:   */
+/*   math_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/30 18:12:49 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/01 11:22:00 by davifah          ###   ########.fr       */
+/*   Created: 2022/09/01 11:15:29 by davifah           #+#    #+#             */
+/*   Updated: 2022/09/01 11:16:59 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RENDER_H
-# define RENDER_H
+#include <math.h>
 
-# include "minirt.h"
-# define LINE_BY_LINE_RENDER 1
-
-int			looper_mlx(void *param);
-t_vector	render_get_camera_direction(
-				t_vector *v, int x, int y);
-
-//render_setup
-double		*get_angle_shift_per_pixel(
-				unsigned char fov, int width, int height);
-
-#endif
+double	calculate_degree_to_radians(double degrees)
+{
+	return (degrees * (M_PI / 180.0));
+}
