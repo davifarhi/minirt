@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:17 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/01 11:47:49 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/01 12:02:43 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,11 @@ unsigned int	render_per_pixel(int x, int y, void *param)
 
 int	looper_mlx(void *param)
 {
-	int	ret;
 	int	c;
 
-	ret = render_loop(param);
 	c = -1;
-	while (!ret && (!LINE_BY_LINE_RENDER || ++c < RESOLUTION_X))
-		ret = render_loop(param);
+	while (!render_loop(param) && (!LINE_BY_LINE_RENDER || ++c < RESOLUTION_X))
+		continue ;
 	return (0);
 }
 
