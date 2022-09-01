@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 11:18:39 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/01 11:44:52 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/01 12:24:25 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ t_render_data	*render_setup_data(void)
 	if (!r)
 		return (0);
 	r->res_width = 854;
-	r->aspect_ratio = 16 / 9;
-	r->res_height = r->res_width * r->aspect_ratio;
+	r->aspect_ratio = 16.0 / 9.0;
+	r->res_height = r->res_width / r->aspect_ratio;
 	r->aspp = get_angle_shift_per_pixel(FOV, r->res_width, r->res_height);
 	if (!r->aspp)
 	{
