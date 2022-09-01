@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.c                                           :+:      :+:    :+:   */
+/*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/12 15:03:24 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/09/01 15:16:01 by mreymond         ###   ########.fr       */
+/*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
+/*   Updated: 2022/09/01 15:15:40 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
-#include "mlx_config.h"
-#include "parsing.h"
-#include "errors.h"
+#ifndef ERRORS_H
+# define ERRORS_H
 
-int	main(int ac, char **av)
-{
-	t_parse	setup;
-	t_mlx	mlx;
+//errors
+void	check_args(char**av, int ac);
 
-	check_args(av, ac);
-	mrt_parsing(av[1], &setup);
-	(void) setup;
-	if (mlx_setup(&mlx))
-		return (1);
-	return (0);
-}
+#endif

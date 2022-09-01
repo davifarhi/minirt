@@ -6,14 +6,14 @@
 #    By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/11 12:17:38 by dfarhi            #+#    #+#              #
-#    Updated: 2022/08/30 18:20:39 by davifah          ###   ########.fr        #
+#    Updated: 2022/09/01 16:06:16 by mreymond         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FILES		= minirt
 
 FILES_D		= mlx_setup mlx_utils colors_utils render_loop
-FILES_M		= parsing
+FILES_M		= parsing errors
 
 FILES		:= $(FILES) $(FILES_D) $(FILES_M)
 FILES		:= $(addprefix src/, ${FILES})
@@ -22,7 +22,7 @@ OBJS		= ${FILES:.c=.o}
 
 NAME		= miniRT
 
-CC			= gcc -Wall -Wextra -Werror
+CC			= gcc -Wall -Wextra -Werror -g
 
 INCLUDES	= -I./includes -I./libft/includes
 

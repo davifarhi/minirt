@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/08/30 17:18:14 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/01 16:00:10 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <fcntl.h>
 # include "expanded.h"
 
 typedef enum e_types
@@ -63,14 +64,27 @@ typedef struct s_cylinder
 	float		height;
 }	t_cylinder;
 
+typedef struct s_parse
+{
+	t_list			volumes;
+	int				cam;
+	int				ambient;
+	int				light;
+	t_coord			cam_coord;
+	t_vector		cam_v;
+	unsigned char	cam_fov;
+	double			ambient_intensity;
+	int				ambient_int;
+	unsigned char	is_there_light;
+	t_coord			light_coord;
+	double			light_brightness;
+}	t_parse;
+
 //colors utils
 int		create_trgb(int t, int r, int g, int b);
 int		get_t(int trgb);
 int		get_r(int trgb);
 int		get_g(int trgb);
 int		get_b(int trgb);
-
-//parsing
-t_list	*rt_parsing(char **av);
 
 #endif
