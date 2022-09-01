@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:03:24 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/09/01 20:42:44 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/01 21:41:11 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int ac, char **av)
 	setup.is_there_light = 0;
 	check_args(av, ac);
 	mrt_parsing(av[1], &setup);
+	exit(0);
 	(void) setup;
 	if (mlx_setup(&mlx))
 		return (1);

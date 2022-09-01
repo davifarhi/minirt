@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   parsing_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/09/01 21:56:52 by mreymond         ###   ########.fr       */
+/*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
+/*   Updated: 2022/09/01 21:52:10 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#include "minirt.h"
 
-# include "expanded.h"
+int	tab_len(char **tab)
+{
+	int	i;
 
-// parsing general
-void		mrt_parsing(char *file, t_parse *parsed);
-t_vector	split_vector(char **data, int index);
-t_coord		split_coord(char **data, int index);
-void		add_ambiant(char *line, t_parse *setup);
-void		add_cam(char *line, t_parse *setup);
-void		add_light(char *line, t_parse *setup);
-
-// tabs utils
-int			tab_len(char **tab);
-
-#endif
+	i = 0;
+	while (tab[i] != NULL)
+		i++;
+	return (i);
+}
