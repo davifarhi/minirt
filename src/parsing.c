@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/01 16:57:16 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/01 17:30:23 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ t_coord	split_coord(char **data, int index)
 	newcoord.x = ft_atof(coord[0]);
 	newcoord.y = ft_atof(coord[1]);
 	newcoord.z = ft_atof(coord[2]);
-	tabfree(data);
 	tabfree(coord);
 	return (newcoord);
 }
@@ -115,7 +114,6 @@ t_vector	split_vector(char **data, int index)
 	newvector.x = ft_atof(vector[0]);
 	newvector.y = ft_atof(vector[1]);
 	newvector.z = ft_atof(vector[2]);
-	tabfree(data);
 	tabfree(vector);
 	return (newvector);
 }
@@ -131,9 +129,13 @@ void	add_cam(char *line, t_parse *setup)
 	}
 	setup->cam = 1;
 	splitted = ft_split(line, ' ');
-	setup->cam_coord = split_coord(splitted, 1);
-	setup->cam_v = split_vector(splitted, 2);
-	setup->cam_fov = ft_atoi(splitted[3]);
+	if (tab_len(splitted) == 4)
+	{
+		setup->cam_coord = split_coord(splitted, 1);
+		setup->cam_v = split_vector(splitted, 2);
+		setup->cam_fov = ft_atoi(splitted[3]);
+	}
+	tabfree(splitted);
 }
 
 void	add_light(char *line, t_parse *setup)
@@ -151,7 +153,7 @@ void	parse_line(char *line, t_parse *setup)
 {
 	if (line == NULL)
 		return ;
-	else if (ft_strnstr(line, "pl ", 3))
+	if (ft_strnstr(line, "pl ", 3))
 		printf("I'm a plan\n");
 	else if (ft_strnstr(line, "sp ", 3))
 		printf("I'm a sphere\n");
@@ -191,12 +193,11 @@ void	mrt_parsing(char *file, t_parse *setup)
 		exit(EXIT_FAILURE);
 	}
 	tmp = get_next_line(fd);
-	parse_line(tmp, setup);
 	while (tmp != NULL)
 	{
+		parse_line(tmp, setup);
 		free(tmp);
 		tmp = get_next_line(fd);
-		parse_line(tmp, setup);
 	}
 }
 // coord.x = 0;
