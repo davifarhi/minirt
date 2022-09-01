@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:03:24 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/09/01 15:16:01 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/01 20:42:44 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ int	main(int ac, char **av)
 	t_parse	setup;
 	t_mlx	mlx;
 
+	setup.is_there_cam = 0;
+	setup.is_there_amb = 0;
+	setup.is_there_light = 0;
 	check_args(av, ac);
 	mrt_parsing(av[1], &setup);
 	(void) setup;

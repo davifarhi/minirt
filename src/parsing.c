@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/01 19:59:00 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/01 20:54:25 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,15 @@ void	tabfree(char **tab)
 	{
 		free(tab);
 		tab = NULL;
+	}
+}
+
+void	ft_free(char *str)
+{
+	if (str != NULL)
+	{
+		free(str);
+		str = NULL;
 	}
 }
 
@@ -103,6 +112,12 @@ t_vector	split_vector(char **data, int index)
 	t_vector	newvector;
 
 	vector = ft_split(data[index], ',');
+	if (vector == NULL)
+	{
+		newvector.x = 0;
+		newvector.y = 0;
+		newvector.z = 0;
+	}
 	if (tab_len(vector) != 3)
 	{
 		tabfree(data);
@@ -129,13 +144,19 @@ void	add_cam(char *line, t_parse *setup)
 	}
 	setup->is_there_cam = 1;
 	splitted = ft_split(line, ' ');
-	if (tab_len(splitted) == 4)
+	if (splitted != NULL && tab_len(splitted) == 4)
 	{
 		setup->cam_coord = split_coord(splitted, 1);
 		setup->cam_v = split_vector(splitted, 2);
 		setup->cam_fov = ft_atoi(splitted[3]);
+		tabfree(splitted);
 	}
-	tabfree(splitted);
+	else
+	{
+		tabfree(splitted);
+		printf("Camera parameters are not conform\n");
+		exit(EXIT_FAILURE);
+	}
 }
 
 void	add_light(char *line, t_parse *setup)
@@ -178,14 +199,36 @@ void	parse_line(char *line, t_parse *setup)
 	}
 }
 
+char	*clean_spaces(char *str)
+{
+	char	*new;
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	tmp = ft_strtrim(str, "\n");
+	new = malloc(sizeof(char) * (ft_strlen(tmp) + 1));
+	if (new == NULL)
+		return (NULL);
+	while (tmp[i] != '\0')
+	{
+		if (ft_isspace(tmp[i]))
+			new[i] = ' ';
+		else
+			new[i] = tmp[i];
+		i++;
+	}
+	new[i] = '\0';
+	ft_free(tmp);
+	return (new);
+}
+
 void	mrt_parsing(char *file, t_parse *setup)
 {
 	char	*tmp;
+	char	*cleaned;
 	int		fd;
 
-	setup->is_there_cam = 0;
-	setup->is_there_amb = 0;
-	setup->is_there_light = 0;
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 	{
@@ -195,10 +238,17 @@ void	mrt_parsing(char *file, t_parse *setup)
 	tmp = get_next_line(fd);
 	while (tmp != NULL)
 	{
-		parse_line(tmp, setup);
-		free(tmp);
+		if (*tmp != '\n')
+		{
+			cleaned = clean_spaces(tmp);
+			parse_line(cleaned, setup);
+			ft_free(cleaned);
+		}
+		ft_free(tmp);
 		tmp = get_next_line(fd);
 	}
+	ft_free(tmp);
+	close(fd);
 }
 // coord.x = 0;
 // coord.y = 0;
