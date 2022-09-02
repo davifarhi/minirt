@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:11:40 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/01 11:12:28 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/02 13:23:34 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MLX_CONFIG_H
 
 # include "mlx.h"
+# include "minirt.h"
 # define RESOLUTION_X 854
 # define RESOLUTION_Y 480
 
@@ -27,26 +28,11 @@ void	mlx_destroy_display(void *mlx);
 #  define ESC_KEY 65307
 # endif
 
-typedef struct s_data
-{
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		line_len;
-	int		endian;
-}	t_data;
-
-typedef struct s_mlx
-{
-	void	*mlx;
-	void	*win;
-	t_data	img;
-}	t_mlx;
-
-int		mlx_setup(t_mlx *mlx);
+int		mlx_setup(t_parse *data);
 int		print_key(int key, void *param);
 t_data	create_mlx_image(void *mlx, int width, int height);
 void	fill_image(t_mlx *mlx, unsigned int color);
 void	ft_pixel_put(t_mlx *mlx, int x, int y, unsigned int color);
+void	on_quit_free(t_parse *data);
 
 #endif

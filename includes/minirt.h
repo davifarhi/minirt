@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/09/01 20:05:45 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/02 12:53:22 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,32 @@ typedef struct s_cylinder
 	float		height;
 }	t_cylinder;
 
+typedef struct s_data
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_data;
+
+typedef struct s_mlx
+{
+	void	*mlx;
+	void	*win;
+	t_data	img;
+}	t_mlx;
+
+//resolutions of mlx window
+//aspp = angle shift per pixel [x, y]
+typedef struct s_render_data
+{
+	unsigned int	res_width;
+	unsigned int	res_height;
+	double			aspect_ratio;
+	double			*aspp;
+}	t_render_data;
+
 typedef struct s_parse
 {
 	t_list			*volumes;
@@ -77,6 +103,8 @@ typedef struct s_parse
 	unsigned char	is_there_light;
 	t_coord			light_coord;
 	double			light_brightness;
+	t_mlx			mlx;
+	t_render_data	*render;
 }	t_parse;
 
 //colors utils

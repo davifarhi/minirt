@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:17 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/01 12:02:43 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/02 13:14:42 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,17 @@
 #include "debug.h"
 #include "render.h"
 
-static int	render_loop(void *param);
+static int	render_loop(t_parse *data);
 static void	put_img_to_win(t_mlx *mlx);
 
-unsigned int	render_per_pixel(int x, int y, void *param)
+unsigned int	render_per_pixel(int x, int y, t_parse *data)
 {
-	t_vector		v;
-	t_render_data	*render;
-
-	v.x = 3;
-	v.y = -1;
-	v.z = -4;
-	render = render_setup_data();
-	render_get_camera_direction(&v, render, x, y);
-	free_render_data(render);
-	(void)param;
-	return (create_trgb(255, (int)((float)x / RESOLUTION_X * 255.0f),
-		(int)((float)y / RESOLUTION_Y * 255.0f), 0));
+	data->cam_v.x = 3;
+	data->cam_v.y = -1;
+	data->cam_v.z = -4;
+	render_get_camera_direction(data->cam_v, data->render, x, y);
+	return (create_trgb(255, (int)((float)x / data->render->res_width * 255.0f),
+		(int)((float)y / data->render->res_height * 255.0f), 0));
 }
 
 int	looper_mlx(void *param)
@@ -44,24 +38,24 @@ int	looper_mlx(void *param)
 	return (0);
 }
 
-static int	render_loop(void *param)
+static int	render_loop(t_parse *data)
 {
 	static int	x = -1;
 	static int	y = 0;
 
-	if (++x >= RESOLUTION_X)
+	if (++x >= (int)data->render->res_width)
 	{
 		x = 0;
 		y++;
 		if (LINE_BY_LINE_RENDER)
-			put_img_to_win((t_mlx *)param);
+			put_img_to_win(&data->mlx);
 	}
-	if (y >= RESOLUTION_Y)
+	if (y >= (int)data->render->res_height)
 	{
 		if (x < 0)
 			return (1);
 		if (!LINE_BY_LINE_RENDER)
-			put_img_to_win((t_mlx *)param);
+			put_img_to_win(&data->mlx);
 		if (DEBUG_LOOP_FINISHED)
 			ft_putstr_fd("Finished\n", 2);
 		x = -3;
@@ -69,7 +63,7 @@ static int	render_loop(void *param)
 	}
 	if (DEBUG_LOOP_PIXEL)
 		printf("rendering pixel x %d - y %d\n", x, y);
-	ft_pixel_put((t_mlx *)param, x, y, render_per_pixel(x, y, param));
+	ft_pixel_put(&data->mlx, x, y, render_per_pixel(x, y, data));
 	return (0);
 }
 

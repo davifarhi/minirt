@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 19:14:53 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/02 12:32:03 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/02 13:13:07 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	vector_rotate_y(t_vector *v, double y_angle)
 }
 
 static void	setup_x_y_pos(
-		t_render_data *render, double *x_pos, double *y_pos)
+		const t_render_data *render, double *x_pos, double *y_pos)
 {
 	if (render->res_width % 2 != 0)
 	{
@@ -59,7 +59,7 @@ static void	setup_x_y_pos(
 }
 
 t_vector	render_get_camera_direction(
-		t_vector *v, t_render_data *render, int x, int y)
+		const t_vector v, const t_render_data *render, int x, int y)
 {
 	t_vector	v2;
 	double		x_pos;
@@ -69,8 +69,8 @@ t_vector	render_get_camera_direction(
 	y_pos = (render->res_height - 1 - y)
 		- (double)(render->res_height - 1) / 2.0f;
 	setup_x_y_pos(render, &x_pos, &y_pos);
-	v2 = *v;
-	vector_rotate_x(v, x_pos * render->aspp[0]);
+	v2 = v;
+	vector_rotate_x(&v2, x_pos * render->aspp[0]);
 	vector_rotate_y(&v2, y_pos * render->aspp[1]);
 	if (DEBUG_SHIFTED_VECTOR)
 		printf("%dx%d - shifted\n(%f,%f,%f)\n", x, y, v2.x, v2.y, v2.z);
