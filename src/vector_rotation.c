@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 19:14:53 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/01 12:26:34 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/02 12:32:03 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "minirt_math.h"
 #include <math.h>
 
-static t_vector	vector_rotate_x(t_vector *v, double x_angle)
+static void	vector_rotate_x(t_vector *v, double x_angle)
 {
 	t_vector	v2;
 
@@ -25,7 +25,7 @@ static t_vector	vector_rotate_x(t_vector *v, double x_angle)
 	v2.x = v->x;
 	v2.y = (v->y * cos(x_angle)) - (v->z * sin(x_angle));
 	v2.z = (v->y * sin(x_angle)) + (v->z * cos(x_angle));
-	return (v2);
+	*v = v2;
 }
 
 static void	vector_rotate_y(t_vector *v, double y_angle)
@@ -69,7 +69,8 @@ t_vector	render_get_camera_direction(
 	y_pos = (render->res_height - 1 - y)
 		- (double)(render->res_height - 1) / 2.0f;
 	setup_x_y_pos(render, &x_pos, &y_pos);
-	v2 = vector_rotate_x(v, x_pos * render->aspp[0]);
+	v2 = *v;
+	vector_rotate_x(v, x_pos * render->aspp[0]);
 	vector_rotate_y(&v2, y_pos * render->aspp[1]);
 	if (DEBUG_SHIFTED_VECTOR)
 		printf("%dx%d - shifted\n(%f,%f,%f)\n", x, y, v2.x, v2.y, v2.z);
