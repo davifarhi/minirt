@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/01 21:59:23 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/02 16:54:08 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ static void	parse_line(char *line, t_parse *setup)
 	if (line == NULL)
 		return ;
 	if (ft_strnstr(line, "pl ", 3))
-		printf("I'm a plan\n");
+		add_plan(line, setup);
+		// printf("I'm a plan\n");
 	else if (ft_strnstr(line, "sp ", 3))
 		printf("I'm a sphere\n");
 	else if (ft_strnstr(line, "cy ", 3))

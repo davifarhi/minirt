@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/09/01 19:57:48 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/02 15:37:22 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@
 
 typedef enum e_types
 {
-	ambiant,
-	cam,
-	light,
-	sphere,
-	plan,
-	cylinder
+	Ambiant,
+	Cam,
+	Light,
+	Sphere,
+	Plan,
+	Cylinder
 }	t_types;
 
 typedef struct s_coord
@@ -50,12 +50,6 @@ typedef struct s_obj
 	int		color;
 	void	*param;
 }	t_obj;
-
-typedef struct s_cam
-{
-	t_vector	orient;
-	float		focal;
-}	t_cam;
 
 typedef struct s_cylinder
 {

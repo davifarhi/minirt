@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/09/01 21:56:52 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/02 16:47:24 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@
 void		mrt_parsing(char *file, t_parse *parsed);
 t_vector	split_vector(char **data, int index);
 t_coord		split_coord(char **data, int index);
+void		color_errors(char **splitted, char **rgb);
 void		add_ambiant(char *line, t_parse *setup);
 void		add_cam(char *line, t_parse *setup);
 void		add_light(char *line, t_parse *setup);
+void		add_plan(char *line, t_parse *setup);
 
 // tabs utils
 int			tab_len(char **tab);
+void		display_tab(char **tab);
 
 #endif

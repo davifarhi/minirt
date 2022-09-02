@@ -6,14 +6,14 @@
 #    By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/11 12:17:38 by dfarhi            #+#    #+#              #
-#    Updated: 2022/09/01 21:58:23 by mreymond         ###   ########.fr        #
+#    Updated: 2022/09/02 15:06:55 by mreymond         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FILES		= minirt
 
 FILES_D		= mlx_setup mlx_utils colors_utils render_loop
-FILES_M		= parsing parsing_setup parsing_tab errors free 
+FILES_M		= parsing parsing_setup parsing_tab parsing_volumes errors free 
 
 FILES		:= $(FILES) $(FILES_D) $(FILES_M)
 FILES		:= $(addprefix src/, ${FILES})
