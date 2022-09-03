@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/02 16:54:08 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/03 21:59:45 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static void	parse_line(char *line, t_parse *setup)
 		return ;
 	if (ft_strnstr(line, "pl ", 3))
 		add_plan(line, setup);
-		// printf("I'm a plan\n");
 	else if (ft_strnstr(line, "sp ", 3))
 		printf("I'm a sphere\n");
 	else if (ft_strnstr(line, "cy ", 3))
@@ -135,6 +134,7 @@ void	mrt_parsing(char *file, t_parse *setup)
 		ft_free(tmp);
 		tmp = get_next_line(fd);
 	}
+	// ft_lstiter(setup->volumes, (void *)display_plan);
 	ft_free(tmp);
 	close(fd);
 }
