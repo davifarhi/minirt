@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/09/03 22:09:54 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/04 12:02:17 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,23 @@ typedef enum e_types
 
 typedef struct s_coord
 {
-	float	x;
-	float	y;
-	float	z;
+	double	*x;
+	double	*y;
+	double	*z;
 }	t_coord;
 
 typedef struct s_vector
 {
-	float	x;
-	float	y;
-	float	z;
+	float	*x;
+	float	*y;
+	float	*z;
 }	t_vector;
 
 typedef struct s_obj
 {
-	t_types	type;
-	t_coord	coord;
-	int		color;
+	t_types	*type;
+	t_coord	*coord;
+	int		*color;
 	void	*param;
 }	t_obj;
 
