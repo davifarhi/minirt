@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/05 16:07:02 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/05 17:23:15 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,10 @@ void	mrt_parsing(char *file, t_parse *setup)
 	char	*cleaned;
 	int		fd;
 
-	setup->volumes = malloc(sizeof(t_list *));
-	setup->volumes->content = NULL;
+	setup->volumes = ft_lstnew(NULL);
+	// setup->volumes = malloc(sizeof(t_list *));
+	// setup->volumes->content = NULL;
+	// setup->volumes->next = NULL;
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 	{
@@ -137,8 +139,11 @@ void	mrt_parsing(char *file, t_parse *setup)
 		tmp = get_next_line(fd);
 	}
 	// display_plan((t_list *)setup->volumes->content);
-	// display_plan((t_list *)setup->volumes->next);
-	ft_lstiter(setup->volumes, (void *)display_plan);
+	// printf("%p\n", setup->volumes->content);
+	// printf("%p\n", setup->volumes->next->content);
+	// printf("%p\n", setup->volumes->next->next->content);
+	// display_plan(((t_list *)setup->volumes->content)->next);
+	// ft_lstiter(setup->volumes, (void *)display_plan);
 	ft_free(tmp);
 	close(fd);
 }

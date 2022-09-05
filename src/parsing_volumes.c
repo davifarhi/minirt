@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/05 15:57:25 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/05 17:26:22 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,19 @@
 
 void	display_plan(t_list *list)
 {
-	printf("type: %d\n", ((t_obj *)list->content)->type);
-	printf("Coordonnées:\n");
-	printf("	x: %f\n", ((t_obj *)list->content)->coord.x);
-	printf("	y: %f\n", ((t_obj *)list->content)->coord.y);
-	printf("	z: %f\n", ((t_obj *)list->content)->coord.z);
-	printf("Color: %d\n", ((t_obj *)list->content)->color);
-	printf("Vector:\n");
-	printf("	x: %f\n", ((t_vector *)((t_obj *)list->content)->param)->x);
-	printf("	y: %f\n", ((t_vector *)((t_obj *)list->content)->param)->y);
-	printf("	z: %f\n", ((t_vector *)((t_obj *)list->content)->param)->z);
+	if (list->content != NULL)
+	{
+		printf("type: %d\n", ((t_obj *)list->content)->type);
+		printf("Coordonnées:\n");
+		printf("	x: %f\n", ((t_obj *)list->content)->coord.x);
+		printf("	y: %f\n", ((t_obj *)list->content)->coord.y);
+		printf("	z: %f\n", ((t_obj *)list->content)->coord.z);
+		printf("Color: %d\n", ((t_obj *)list->content)->color);
+		// printf("Vector:\n");
+		// printf("	x: %f\n", ((t_vector *)((t_obj *)list->content)->param)->x);
+		// printf("	y: %f\n", ((t_vector *)((t_obj *)list->content)->param)->y);
+		// printf("	z: %f\n", ((t_vector *)((t_obj *)list->content)->param)->z);
+	}
 }
 
 void	add_plan(char *line, t_parse *setup)
@@ -68,11 +71,13 @@ void	add_plan(char *line, t_parse *setup)
 		setup->volumes->next = NULL;
 	}
 	else
-		ft_lstadd_front((t_list **)(&(setup->volumes->content)), new);
+		ft_lstadd_back(&(setup->volumes), new);
+		// ft_lstadd_back((t_list **)(&(setup->volumes->content)), new);
 	// ft_lstiter(setup->volumes, (void *)display_plan);
+	ft_lstiter(setup->volumes, (void *)display_plan);
 	printf("____________________________________\n");
 }
 
-	// ft_lstiter(setup->volumes, (void *)display_plan);
-	// printf("____________________________________\n");
+// ft_lstiter(setup->volumes, (void *)display_plan);
+// printf("____________________________________\n");
 // printf("%d\n", ((t_obj *)setup->volumes->content)->type);
