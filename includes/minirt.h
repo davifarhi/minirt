@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/09/05 14:02:36 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/05 19:03:16 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_vector
 typedef struct s_obj
 {
 	t_types	type;
-	t_coord	coord;
+	t_coord	*coord;
 	int		color;
 	void	*param;
 }	t_obj;
