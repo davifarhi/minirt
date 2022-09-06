@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:44:22 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/02 13:23:21 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/06 14:19:00 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ int	print_key(int key, void *param)
 	return (0);
 }
 
-void	fill_image(t_mlx *mlx, unsigned int color)
+void	fill_image(t_mlx *mlx, unsigned int color, int width, int height)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	while (++i < RESOLUTION_X)
+	while (++i < width)
 	{
 		j = -1;
-		while (++j < RESOLUTION_Y)
+		while (++j < height)
 			ft_pixel_put(mlx, i, j, color);
 	}
 }

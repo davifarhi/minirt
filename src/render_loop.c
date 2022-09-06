@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:17 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/06 14:17:48 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/06 14:21:50 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int	looper_mlx(void *param)
 	int	c;
 
 	c = -1;
-	while (!render_loop(param) && (!LINE_BY_LINE_RENDER || ++c < RESOLUTION_X))
+	while (!render_loop(param) && (!LINE_BY_LINE_RENDER
+			|| ++c < (int)((t_parse*)param)->render->res_width))
 		continue ;
 	return (0);
 }

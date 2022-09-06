@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:04:14 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/02 13:29:44 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/06 14:20:18 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	mlx_setup(t_parse *data)
 	}
 	data->mlx.img = create_mlx_image(data->mlx.mlx, data->render->res_width,
 			data->render->res_height);
-	fill_image(&data->mlx, create_trgb(255, 65, 105, 225));
+	fill_image(&data->mlx, create_trgb(255, 65, 105, 225), data->render
+		->res_width, data->render->res_height);
 	mlx_put_image_to_window(
 		data->mlx.mlx, data->mlx.win, data->mlx.img.img, 0, 0);
 	mlx_hook(data->mlx.win, 17, 1L << 0, on_win_close, data);
