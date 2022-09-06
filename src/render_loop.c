@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:17 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/06 13:57:27 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/06 14:17:48 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ unsigned int	render_per_pixel(int x, int y, t_parse *data)
 {
 	t_list	*tmp;
 
-	data->volumes = ft_lstnew(create_sphere(0, 0, -8, 0.0002));
+	data->volumes = ft_lstnew(create_sphere(0, 1, -8, 1));
 	data->cam_coord.x = 0;
 	data->cam_coord.y = 0;
 	data->cam_coord.z = 0;
