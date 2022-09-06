@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/09/03 20:59:11 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/06 14:58:17 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ int			tab_len(char **tab);
 void		display_tab(char **tab);
 
 // displaying things
-void		display_plan(t_list *list);
+void		display_plan(t_obj *obj);
 
 #endif

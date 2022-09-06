@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/05 20:22:19 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/06 15:00:35 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@ t_coord	split_coord(char **data, int index)
 	t_coord	newcoord;
 
 	coord = ft_split(data[index], ',');
-	// newcoord.x = malloc(sizeof(double *));
-	// newcoord.y = malloc(sizeof(double *));
-	// newcoord.z = malloc(sizeof(double *));
 	if (coord == NULL || tab_len(coord) != 3)
 	{
 		tabfree(data);
@@ -119,7 +116,6 @@ void	mrt_parsing(char *file, t_parse *setup)
 	char	*cleaned;
 	int		fd;
 
-	setup->volumes = ft_lstnew(NULL);
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 	{
@@ -138,13 +134,7 @@ void	mrt_parsing(char *file, t_parse *setup)
 		ft_free(tmp);
 		tmp = get_next_line(fd);
 	}
-	// display_plan((t_list *)setup->volumes->content);
-	// display_plan(((t_list *)setup->volumes->next->content));
-	// printf("%p\n", setup->volumes->content);
-	// printf("%p\n", setup->volumes->next->content);
-	// printf("%p\n", setup->volumes->next->next->content);
-	// display_plan(((t_list *)setup->volumes->content)->next);
-	ft_lstiter(setup->volumes, (void *)display_plan);
+	ft_lstiter((setup->volumes), (void *)display_plan);
 	ft_free(tmp);
 	close(fd);
 }

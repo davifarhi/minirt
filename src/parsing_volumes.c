@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/05 20:21:41 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/06 14:59:30 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 #include "free.h"
 #include "parsing.h"
 
-void	display_plan(t_list *list)
+void	display_plan(t_obj *obj)
 {
-	if (list->content != NULL)
+	if (obj != NULL)
 	{
-		printf("type: %d\n", ((t_obj *)list->content)->type);
+		printf("type: %d\n", obj->type);
 		printf("Coordonnées:\n");
-		// printf("	x: %f\n", ((t_obj *)list->content)->coord.x);
-		// printf("	y: %f\n", ((t_obj *)list->content)->coord.y);
-		// printf("	z: %f\n", ((t_obj *)list->content)->coord.z);
-		// printf("Color: %d\n", ((t_obj *)list->content)->color);
-		// printf("Vector:\n");
-		// printf("	x: %f\n", ((t_vector *)((t_obj *)list->content)->param)->x);
-		// printf("	y: %f\n", ((t_vector *)((t_obj *)list->content)->param)->y);
-		// printf("	z: %f\n", ((t_vector *)((t_obj *)list->content)->param)->z);
+		printf("	x: %f\n", obj->coord->x);
+		printf("	y: %f\n", obj->coord->y);
+		printf("	z: %f\n", obj->coord->z);
+		printf("Color: %d\n", obj->color);
+		printf("Vector:\n");
+		printf("	x: %f\n", ((t_vector *)obj->param)->x);
+		printf("	y: %f\n", ((t_vector *)obj->param)->y);
+		printf("	z: %f\n", ((t_vector *)obj->param)->z);
 	}
 }
 
@@ -107,21 +107,13 @@ void	add_plan(char *line, t_parse *setup)
 		printf("Plan parameters are not conform\n");
 		exit(EXIT_FAILURE);
 	}
-	// (void)new;
-	(void)setup;
-	new = ft_lstnew(plan);
-	// display_plan(new);
-	if (setup->volumes->content == NULL)
+	if (!setup->volumes)
+		setup->volumes = ft_lstnew(plan);
+	else 
 	{
-		setup->volumes->content = new;
-		setup->volumes->next = NULL;
-	}
-	else
+		new = ft_lstnew(plan);
 		ft_lstadd_back(&(setup->volumes), new);
-		// ft_lstadd_back((t_list **)(&(setup->volumes->content)), new);
-	// ft_lstiter(setup->volumes, (void *)display_plan);
-	// ft_lstiter(setup->volumes, (void *)display_plan);
-	printf("____________________________________\n");
+	}
 }
 
 // ft_lstiter(setup->volumes, (void *)display_plan);
