@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:17 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/02 13:14:42 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/06 13:57:27 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,22 @@ static void	put_img_to_win(t_mlx *mlx);
 
 unsigned int	render_per_pixel(int x, int y, t_parse *data)
 {
-	data->cam_v.x = 3;
-	data->cam_v.y = -1;
-	data->cam_v.z = -4;
-	render_get_camera_direction(data->cam_v, data->render, x, y);
+	t_list	*tmp;
+
+	data->volumes = ft_lstnew(create_sphere(0, 0, -8, 0.0002));
+	data->cam_coord.x = 0;
+	data->cam_coord.y = 0;
+	data->cam_coord.z = 0;
+	data->cam_v.x = 0;
+	data->cam_v.y = 0;
+	data->cam_v.z = -1;
+	tmp = data->volumes;
+	while (tmp)
+	{
+		if (((t_obj *)tmp->content)->type == sphere)
+			return (render_sphere(x, y, tmp->content, data));
+		tmp = tmp->next;
+	}
 	return (create_trgb(255, (int)((float)x / data->render->res_width * 255.0f),
 		(int)((float)y / data->render->res_height * 255.0f), 0));
 }
