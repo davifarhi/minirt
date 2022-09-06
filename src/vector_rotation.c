@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 19:14:53 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/02 13:13:07 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/06 14:04:41 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ t_vector	render_get_camera_direction(
 		- (double)(render->res_height - 1) / 2.0f;
 	setup_x_y_pos(render, &x_pos, &y_pos);
 	v2 = v;
-	vector_rotate_x(&v2, x_pos * render->aspp[0]);
-	vector_rotate_y(&v2, y_pos * render->aspp[1]);
+	vector_rotate_x(&v2, x_pos * render->aspp);
+	vector_rotate_y(&v2, y_pos * render->aspp);
 	if (DEBUG_SHIFTED_VECTOR)
 		printf("%dx%d - shifted\n(%f,%f,%f)\n", x, y, v2.x, v2.y, v2.z);
 	return (v2);

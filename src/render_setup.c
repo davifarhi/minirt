@@ -6,13 +6,24 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 11:18:39 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/01 12:24:25 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/06 14:04:02 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "render.h"
 
+static double	get_angle_shift_per_pixel(unsigned char fov, int width)
+{
+	double	aspp;
+
+	if (width <= 1)
+		width = 2;
+	aspp = (double)fov / (width - 1);
+	return (aspp);
+}
+
+/*
 static double	*get_angle_shift_per_pixel(
 		unsigned char fov, int width, int height)
 {
@@ -29,6 +40,7 @@ static double	*get_angle_shift_per_pixel(
 	aspp[1] = (double)fov / (height - 1);
 	return (aspp);
 }
+*/
 
 t_render_data	*render_setup_data(void)
 {
@@ -40,17 +52,11 @@ t_render_data	*render_setup_data(void)
 	r->res_width = 854;
 	r->aspect_ratio = 16.0 / 9.0;
 	r->res_height = r->res_width / r->aspect_ratio;
-	r->aspp = get_angle_shift_per_pixel(FOV, r->res_width, r->res_height);
-	if (!r->aspp)
-	{
-		free(r);
-		return (0);
-	}
+	r->aspp = get_angle_shift_per_pixel(FOV, r->res_width);
 	return (r);
 }
 
 void	free_render_data(t_render_data *r)
 {
-	free(r->aspp);
 	free(r);
 }

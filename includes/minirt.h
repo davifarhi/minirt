@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/09/02 12:53:22 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/06 14:04:16 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ typedef struct s_render_data
 	unsigned int	res_width;
 	unsigned int	res_height;
 	double			aspect_ratio;
-	double			*aspp;
+	double			aspp;
 }	t_render_data;
 
 typedef struct s_parse
