@@ -6,13 +6,13 @@
 #    By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/11 12:17:38 by dfarhi            #+#    #+#              #
-#    Updated: 2022/09/06 13:54:40 by davifah          ###   ########.fr        #
+#    Updated: 2022/09/07 12:59:57 by davifah          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FILES		= minirt
 
-FILES_D		= mlx_setup mlx_utils colors_utils render_loop vector_rotation math_utils render_setup render_sphere
+FILES_D		= mlx_setup mlx_utils colors_utils render_loop vector_rotation math_utils render_setup render_sphere render_per_pixel
 FILES_M		= parsing
 
 FILES		:= $(FILES) $(FILES_D) $(FILES_M)

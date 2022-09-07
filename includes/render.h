@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:49 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/07 12:51:02 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/07 12:59:38 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_obj_ray_hit
 int				looper_mlx(void *param);
 t_vector		render_get_camera_direction(const t_vector v,
 					const t_render_data *render, int x, int y);
+unsigned int	render_per_pixel(int x, int y, t_parse *data);
 
 //render_setup
 t_render_data	*render_setup_data(void);
