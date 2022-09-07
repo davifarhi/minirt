@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:17 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/06 14:21:50 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/07 11:53:27 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,25 @@ static void	put_img_to_win(t_mlx *mlx);
 
 unsigned int	render_per_pixel(int x, int y, t_parse *data)
 {
-	t_list	*tmp;
+	t_list		*tmp;
+	t_vector	v_ray;
 
-	data->volumes = ft_lstnew(create_sphere(0, 1, -8, 1));
-	data->cam_coord.x = 0;
-	data->cam_coord.y = 0;
-	data->cam_coord.z = 0;
-	data->cam_v.x = 0;
-	data->cam_v.y = 0;
-	data->cam_v.z = -1;
+	if (!x && !y)
+	{
+		data->volumes = ft_lstnew(create_sphere(0, 1, -8, 1));
+		data->cam_coord.x = 0;
+		data->cam_coord.y = 0;
+		data->cam_coord.z = 0;
+		data->cam_v.x = 0;
+		data->cam_v.y = 0;
+		data->cam_v.z = -1;
+	}
+	v_ray = render_get_camera_direction(data->cam_v, data->render, x, y);
 	tmp = data->volumes;
 	while (tmp)
 	{
 		if (((t_obj *)tmp->content)->type == sphere)
-			return (render_sphere(x, y, tmp->content, data));
+			return (render_sphere(tmp->content, data, &v_ray));
 		tmp = tmp->next;
 	}
 	return (create_trgb(255, (int)((float)x / data->render->res_width * 255.0f),
