@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:17 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/07 11:53:27 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/07 12:53:31 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,73 @@
 static int	render_loop(t_parse *data);
 static void	put_img_to_win(t_mlx *mlx);
 
+void	new_obj_hit(t_obj_ray_hit **obj_hit, t_obj_ray_hit *obj_new)
+{
+	if (!obj_new)
+		return ;
+	if (!*obj_hit)
+		*obj_hit = obj_new;
+	else
+	{
+		if ((*obj_hit)->t > obj_new->t)
+		{
+			free(*obj_hit);
+			*obj_hit = obj_new;
+		}
+		else
+			free(obj_new);
+	}
+}
+
+static void	configure_data(t_parse *data)
+{
+	t_list	*new;
+	t_coord	c;
+
+	c.x = 0;
+	c.y = 1;
+	c.z = -8;
+	data->volumes = ft_lstnew(create_sphere(c, 1, create_trgb(1, 255, 0, 0)));
+	c.x = 0;
+	c.y = 0;
+	c.z = -9;
+	new = ft_lstnew(create_sphere(c, 2, create_trgb(1, 0, 255, 0)));
+	ft_lstadd_back(&data->volumes, new);
+	data->cam_coord.x = 0;
+	data->cam_coord.y = 0;
+	data->cam_coord.z = 0;
+	data->cam_v.x = 0;
+	data->cam_v.y = 0;
+	data->cam_v.z = -1;
+}
+
 unsigned int	render_per_pixel(int x, int y, t_parse *data)
 {
-	t_list		*tmp;
-	t_vector	v_ray;
+	t_list			*tmp;
+	t_vector		v_ray;
+	t_obj_ray_hit	*obj_hit;
+	int				color;
 
 	if (!x && !y)
 	{
-		data->volumes = ft_lstnew(create_sphere(0, 1, -8, 1));
-		data->cam_coord.x = 0;
-		data->cam_coord.y = 0;
-		data->cam_coord.z = 0;
-		data->cam_v.x = 0;
-		data->cam_v.y = 0;
-		data->cam_v.z = -1;
+		configure_data(data);
 	}
-	v_ray = render_get_camera_direction(data->cam_v, data->render, x, y);
 	tmp = data->volumes;
+	v_ray = render_get_camera_direction(data->cam_v, data->render, x, y);
+	obj_hit = 0;
 	while (tmp)
 	{
 		if (((t_obj *)tmp->content)->type == sphere)
-			return (render_sphere(tmp->content, data, &v_ray));
+			new_obj_hit(&obj_hit, render_sphere(tmp->content, data, &v_ray));
 		tmp = tmp->next;
 	}
-	return (create_trgb(255, (int)((float)x / data->render->res_width * 255.0f),
-		(int)((float)y / data->render->res_height * 255.0f), 0));
+	color = 0;
+	if (obj_hit)
+	{
+		color = obj_hit->obj->color;
+		free(obj_hit);
+	}
+	return (color);
 }
 
 int	looper_mlx(void *param)

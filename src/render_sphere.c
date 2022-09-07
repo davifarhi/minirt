@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/07 11:56:58 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/07 12:50:38 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_quadratic_equation	sphere_get_quad_abc(
 	return (abc);
 }
 
-t_obj	*create_sphere(double x, double y, double z, double radius)
+t_obj	*create_sphere(t_coord coord, double radius, int color)
 {
 	t_obj	*obj;
 
@@ -43,22 +43,51 @@ t_obj	*create_sphere(double x, double y, double z, double radius)
 	if (!obj->param)
 		return (0);
 	obj->type = sphere;
-	obj->coord.x = x;
-	obj->coord.y = y;
-	obj->coord.z = z;
-	obj->color = create_trgb(0, 255, 0, 0);
+	obj->coord = coord;
+	obj->color = color;
 	*(double *)obj->param = radius;
 	return (obj);
 }
 
-int	render_sphere(const t_obj *obj, const t_parse *data, const t_vector *v_ray)
+int	calculate_t_param_hit(const t_quadratic_equation *abc,
+		double dis, double *t)
+{
+	double	t_1;
+	double	t_2;
+
+	t_1 = (-abc->b + sqrt(dis)) / (2 * abc->a);
+	t_2 = (-abc->b - sqrt(dis)) / (2 * abc->a);
+	if (t_1 < 0 && t_2 < 0)
+		return (0);
+	if (t_2 < 0)
+		*t = t_1;
+	else if (t_1 < 0)
+		*t = t_2;
+	else if (t_1 < t_2)
+		*t = t_1;
+	else if (t_2 < t_1)
+		*t = t_2;
+	else if (t_2 == t_1)
+		*t = t_1;
+	return (1);
+}
+
+t_obj_ray_hit	*render_sphere(const t_obj *obj,
+		const t_parse *data, const t_vector *v_ray)
 {
 	t_quadratic_equation	abc;
+	t_obj_ray_hit			*obj_hit;
 	double					dis;
+	double					t_param;
 
 	abc = sphere_get_quad_abc(obj, data, v_ray);
 	dis = calculate_discriminant(&abc);
-	if (dis >= 0)
-		return (obj->color);
-	return (0);
+	if (dis < 0 || !calculate_t_param_hit(&abc, dis, &t_param))
+		return (0);
+	obj_hit = malloc(sizeof(t_obj_ray_hit));
+	if (!obj_hit)
+		return (0);
+	obj_hit->t = t_param;
+	obj_hit->obj = obj;
+	return (obj_hit);
 }
