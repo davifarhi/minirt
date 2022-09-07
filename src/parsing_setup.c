@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/05 14:36:36 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/07 16:20:57 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	add_ambiant(char *line, t_parse *setup)
 	if (rgb == NULL || tab_len(rgb) != 3)
 		color_errors(splitted, rgb);
 	setup->ambient_intensity = ft_atof(splitted[1]);
-	setup->ambient_int = create_trgb(1, atoi(rgb[0]),
-			atoi(rgb[1]), atoi(rgb[2]));
+	setup->ambient_int = create_trgb(1, ft_atoi(rgb[0]),
+			ft_atoi(rgb[1]), ft_atoi(rgb[2]));
 	tabfree(rgb);
 	tabfree(splitted);
 }
@@ -91,7 +91,7 @@ void	add_light(char *line, t_parse *setup)
 	if (splitted != NULL && tab_len(splitted) == 3)
 	{
 		setup->light_coord = split_coord(splitted, 1);
-		setup->cam_fov = ft_atof(splitted[2]);
+		setup->light_brightness = ft_atof(splitted[2]);
 		tabfree(splitted);
 	}
 	else

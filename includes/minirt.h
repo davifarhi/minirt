@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/09/05 19:03:16 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/07 16:16:15 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ typedef enum e_types
 
 typedef struct s_coord
 {
-	float	x;
-	float	y;
-	float	z;
+	double	x;
+	double	y;
+	double	z;
 }	t_coord;
 
 typedef struct s_vector
 {
-	float	x;
-	float	y;
-	float	z;
+	double	x;
+	double	y;
+	double	z;
 }	t_vector;
 
 typedef struct s_obj
@@ -53,9 +53,9 @@ typedef struct s_obj
 
 typedef struct s_cylinder
 {
-	t_vector	orient;
-	float		diameter;
-	float		height;
+	t_vector	*vector;
+	double		diameter;
+	double		height;
 }	t_cylinder;
 
 typedef struct s_parse

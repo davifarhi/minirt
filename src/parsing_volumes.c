@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/06 14:59:30 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/07 15:49:28 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,107 +15,119 @@
 #include "free.h"
 #include "parsing.h"
 
-void	display_plan(t_obj *obj)
+static void	make_cylinder_param(char **splitted, t_obj *cylinder)
 {
-	if (obj != NULL)
-	{
-		printf("type: %d\n", obj->type);
-		printf("Coordonnées:\n");
-		printf("	x: %f\n", obj->coord->x);
-		printf("	y: %f\n", obj->coord->y);
-		printf("	z: %f\n", obj->coord->z);
-		printf("Color: %d\n", obj->color);
-		printf("Vector:\n");
-		printf("	x: %f\n", ((t_vector *)obj->param)->x);
-		printf("	y: %f\n", ((t_vector *)obj->param)->y);
-		printf("	z: %f\n", ((t_vector *)obj->param)->z);
-	}
-}
+	t_vector	*vector;
+	t_cylinder	*newcylinder;
 
-t_coord	*split_coord_p(char **data, int index)
-{
-	char	**coord;
-	t_coord	*newcoord;
-
-	coord = ft_split(data[index], ',');
-	newcoord = malloc(sizeof(t_coord));
-	if (coord == NULL || tab_len(coord) != 3)
+	vector = malloc(sizeof(t_vector));
+	newcylinder = malloc(sizeof(t_cylinder));
+	if (vector == NULL || newcylinder == NULL)
 	{
-		tabfree(data);
-		tabfree(coord);
-		printf("Format of coordonnee not conform\n");
-		printf("Format is: x,y,z\n");
+		if (cylinder != NULL)
+			free(cylinder);
+		if (vector != NULL)
+			free(vector);
+		if (newcylinder != NULL)
+			free(newcylinder);
+		tabfree(splitted);
+		printf("Error\n");
 		exit(EXIT_FAILURE);
 	}
-	newcoord->x = ft_atof(coord[0]);
-	newcoord->y = ft_atof(coord[1]);
-	newcoord->z = ft_atof(coord[2]);
-	tabfree(coord);
-	return (newcoord);
+	vector = split_vector_p(splitted, 2);
+	newcylinder->vector = vector;
+	newcylinder->diameter = ft_atof(splitted[3]);
+	newcylinder->height = ft_atof(splitted[4]);
+	cylinder->param = newcylinder;
 }
 
-t_vector	*split_vector_p(char **data, int index)
+static void	make_sphere_param(char **splitted, t_obj *sphere)
 {
-	char		**vector;
-	t_vector	*newvector;
+	double		*radius;
 
-	vector = ft_split(data[index], ',');
-	newvector = malloc(sizeof(t_vector));
-	if (vector == NULL || tab_len(vector) != 3)
+	radius = malloc(sizeof(double));
+	if (radius == NULL)
 	{
-		tabfree(data);
-		tabfree(vector);
-		printf("Format of vector data not conform\n");
-		printf("Format is: x,y,z\n");
+		if (sphere != NULL)
+			free(sphere);
+		tabfree(splitted);
+		printf("Sphere parameters are not conform\n");
 		exit(EXIT_FAILURE);
 	}
-	newvector->x = ft_atof(vector[0]);
-	newvector->y = ft_atof(vector[1]);
-	newvector->z = ft_atof(vector[2]);
-	tabfree(vector);
-	return (newvector);
+	*radius = ft_atof(splitted[2]);
+	sphere->param = radius;
 }
 
-void	add_plan(char *line, t_parse *setup)
+static void	make_plan_param(char **splitted, t_obj *plan)
 {
-	char		**splitted;
-	char		**rgb;
-	t_obj		*plan;
-	t_list		*new;
 	t_vector	*vector;
 
-	splitted = ft_split(line, ' ');
-	plan = malloc(sizeof(t_obj));
 	vector = malloc(sizeof(t_vector));
-	if (splitted != NULL && tab_len(splitted) == 4)
+	if (vector == NULL)
 	{
-		plan->type = Plan;
-		plan->coord = split_coord_p(splitted, 1);
-		vector = split_vector_p(splitted, 2);
-		plan->param = vector;
-		rgb = ft_split(splitted[3], ',');
-		if (rgb == NULL || tab_len(rgb) != 3)
-			color_errors(splitted, rgb);
-		plan->color = create_trgb(1, ft_atoi(rgb[0]),
-				ft_atoi(rgb[1]), ft_atoi(rgb[2]));
-		tabfree(splitted);
-		tabfree(rgb);
-	}
-	else
-	{
+		if (plan != NULL)
+			free(plan);
 		tabfree(splitted);
 		printf("Plan parameters are not conform\n");
 		exit(EXIT_FAILURE);
 	}
-	if (!setup->volumes)
-		setup->volumes = ft_lstnew(plan);
-	else 
-	{
-		new = ft_lstnew(plan);
-		ft_lstadd_back(&(setup->volumes), new);
-	}
+	vector = split_vector_p(splitted, 2);
+	plan->param = vector;
 }
 
-// ft_lstiter(setup->volumes, (void *)display_plan);
-// printf("____________________________________\n");
-// printf("%d\n", ((t_obj *)setup->volumes->content)->type);
+void	create_volume(char **line, t_parse *setup, t_obj *volume, int type)
+{
+	char		**rgb;
+	int			nbr;
+
+	if (type == 5)
+		nbr = 5;
+	else
+		nbr = 3;
+	volume->type = type;
+	volume->coord = split_coord_p(line, 1);
+	rgb = ft_split(line[nbr], ',');
+	if (rgb == NULL || tab_len(rgb) != 3)
+		color_errors(line, rgb);
+	volume->color = create_trgb(1, ft_atoi(rgb[0]),
+			ft_atoi(rgb[1]), ft_atoi(rgb[2]));
+	tabfree(rgb);
+	if (type == 5)
+		make_cylinder_param(line, volume);
+	else if (type == 4)
+		make_plan_param(line, volume);
+	else if (type == 3)
+		make_sphere_param(line, volume);
+	if (!setup->volumes)
+		setup->volumes = ft_lstnew(volume);
+	else
+		ft_lstadd_back(&(setup->volumes), ft_lstnew(volume));
+}
+
+void	add_volume(char *line, t_parse *setup, int type)
+{
+	char		**splitted;
+	t_obj		*volume;
+	int			nbr;
+
+	splitted = ft_split(line, ' ');
+	volume = malloc(sizeof(t_obj));
+	if (type == 5)
+		nbr = 6;
+	else
+		nbr = 4;
+	if (splitted == NULL || volume == NULL || tab_len(splitted) != nbr)
+	{
+		if (volume != NULL)
+			free(volume);
+		tabfree(splitted);
+		printf("%s \n", enum_to_name(type));
+		printf("parameters are not conform\n");
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		create_volume(splitted, setup, volume, type);
+		tabfree(splitted);
+	}
+}
