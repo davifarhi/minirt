@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/09/21 15:58:07 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/21 16:07:24 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "expanded.h"
 
 // parsing general
+void		setup_init(t_parse	*setup);
 void		mrt_parsing(char *file, t_parse *parsed);
 t_vector	split_vector(char **data, int index);
 t_coord		split_coord(char **data, int index);

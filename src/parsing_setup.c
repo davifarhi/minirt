@@ -6,13 +6,21 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/21 15:56:33 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/21 16:06:15 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "free.h"
 #include "parsing.h"
+
+void	setup_init(t_parse	*setup)
+{
+	setup->is_there_cam = 0;
+	setup->is_there_amb = 0;
+	setup->is_there_light = 0;
+	setup->volumes = NULL;
+}
 
 void	add_ambiant(char *line, t_parse *setup)
 {
