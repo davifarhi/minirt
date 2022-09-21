@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/09/07 16:02:36 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/21 15:58:07 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ void		add_light(char *line, t_parse *setup);
 void		add_volume(char *line, t_parse *setup, int type);
 void		create_volume(char **line, t_parse *setup, t_obj *volume, int type);
 char		*enum_to_name(int type);
+void		error_exit(char *error);
+
+//range check
+int			colors_are_in_range(char **rgb);
+int			vector_is_in_range(t_vector vector);
+int			light_is_in_range(double light);
+int			fov_is_in_range(unsigned char fov);
 
 // tabs utils
 int			tab_len(char **tab);

@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/07 16:26:57 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/21 15:42:39 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 #include "free.h"
 #include "parsing.h"
 #include "get_next_line.h"
+
+void	error_exit(char *error)
+{
+	printf("%s\n", error);
+	exit(EXIT_FAILURE);
+}
 
 static void	parse_line(char *line, t_parse *setup)
 {
@@ -33,7 +39,7 @@ static void	parse_line(char *line, t_parse *setup)
 		add_light(line, setup);
 	else
 	{
-		printf("Unknown type of object in file! Use:\n");
+		printf("Error\nUnknown type of object in file! Use:\n");
 		printf("A - Ambient light\n");
 		printf("C - Camera\n");
 		printf("L - Light\n");
@@ -47,51 +53,58 @@ static void	parse_line(char *line, t_parse *setup)
 static char	*clean_spaces(char *str)
 {
 	char	*new;
-	char	*tmp;
 	int		i;
 
 	i = 0;
-	tmp = ft_strtrim(str, "\n");
-	new = malloc(sizeof(char) * (ft_strlen(tmp) + 1));
+	new = malloc(sizeof(char) * (ft_strlen(str) + 1));
 	if (new == NULL)
 		return (NULL);
-	while (tmp[i] != '\0')
+	while (str[i] != '\0')
 	{
-		if (ft_isspace(tmp[i]))
+		if (ft_isspace(str[i]))
 			new[i] = ' ';
 		else
-			new[i] = tmp[i];
+			new[i] = str[i];
 		i++;
 	}
 	new[i] = '\0';
-	ft_free(tmp);
 	return (new);
+}
+
+static char	*trimm_next_line(int fd)
+{
+	char	*trimmed;
+	char	*tmp;
+
+	tmp = get_next_line(fd);
+	if (tmp == NULL)
+		return (NULL);
+	trimmed = ft_strtrim(tmp, "\n\t\v\f\r ");
+	ft_free(tmp);
+	return (trimmed);
 }
 
 void	mrt_parsing(char *file, t_parse *setup)
 {
-	char	*tmp;
 	char	*cleaned;
+	char	*trimmed;
 	int		fd;
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
+		error_exit("Error\nFile is corrupted or does not exist");
+	trimmed = trimm_next_line(fd);
+	while (trimmed != NULL)
 	{
-		printf("File is corrupted or does not exist\n");
-		exit(EXIT_FAILURE);
-	}
-	tmp = get_next_line(fd);
-	while (tmp != NULL)
-	{
-		if (*tmp != '\n')
+		if (*trimmed != '\0' && *trimmed != '#')
 		{
-			cleaned = clean_spaces(tmp);
+			cleaned = clean_spaces(trimmed);
 			parse_line(cleaned, setup);
 			ft_free(cleaned);
 		}
-		ft_free(tmp);
-		tmp = get_next_line(fd);
+		ft_free(trimmed);
+		trimmed = trimm_next_line(fd);
 	}
-	ft_free(tmp);
+	ft_free(trimmed);
 	close(fd);
 }

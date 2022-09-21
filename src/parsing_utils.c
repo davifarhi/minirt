@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/07 16:14:50 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/21 15:45:53 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,8 @@ t_coord	*split_coord_p(char **data, int index)
 		tabfree(coord);
 		if (newcoord != NULL)
 			free(newcoord);
-		printf("Format of coordonnee not conform\n");
-		printf("Format is: x,y,z\n");
-		exit(EXIT_FAILURE);
+		printf("Error\nFormat of coordonnee not conform\n");
+		error_exit("Format is: x,y,z");
 	}
 	newcoord->x = ft_atof(coord[0]);
 	newcoord->y = ft_atof(coord[1]);
@@ -70,14 +69,17 @@ t_vector	*split_vector_p(char **data, int index)
 		tabfree(vector);
 		if (newvector != NULL)
 			free(newvector);
-		printf("Format of vector data not conform\n");
-		printf("Format is: x,y,z\n");
-		exit(EXIT_FAILURE);
+		error_exit("Error\nFormat of vector data not conform");
 	}
 	newvector->x = ft_atof(vector[0]);
 	newvector->y = ft_atof(vector[1]);
 	newvector->z = ft_atof(vector[2]);
 	tabfree(vector);
+	if (vector_is_in_range(*newvector))
+	{
+		tabfree(data);
+		error_exit("Error\nFormat of vector data not in range -1 to 1");
+	}
 	return (newvector);
 }
 
@@ -91,9 +93,8 @@ t_coord	split_coord(char **data, int index)
 	{
 		tabfree(data);
 		tabfree(coord);
-		printf("Format of coordonnee not conform\n");
-		printf("Format is: x,y,z\n");
-		exit(EXIT_FAILURE);
+		printf("Error\nFormat of coordonnee not conform\n");
+		error_exit("Format is: x,y,z");
 	}
 	newcoord.x = ft_atof(coord[0]);
 	newcoord.y = ft_atof(coord[1]);
@@ -112,13 +113,17 @@ t_vector	split_vector(char **data, int index)
 	{
 		tabfree(data);
 		tabfree(vector);
-		printf("Format of vector data not conform\n");
-		printf("Format is: x,y,z\n");
-		exit(EXIT_FAILURE);
+		printf("Error\nFormat of vector data not conform\n");
+		error_exit("Format is: x,y,z");
 	}
 	newvector.x = ft_atof(vector[0]);
 	newvector.y = ft_atof(vector[1]);
 	newvector.z = ft_atof(vector[2]);
 	tabfree(vector);
+	if (vector_is_in_range(newvector))
+	{
+		tabfree(data);
+		error_exit("Error\nFormat of vector data not in range -1 to 1");
+	}
 	return (newvector);
 }

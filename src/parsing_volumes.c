@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/07 15:49:28 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/21 15:44:16 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,9 @@ static void	make_sphere_param(char **splitted, t_obj *sphere)
 		if (sphere != NULL)
 			free(sphere);
 		tabfree(splitted);
-		printf("Sphere parameters are not conform\n");
-		exit(EXIT_FAILURE);
+		error_exit("Error\nSphere parameters are not conform");
 	}
-	*radius = ft_atof(splitted[2]);
+	*radius = ft_atof(splitted[2]) / 2;
 	sphere->param = radius;
 }
 
@@ -68,8 +67,7 @@ static void	make_plan_param(char **splitted, t_obj *plan)
 		if (plan != NULL)
 			free(plan);
 		tabfree(splitted);
-		printf("Plan parameters are not conform\n");
-		exit(EXIT_FAILURE);
+		error_exit("Error\nPlan parameters are not conform");
 	}
 	vector = split_vector_p(splitted, 2);
 	plan->param = vector;
@@ -87,7 +85,7 @@ void	create_volume(char **line, t_parse *setup, t_obj *volume, int type)
 	volume->type = type;
 	volume->coord = split_coord_p(line, 1);
 	rgb = ft_split(line[nbr], ',');
-	if (rgb == NULL || tab_len(rgb) != 3)
+	if (rgb == NULL || tab_len(rgb) != 3 || colors_are_in_range(rgb))
 		color_errors(line, rgb);
 	volume->color = create_trgb(1, ft_atoi(rgb[0]),
 			ft_atoi(rgb[1]), ft_atoi(rgb[2]));
@@ -121,9 +119,8 @@ void	add_volume(char *line, t_parse *setup, int type)
 		if (volume != NULL)
 			free(volume);
 		tabfree(splitted);
-		printf("%s \n", enum_to_name(type));
-		printf("parameters are not conform\n");
-		exit(EXIT_FAILURE);
+		printf("Error\n%s \n", enum_to_name(type));
+		error_exit("parameters are not conform");
 	}
 	else
 	{
