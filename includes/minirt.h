@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/09/07 16:16:15 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/26 14:30:37 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,11 @@ typedef struct s_parse
 	unsigned char	cam_fov;
 	unsigned char	is_there_amb;
 	double			ambient_intensity;
-	int				ambient_int;
+	int				ambient_color;
 	unsigned char	is_there_light;
 	t_coord			light_coord;
 	double			light_brightness;
+	int				light_color;
 }	t_parse;
 
 //colors utils

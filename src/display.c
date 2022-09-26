@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 15:22:24 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/07 16:11:33 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/26 14:54:52 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ static void	display_plan(t_obj *obj)
 	printf("type: %s\n", enum_to_name(obj->type));
 	printf("––––––––––––––––––––––––––\n");
 	printf("Coordonnées:\n");
-	printf("	x: %f\n", obj->coord->x);
-	printf("	y: %f\n", obj->coord->y);
-	printf("	z: %f\n", obj->coord->z);
+	printf(" x: %f\n", obj->coord->x);
+	printf(" y: %f\n", obj->coord->y);
+	printf(" z: %f\n", obj->coord->z);
 	printf("Color: %d\n", obj->color);
 	printf("Vector:\n");
-	printf("	x: %f\n", ((t_vector *)obj->param)->x);
-	printf("	y: %f\n", ((t_vector *)obj->param)->y);
-	printf("	z: %f\n", ((t_vector *)obj->param)->z);
+	printf(" x: %f\n", ((t_vector *)obj->param)->x);
+	printf(" y: %f\n", ((t_vector *)obj->param)->y);
+	printf(" z: %f\n", ((t_vector *)obj->param)->z);
 }
 
 static void	display_sphere(t_obj *obj)
@@ -35,9 +35,9 @@ static void	display_sphere(t_obj *obj)
 	printf("type: %s\n", enum_to_name(obj->type));
 	printf("––––––––––––––––––––––––––\n");
 	printf("Coordonnées:\n");
-	printf("	x: %f\n", obj->coord->x);
-	printf("	y: %f\n", obj->coord->y);
-	printf("	z: %f\n", obj->coord->z);
+	printf(" x: %f\n", obj->coord->x);
+	printf(" y: %f\n", obj->coord->y);
+	printf(" z: %f\n", obj->coord->z);
 	printf("Color: %d\n", obj->color);
 	printf("Radius: %f\n", *(double *)obj->param);
 }
@@ -75,28 +75,18 @@ void	display_volumes(t_obj *volume)
 
 void	display_setup(t_parse *setup)
 {
-	if (setup->is_there_cam)
-	{
-		printf("Cam Coordonnées:\n	x: %f\n", setup->cam_coord.x);
-		printf("	y: %f\n", setup->cam_coord.y);
-		printf("	z: %f\n", setup->cam_coord.z);
-		printf("Cam Vector:\n	x: %f\n", setup->cam_v.x);
-		printf("	y: %f\n", setup->cam_v.y);
-		printf("	z: %f\n", setup->cam_v.z);
-		printf("Cam Fov: %u\n", setup->cam_fov);
-	}
-	if (setup->is_there_amb)
-	{
-		printf("Ambient intensity: %f\n", setup->ambient_intensity);
-		printf("Ambient int: %d\n", setup->ambient_int);
-	}
-	if (setup->is_there_light)
-	{
-		printf("Light Coordonnées:\n	x: %f\n", setup->light_coord.x);
-		printf("	y: %f\n", setup->light_coord.y);
-		printf("	z: %f\n", setup->light_coord.z);
-		printf("Light brightness: %f\n", setup->light_brightness);
-	}
+	printf("Cammera ----------\nCoord:\n x: %f\n", setup->cam_coord.x);
+	printf(" y: %f\n z: %f\n", setup->cam_coord.y, setup->cam_coord.z);
+	printf("Vector:\n x: %f\n", setup->cam_v.x);
+	printf(" y: %f\n", setup->cam_v.y);
+	printf(" z: %f\n", setup->cam_v.z);
+	printf("Fov: %u\n\n", setup->cam_fov);
+	printf("Ambient----------\nIntensity: %f\n", setup->ambient_intensity);
+	printf("Color: %d\n\n", setup->ambient_color);
+	printf("Light----------\nCoord:\n x: %f\n", setup->light_coord.x);
+	printf(" y: %f\n z: %f\n", setup->light_coord.y, setup->light_coord.z);
+	printf("Brightness: %f\n", setup->light_brightness);
+	printf("Color: %d\n", setup->light_color);
 	printf("\n\n\nVOLUMES:\n");
 	ft_lstiter((setup->volumes), (void *)display_volumes);
 }

@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/09/21 16:07:24 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/26 14:34:01 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define PARSING_H
 
 # include "expanded.h"
+# include "free.h"
+# include "errors.h"
 
 // parsing general
 void		setup_init(t_parse	*setup);

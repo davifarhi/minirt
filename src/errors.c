@@ -6,11 +6,12 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 15:12:49 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/01 15:15:22 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/26 14:35:33 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "parsing.h"
 
 static int	check_name(char *name)
 {
@@ -39,4 +40,17 @@ void	check_args(char**av, int ac)
 		printf("Argument file not conform\n");
 		exit(EXIT_FAILURE);
 	}
+}
+
+void	error_exit(char *error)
+{
+	printf("%s\n", error);
+	exit(EXIT_FAILURE);
+}
+
+void	tabfree_exit(char *error, char **tab_to_free)
+{
+	tabfree(tab_to_free);
+	printf("%s\n", error);
+	exit(EXIT_FAILURE);
 }

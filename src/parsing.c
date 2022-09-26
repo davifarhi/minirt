@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/21 15:42:39 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/26 14:50:12 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 #include "free.h"
 #include "parsing.h"
 #include "get_next_line.h"
-
-void	error_exit(char *error)
-{
-	printf("%s\n", error);
-	exit(EXIT_FAILURE);
-}
 
 static void	parse_line(char *line, t_parse *setup)
 {
@@ -84,6 +78,16 @@ static char	*trimm_next_line(int fd)
 	return (trimmed);
 }
 
+static void	check_missing(t_parse *setup)
+{
+	if (setup->is_there_amb == 0)
+		add_ambiant("A 0.2 255,255,255", setup);
+	else if (setup->is_there_light == 0)
+		add_light("L -40,0,30 0.7 255,255,255", setup);
+	else if (setup->is_there_cam == 0)
+		add_cam("C 0,0,0 0,0,0 70", setup);
+}
+
 void	mrt_parsing(char *file, t_parse *setup)
 {
 	char	*cleaned;
@@ -105,6 +109,7 @@ void	mrt_parsing(char *file, t_parse *setup)
 		ft_free(trimmed);
 		trimmed = trimm_next_line(fd);
 	}
+	check_missing(setup);
 	ft_free(trimmed);
 	close(fd);
 }

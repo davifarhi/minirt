@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 21:44:41 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/01 21:47:03 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/26 15:24:39 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,29 @@ void	ft_free(char *str)
 		free(str);
 		str = NULL;
 	}
+}
+
+void	free_volumes(t_obj *volume)
+{
+	if (volume != NULL)
+	{
+		free(volume->coord);
+		if (volume->type == Plan)
+		{
+			free((t_vector *)((t_cylinder *)volume->param)->vector);
+			free((t_cylinder *)volume->param);
+		}
+		else if (volume->type == Sphere)
+			free((double *)volume->param);
+		else if (volume->type == Cylinder)
+		{
+			free((t_vector *)((t_cylinder *)volume->param)->vector);
+			free((t_cylinder *)volume->param);
+		}
+	}
+}
+
+void	free_setup(t_parse *setup)
+{
+	ft_lstclear(&(setup->volumes), (void *)free_volumes);
 }
