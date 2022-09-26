@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 21:44:41 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/26 15:24:39 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/26 17:57:07 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,15 @@ void	free_volumes(t_obj *volume)
 	{
 		free(volume->coord);
 		if (volume->type == Plan)
-		{
-			free((t_vector *)((t_cylinder *)volume->param)->vector);
-			free((t_cylinder *)volume->param);
-		}
+			free((volume->param));
 		else if (volume->type == Sphere)
-			free((double *)volume->param);
+			free(volume->param);
 		else if (volume->type == Cylinder)
 		{
-			free((t_vector *)((t_cylinder *)volume->param)->vector);
-			free((t_cylinder *)volume->param);
+			free(((t_cylinder *)volume->param)->vector);
+			free(volume->param);
 		}
+		free(volume);
 	}
 }
 

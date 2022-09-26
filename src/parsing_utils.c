@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/21 15:45:53 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/26 17:55:12 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ t_vector	*split_vector_p(char **data, int index)
 	tabfree(vector);
 	if (vector_is_in_range(*newvector))
 	{
+		if (newvector != NULL)
+			free(newvector);
 		tabfree(data);
 		error_exit("Error\nFormat of vector data not in range -1 to 1");
 	}

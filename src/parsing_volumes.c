@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/21 15:44:16 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/26 17:51:39 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,11 @@ static void	make_cylinder_param(char **splitted, t_obj *cylinder)
 	t_vector	*vector;
 	t_cylinder	*newcylinder;
 
-	vector = malloc(sizeof(t_vector));
 	newcylinder = malloc(sizeof(t_cylinder));
-	if (vector == NULL || newcylinder == NULL)
+	if (newcylinder == NULL)
 	{
 		if (cylinder != NULL)
 			free(cylinder);
-		if (vector != NULL)
-			free(vector);
 		if (newcylinder != NULL)
 			free(newcylinder);
 		tabfree(splitted);
@@ -61,14 +58,6 @@ static void	make_plan_param(char **splitted, t_obj *plan)
 {
 	t_vector	*vector;
 
-	vector = malloc(sizeof(t_vector));
-	if (vector == NULL)
-	{
-		if (plan != NULL)
-			free(plan);
-		tabfree(splitted);
-		error_exit("Error\nPlan parameters are not conform");
-	}
 	vector = split_vector_p(splitted, 2);
 	plan->param = vector;
 }
