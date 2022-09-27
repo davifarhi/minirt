@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/21 15:57:49 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/27 17:23:23 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	light_is_in_range(double light)
 
 int	fov_is_in_range(unsigned char fov)
 {
-	if (!(fov >= 0 && fov <= 180))
+	if (!(fov <= 180))
 		return (1);
 	return (0);
 }
