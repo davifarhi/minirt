@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/26 17:58:41 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/28 10:24:43 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,6 @@ static void	check_missing(t_parse *setup)
 {
 	if (setup->is_there_amb == 0)
 		add_ambiant("A 0.2 255,255,255", setup);
-	else if (setup->is_there_light == 0)
-		add_light("L -40,0,30 0.7 255,255,255", setup);
 	else if (setup->is_there_cam == 0)
 		add_cam("C 0,0,0 0,0,0 70", setup);
 }
