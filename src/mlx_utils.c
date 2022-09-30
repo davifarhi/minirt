@@ -6,13 +6,14 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:44:22 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/06 14:19:00 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/30 14:41:35 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "mlx_config.h"
 #include "render.h"
+#include "free.h"
 
 int	print_key(int key, void *param)
 {
@@ -51,4 +52,5 @@ void	on_quit_free(t_parse *data)
 		mlx_destroy_display(data->mlx.mlx);
 	free(data->mlx.mlx);
 	free_render_data(data->render);
+	free_setup(data);
 }

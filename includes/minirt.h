@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/09/26 14:30:37 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/30 14:26:41 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct s_parse
 	int				ambient_color;
 	unsigned char	is_there_light;
 	t_coord			light_coord;
-	double			light_brightness
+	double			light_brightness;
 	int				light_color;
 	t_mlx			mlx;
 	t_render_data	*render;

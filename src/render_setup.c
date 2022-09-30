@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 11:18:39 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/06 14:04:02 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/30 14:38:37 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,7 @@ static double	get_angle_shift_per_pixel(unsigned char fov, int width)
 	return (aspp);
 }
 
-/*
-static double	*get_angle_shift_per_pixel(
-		unsigned char fov, int width, int height)
-{
-	double	*aspp;
-
-	aspp = ft_calloc(sizeof(double), 2);
-	if (!aspp)
-		return (0);
-	if (width <= 1)
-		width = 2;
-	if (height <= 1)
-		height = 2;
-	aspp[0] = (double)fov / (width - 1);
-	aspp[1] = (double)fov / (height - 1);
-	return (aspp);
-}
-*/
-
-t_render_data	*render_setup_data(void)
+t_render_data	*render_setup_data(t_parse *setup)
 {
 	t_render_data	*r;
 
@@ -52,7 +33,7 @@ t_render_data	*render_setup_data(void)
 	r->res_width = 854;
 	r->aspect_ratio = 16.0 / 9.0;
 	r->res_height = r->res_width / r->aspect_ratio;
-	r->aspp = get_angle_shift_per_pixel(FOV, r->res_width);
+	r->aspp = get_angle_shift_per_pixel(setup->cam_fov, r->res_width);
 	return (r);
 }
 

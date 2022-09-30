@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:49 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/07 12:59:38 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/30 14:37:49 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "minirt.h"
 
-# define FOV 70
 # define LINE_BY_LINE_RENDER 1
 
 typedef struct s_quadratic_equation
@@ -37,7 +36,7 @@ t_vector		render_get_camera_direction(const t_vector v,
 unsigned int	render_per_pixel(int x, int y, t_parse *data);
 
 //render_setup
-t_render_data	*render_setup_data(void);
+t_render_data	*render_setup_data(t_parse *setup);
 void			free_render_data(t_render_data *r);
 
 //render sphere test
