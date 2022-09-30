@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/09/01 20:05:45 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/26 14:30:37 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,47 +21,41 @@
 
 typedef enum e_types
 {
-	ambiant,
-	cam,
-	light,
-	sphere,
-	plan,
-	cylinder
+	Ambiant,
+	Cam,
+	Light,
+	Sphere,
+	Plan,
+	Cylinder
 }	t_types;
 
 typedef struct s_coord
 {
-	float	x;
-	float	y;
-	float	z;
+	double	x;
+	double	y;
+	double	z;
 }	t_coord;
 
 typedef struct s_vector
 {
-	float	x;
-	float	y;
-	float	z;
+	double	x;
+	double	y;
+	double	z;
 }	t_vector;
 
 typedef struct s_obj
 {
 	t_types	type;
-	t_coord	coord;
+	t_coord	*coord;
 	int		color;
 	void	*param;
 }	t_obj;
 
-typedef struct s_cam
-{
-	t_vector	orient;
-	float		focal;
-}	t_cam;
-
 typedef struct s_cylinder
 {
-	t_vector	orient;
-	float		diameter;
-	float		height;
+	t_vector	*vector;
+	double		diameter;
+	double		height;
 }	t_cylinder;
 
 typedef struct s_parse
@@ -73,10 +67,11 @@ typedef struct s_parse
 	unsigned char	cam_fov;
 	unsigned char	is_there_amb;
 	double			ambient_intensity;
-	int				ambient_int;
+	int				ambient_color;
 	unsigned char	is_there_light;
 	t_coord			light_coord;
 	double			light_brightness;
+	int				light_color;
 }	t_parse;
 
 //colors utils
@@ -85,8 +80,5 @@ int		get_t(int trgb);
 int		get_r(int trgb);
 int		get_g(int trgb);
 int		get_b(int trgb);
-
-//parsing
-t_list	*rt_parsing(char **av);
 
 #endif

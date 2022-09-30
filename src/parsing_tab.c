@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.c                                           :+:      :+:    :+:   */
+/*   parsing_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/12 15:03:24 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/09/26 18:06:56 by mreymond         ###   ########.fr       */
+/*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
+/*   Updated: 2022/09/02 16:47:04 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include "mlx_config.h"
-#include "parsing.h"
-#include "errors.h"
 
-int	main(int ac, char **av)
+int	tab_len(char **tab)
 {
-	t_parse	setup;
-	// t_mlx	mlx;
+	int	i;
 
-	setup_init(&setup);
-	check_args(av, ac);
-	mrt_parsing(av[1], &setup);
-	display_setup(&setup);
-	free_setup(&setup);
-	// if (mlx_setup(&mlx))
-	// 	return (1);
-	return (0);
+	i = 0;
+	while (tab[i] != NULL)
+		i++;
+	return (i);
+}
+
+void	display_tab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i] != NULL)
+	{
+		printf("%s\n", tab[i]);
+		i++;
+	}
 }

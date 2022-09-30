@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.c                                           :+:      :+:    :+:   */
+/*   free.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/12 15:03:24 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/09/26 18:06:56 by mreymond         ###   ########.fr       */
+/*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
+/*   Updated: 2022/09/26 15:15:24 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
-#include "mlx_config.h"
-#include "parsing.h"
-#include "errors.h"
+#ifndef FREE_H
+# define FREE_H
 
-int	main(int ac, char **av)
-{
-	t_parse	setup;
-	// t_mlx	mlx;
+//free things
+void	tabfree(char **tab);
+void	ft_free(char *str);
+void	free_volumes(t_obj *volume);
+void	free_setup(t_parse *setup);
 
-	setup_init(&setup);
-	check_args(av, ac);
-	mrt_parsing(av[1], &setup);
-	display_setup(&setup);
-	free_setup(&setup);
-	// if (mlx_setup(&mlx))
-	// 	return (1);
-	return (0);
-}
+#endif
