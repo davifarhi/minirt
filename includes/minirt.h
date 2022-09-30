@@ -58,6 +58,32 @@ typedef struct s_cylinder
 	double		height;
 }	t_cylinder;
 
+typedef struct s_data
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_data;
+
+typedef struct s_mlx
+{
+	void	*mlx;
+	void	*win;
+	t_data	img;
+}	t_mlx;
+
+//resolutions of mlx window
+//aspp = angle shift per pixel [x, y]
+typedef struct s_render_data
+{
+	unsigned int	res_width;
+	unsigned int	res_height;
+	double			aspect_ratio;
+	double			aspp;
+}	t_render_data;
+
 typedef struct s_parse
 {
 	t_list			*volumes;
@@ -70,8 +96,10 @@ typedef struct s_parse
 	int				ambient_color;
 	unsigned char	is_there_light;
 	t_coord			light_coord;
-	double			light_brightness;
+	double			light_brightness
 	int				light_color;
+	t_mlx			mlx;
+	t_render_data	*render;
 }	t_parse;
 
 //colors utils

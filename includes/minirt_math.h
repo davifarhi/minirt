@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.h                                            :+:      :+:    :+:   */
+/*   minirt_math.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/30 18:26:52 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/01 11:11:31 by davifah          ###   ########.fr       */
+/*   Created: 2022/09/01 11:16:13 by davifah           #+#    #+#             */
+/*   Updated: 2022/09/07 12:05:16 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEBUG_H
-# define DEBUG_H
+#ifndef MINIRT_MATH_H
+# define MINIRT_MATH_H
 
-# define DEBUG_LOOP_PIXEL 0
-# define DEBUG_LOOP_FINISHED 0
-# define DEBUG_SHIFTED_VECTOR 0
+# include "render.h"
+
+double	calculate_degree_to_radians(double degrees);
+double	calculate_discriminant(const t_quadratic_equation *abc);
 
 #endif

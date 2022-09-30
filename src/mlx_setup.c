@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:04:14 by davifah           #+#    #+#             */
-/*   Updated: 2022/08/31 17:02:20 by davifah          ###   ########.fr       */
+/*   Updated: 2022/09/06 14:20:18 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,33 @@
 #include "mlx_config.h"
 #include "render.h"
 
-static int	on_win_close(int code, void *param);
+static int	on_win_close(void *param);
 static int	deal_key(int key, void *param);
 
-int	mlx_setup(t_mlx *mlx)
+int	mlx_setup(t_parse *data)
 {
-	mlx->mlx = mlx_init();
-	if (!mlx->mlx)
+	data->mlx.mlx = mlx_init();
+	if (!data->mlx.mlx)
 	{
 		perror("mlx_init");
 		return (1);
 	}
-	mlx->win = mlx_new_window(mlx->mlx, RESOLUTION_X, RESOLUTION_Y, "minirt");
-	if (!mlx->win)
+	data->mlx.win = mlx_new_window(data->mlx.mlx, data->render->res_width,
+			data->render->res_height, "minirt");
+	if (!data->mlx.win)
 	{
-		perror("mlx_init");
+		perror("mlx_new_window");
 		return (1);
 	}
-	mlx->img = create_mlx_image(mlx->mlx, RESOLUTION_X, RESOLUTION_X);
-	fill_image(mlx, create_trgb(255, 65, 105, 225));
-	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.img, 0, 0);
-	mlx_hook(mlx->win, 17, 1L << 0, on_win_close, mlx);
-	mlx_key_hook(mlx->win, deal_key, mlx);
-	mlx_loop_hook(mlx->mlx, looper_mlx, mlx);
-	mlx_loop(mlx->mlx);
+	data->mlx.img = create_mlx_image(data->mlx.mlx, data->render->res_width,
+			data->render->res_height);
+	fill_image(&data->mlx, create_trgb(255, 65, 105, 225), data->render
+		->res_width, data->render->res_height);
+	mlx_put_image_to_window(
+		data->mlx.mlx, data->mlx.win, data->mlx.img.img, 0, 0);
+	mlx_hook(data->mlx.win, 17, 1L << 0, on_win_close, data);
+	mlx_key_hook(data->mlx.win, deal_key, data);
+	mlx_loop_hook(data->mlx.mlx, looper_mlx, data);
 	return (0);
 }
 
@@ -56,21 +59,16 @@ static int	deal_key(int key, void *param)
 	if (key == ESC_KEY)
 	{
 		printf("Escape pressed, quitting program...\n");
-		mlx_destroy_image(((t_mlx *)param)->mlx, ((t_mlx *)param)->img.img);
-		mlx_destroy_window(((t_mlx *)param)->mlx, ((t_mlx *)param)->win);
-		if (ISLINUX)
-			mlx_destroy_display(((t_mlx *)param)->mlx);
-		free(((t_mlx *)param)->mlx);
+		on_quit_free(param);
 		exit(0);
 	}
 	return (0);
 }
 
-static int	on_win_close(int code, void *param)
+static int	on_win_close(void *param)
 {
 	printf("Quitting program...\n");
+	on_quit_free(param);
 	exit(0);
-	(void)param;
-	(void)code;
 	return (0);
 }

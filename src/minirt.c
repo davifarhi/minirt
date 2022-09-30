@@ -11,21 +11,25 @@
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "render.h"
 #include "mlx_config.h"
 #include "parsing.h"
 #include "errors.h"
 
 int	main(int ac, char **av)
 {
+	t_parse	structure;
 	t_parse	setup;
-	// t_mlx	mlx;
+	t_list	*objects;
 
 	setup_init(&setup);
 	check_args(av, ac);
 	mrt_parsing(av[1], &setup);
 	display_setup(&setup);
 	free_setup(&setup);
-	// if (mlx_setup(&mlx))
-	// 	return (1);
+	structure.render = render_setup_data();
+	if (!structure.render || mlx_setup(&structure))
+		return (1);
+	mlx_loop(structure.mlx.mlx);
 	return (0);
 }
