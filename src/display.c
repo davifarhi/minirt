@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 15:22:24 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/26 14:54:52 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/09/30 14:52:47 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,18 @@ void	display_setup(t_parse *setup)
 	printf(" y: %f\n", setup->cam_v.y);
 	printf(" z: %f\n", setup->cam_v.z);
 	printf("Fov: %u\n\n", setup->cam_fov);
-	printf("Ambient----------\nIntensity: %f\n", setup->ambient_intensity);
-	printf("Color: %d\n\n", setup->ambient_color);
-	printf("Light----------\nCoord:\n x: %f\n", setup->light_coord.x);
-	printf(" y: %f\n z: %f\n", setup->light_coord.y, setup->light_coord.z);
-	printf("Brightness: %f\n", setup->light_brightness);
-	printf("Color: %d\n", setup->light_color);
-	printf("\n\n\nVOLUMES:\n");
+	if (setup->is_there_amb)
+	{
+		printf("Ambient----------\nIntensity: %f\n", setup->ambient_intensity);
+		printf("Color: %d\n\n", setup->ambient_color);
+	}
+	if (setup->is_there_light)
+	{
+		printf("Light----------\nCoord:\n x: %f\n", setup->light_coord.x);
+		printf(" y: %f\n z: %f\n", setup->light_coord.y, setup->light_coord.z);
+		printf("Brightness: %f\n", setup->light_brightness);
+		printf("Color: %d\n", setup->light_color);
+	}
+	printf("\n\nVOLUMES:\n");
 	ft_lstiter((setup->volumes), (void *)display_volumes);
 }
