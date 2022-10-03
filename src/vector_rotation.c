@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 19:14:53 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/06 14:04:41 by davifah          ###   ########.fr       */
+/*   Updated: 2022/10/03 20:47:38 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static void	vector_rotate_x(t_vector *v, double x_angle)
 
 	x_angle = calculate_degree_to_radians(x_angle);
 	v2.x = v->x;
-	v2.y = (v->y * cos(x_angle)) - (v->z * sin(x_angle));
-	v2.z = (v->y * sin(x_angle)) + (v->z * cos(x_angle));
+	v2.y = v->y * cos(x_angle) - v->z * sin(x_angle);
+	v2.z = v->y * sin(x_angle) + v->z * cos(x_angle);
 	*v = v2;
 }
 
@@ -33,9 +33,9 @@ static void	vector_rotate_y(t_vector *v, double y_angle)
 	t_vector	v2;
 
 	y_angle = calculate_degree_to_radians(y_angle);
-	v2.x = (v->x * cos(y_angle)) + (v->z * sin(y_angle));
+	v2.x = v->x * cos(y_angle) + v->z * sin(y_angle);
 	v2.y = v->y;
-	v2.z = (-v->x * sin(y_angle)) + (v->z * cos(y_angle));
+	v2.z = -v->x * sin(y_angle) + v->z * cos(y_angle);
 	*v = v2;
 }
 
@@ -70,9 +70,10 @@ t_vector	render_get_camera_direction(
 		- (double)(render->res_height - 1) / 2.0f;
 	setup_x_y_pos(render, &x_pos, &y_pos);
 	v2 = v;
-	vector_rotate_x(&v2, x_pos * render->aspp);
-	vector_rotate_y(&v2, y_pos * render->aspp);
+	vector_rotate_x(&v2, y_pos * render->aspp);
+	vector_rotate_y(&v2, -x_pos * render->aspp);
 	if (DEBUG_SHIFTED_VECTOR)
-		printf("%dx%d - shifted\n(%f,%f,%f)\n", x, y, v2.x, v2.y, v2.z);
+		printf("%dx%d - shifted\n(%f,%f,%f) - pos x %.1lf; y %.1lf\n",
+			x, y, v2.x, v2.y, v2.z, x_pos, y_pos);
 	return (v2);
 }
