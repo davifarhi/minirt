@@ -38,7 +38,7 @@ SYSTEM		= $(shell uname -s)
 ifeq ($(SYSTEM), Linux)
 MINILIBX_V	= minilibx_linux
 MINILIBX	= $(MINILIBX_V)/libmlx.a
-LIB			:= $(LIB) -lXext -lX11 -L./$(MINILIBX_V) -lmlx
+LIB			:= $(LIB) -L./$(MINILIBX_V) -lmlx -lXext -lX11
 else
 INCLUDES	:= ${INCLUDES} -D MACOS
 MINILIBX_V	= minilibx_macos
