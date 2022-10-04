@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/30 14:38:50 by davifah          ###   ########.fr       */
+/*   Updated: 2022/10/04 12:08:19 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,17 @@
 #include "render.h"
 #include "minirt_math.h"
 #include <math.h>
+
+/*
+ *	Plane Math:
+ *	P = (x, y, z) : center of the sphere
+ *	r : radius
+ *	Po = (xo, yo, zo) : any point in the sphere (intersection)
+ *	Po = A + bt : parametric equation of a line
+ *
+ *	(bx² + by² + bz²)t² + 2(Ax*bx - bx*x + Ay*by - by*y + Azbz - bz*z)t +
+ *		(Ax + x)² + (Ay + y)² + (Az + z)² - r² = 0
+*/
 
 t_quadratic_equation	sphere_get_quad_abc(
 		const t_obj *obj, const t_parse *data, const t_vector *v_ray)
