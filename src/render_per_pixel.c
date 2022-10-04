@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_per_pixel.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
+/*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 12:58:52 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/30 15:33:35 by davifah          ###   ########.fr       */
+/*   Updated: 2022/10/04 17:56:31 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,17 @@ static void	new_obj_hit(t_obj_ray_hit **obj_hit, t_obj_ray_hit *obj_new)
 	}
 }
 
+int	ambiant_making(int obj_color, float intensity)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = get_r(obj_color);
+	g = get_g(obj_color);
+	b = get_b(obj_color);
+}
+
 unsigned int	render_per_pixel(int x, int y, t_parse *data)
 {
 	t_list			*tmp;
@@ -52,7 +63,8 @@ unsigned int	render_per_pixel(int x, int y, t_parse *data)
 	color = 0;
 	if (obj_hit)
 	{
-		color = obj_hit->obj->color;
+		color = data->ambient_intensity * obj_hit->obj->color;
+		printf("%d\n", color);
 		free(obj_hit);
 	}
 	return (color);
