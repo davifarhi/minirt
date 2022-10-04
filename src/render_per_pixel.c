@@ -6,12 +6,13 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 12:58:52 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/04 17:56:31 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/05 00:11:37 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "render.h"
+#include "lights.h"
 
 static void	new_obj_hit(t_obj_ray_hit **obj_hit, t_obj_ray_hit *obj_new)
 {
@@ -29,17 +30,6 @@ static void	new_obj_hit(t_obj_ray_hit **obj_hit, t_obj_ray_hit *obj_new)
 		else
 			free(obj_new);
 	}
-}
-
-int	ambiant_making(int obj_color, float intensity)
-{
-	int	r;
-	int	g;
-	int	b;
-
-	r = get_r(obj_color);
-	g = get_g(obj_color);
-	b = get_b(obj_color);
 }
 
 unsigned int	render_per_pixel(int x, int y, t_parse *data)
@@ -63,8 +53,7 @@ unsigned int	render_per_pixel(int x, int y, t_parse *data)
 	color = 0;
 	if (obj_hit)
 	{
-		color = data->ambient_intensity * obj_hit->obj->color;
-		printf("%d\n", color);
+		color = render_light(data, obj_hit);
 		free(obj_hit);
 	}
 	return (color);
