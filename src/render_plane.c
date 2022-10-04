@@ -6,12 +6,22 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 15:34:01 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/30 16:20:35 by davifah          ###   ########.fr       */
+/*   Updated: 2022/10/04 12:09:47 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "render.h"
+
+/*
+ *	Plane Math:
+ *	n = (a, b, c) : plane normal vector
+ *	P = (x, y, z) : given point of plane
+ *	Po = (xo, yo, zo) : any point in plane (intersection)
+ *	Po = A + bt : parametric equation of a line
+ *
+ * t = (a(x - Ax) + b(y - Ay) + c(z - Az)) / ((a * bx) + (b + by) + (c + bz))
+*/
 
 t_obj_ray_hit	*render_plane(const t_obj *obj,
 		const t_parse *data, const t_vector *v_ray)
