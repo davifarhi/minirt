@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:49 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/30 15:57:26 by davifah          ###   ########.fr       */
+/*   Updated: 2022/10/05 17:40:35 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ t_obj			*create_sphere(t_coord coord, double radius, int color);
 t_obj_ray_hit	*render_sphere(const t_obj *obj,
 					const t_parse *data, const t_vector *v_ray);
 t_obj_ray_hit	*render_plane(const t_obj *obj,
+					const t_parse *data, const t_vector *v_ray);
+t_obj_ray_hit	*render_cylinder(const t_obj *obj,
 					const t_parse *data, const t_vector *v_ray);
 
 #endif
