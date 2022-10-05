@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 12:58:52 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/05 00:11:37 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/05 16:31:17 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ unsigned int	render_per_pixel(int x, int y, t_parse *data)
 	color = 0;
 	if (obj_hit)
 	{
-		color = render_light(data, obj_hit);
+		color = render_light(data, obj_hit, v_ray);
 		free(obj_hit);
 	}
 	return (color);
