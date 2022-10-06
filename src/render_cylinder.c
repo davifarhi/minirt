@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 16:17:20 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/05 21:40:56 by davifah          ###   ########.fr       */
+/*   Updated: 2022/10/06 12:33:20 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,26 @@ t_vector	v_sub(const t_vector v1, const t_vector v2)
 	v.x = v1.x - v2.x;
 	v.y = v1.y - v2.y;
 	v.z = v1.z - v2.z;
+	return (v);
+}
+
+t_vector	v_add(const t_vector v1, const t_vector v2)
+{
+	t_vector	v;
+
+	v.x = v1.x + v2.x;
+	v.y = v1.y + v2.y;
+	v.z = v1.z + v2.z;
+	return (v);
+}
+
+t_vector	coord_to_vector(t_coord c)
+{
+	t_vector	v;
+
+	v.x = c.x;
+	v.y = c.y;
+	v.z = c.z;
 	return (v);
 }
 
@@ -112,13 +132,8 @@ static t_quadratic_equation	cylinder_get_quad_abc(const t_obj *obj,
 	return (abc);
 }
 
-int	cylinder_calc_t_param_hit(const t_quadratic_equation *abc, double dis, double *t)
+int	cylinder_calc_t_param_hit(const t_parse *data, const t_obj *obj, const t_vector *v_ray, double t[2])
 {
-	double	t_1;
-	double	t_2;
-
-	t_1 = (-abc->b + sqrt(dis)) / (2 * abc->a);
-	t_2 = (-abc->b - sqrt(dis)) / (2 * abc->a);
 	if (t_1 < 0 && t_2 < 0)
 		return (0);
 	//printf("mine  - a %lf b %lf c %lf t1 %lf t2 %lf\n", abc->a, abc->b, abc->c, t_1, t_2);
@@ -135,17 +150,34 @@ int	cylinder_calc_t_param_hit(const t_quadratic_equation *abc, double dis, doubl
 	return (1);
 }
 
+double	cylinder_limit_height(const t_parse *data, const t_obj *obj, const t_vector *v_ray, double t_int)
+{
+	t_vector	po;
+	t_vector	cy_v;
+	double		t;
+
+	if (t_int < 0)
+		return (-1);
+	cy_v = *((t_cylinder *)obj->param)->vector;
+	po = v_add(coord_to_vector(data->cam_coord), v_mult(*v_ray, t_int));
+	t = (dot_product(cy_v, po) - dot_product(cy_v, cy_v)) / dot_product(cy_v, cy_v);
+	// TODO
+	// normalize vector and verify if t > height
+}
+
 t_obj_ray_hit	*render_cylinder(const t_obj *obj, const t_parse *data, const t_vector *v_ray)
 {
 	t_quadratic_equation	abc;
 	t_obj_ray_hit			*obj_hit;
-	double					t_param;
+	double					t_param[2];
 	double					dis;
 
 	abc = cylinder_get_quad_abc(obj, data, v_ray);
 	dis = calculate_discriminant(&abc);
 	if (dis < 0 || !cylinder_calc_t_param_hit(&abc, dis, &t_param))
 		return (0);
+	t_param[0] = (-abc.b + sqrt(dis)) / (2 * abc.a);
+	t_param[1] = (-abc.b - sqrt(dis)) / (2 * abc.a);
 	obj_hit = malloc(sizeof(t_obj_ray_hit));
 	if (!obj_hit)
 		return (0);
