@@ -6,13 +6,13 @@
 #    By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/11 12:17:38 by dfarhi            #+#    #+#              #
-#    Updated: 2022/10/05 17:40:48 by davifah          ###   ########.fr        #
+#    Updated: 2022/10/10 12:31:07 by davifah          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FILES		= minirt
 
-FILES_D		= mlx_setup mlx_utils colors_utils render_loop vector_rotation math_utils render_setup render_sphere render_per_pixel render_plane render_cylinder
+FILES_D		= mlx_setup mlx_utils colors_utils render_loop vector_rotation math_utils render_setup render_sphere render_per_pixel render_plane render_cylinder vector_op1 vector_op2
 FILES_M		= 	parsing parsing_setup parsing_tab parsing_volumes errors free \
 				display parsing_utils parsing_range
 
