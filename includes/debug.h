@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:26:52 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/30 14:55:51 by davifah          ###   ########.fr       */
+/*   Updated: 2022/10/10 13:10:08 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@
 # define DEBUG_LOOP_PIXEL		0
 # define DEBUG_LOOP_FINISHED	0
 # define DEBUG_SHIFTED_VECTOR	0
-# define DEBUG_PRINT_SETUP		0
+# define DEBUG_PRINT_SETUP		1
 
 #endif
