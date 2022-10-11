@@ -6,13 +6,14 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/10/11 11:19:27 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/11 22:20:44 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "free.h"
 #include "parsing.h"
+#include "minirt_math.h"
 
 void	setup_init(t_parse	*setup)
 {
