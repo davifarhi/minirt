@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/26 17:51:39 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/11 11:18:52 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static void	make_cylinder_param(char **splitted, t_obj *cylinder)
 		if (newcylinder != NULL)
 			free(newcylinder);
 		tabfree(splitted);
-		printf("Error\n");
 		exit(EXIT_FAILURE);
 	}
 	vector = split_vector_p(splitted, 2);
