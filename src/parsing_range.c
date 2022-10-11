@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/27 17:23:23 by davifah          ###   ########.fr       */
+/*   Updated: 2022/10/11 11:16:45 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ void	color_errors(char **splitted, char **rgb)
 
 int	vector_is_in_range(t_vector vector)
 {
-	if (!(vector.x >= -1 && vector.x <= 1))
+	if (vector.x == 0 && vector.y == 0 && vector.z == 0)
+		return (1);
+	else if (!(vector.x >= -1 && vector.x <= 1))
 		return (1);
 	else if (!(vector.y >= -1 && vector.y <= 1))
 		return (1);
