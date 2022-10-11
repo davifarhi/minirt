@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/10/11 11:18:20 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/11 22:29:10 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "libft.h"
 #include "free.h"
 #include "parsing.h"
+#include "minirt_math.h"
 
 char	*enum_to_name(int type)
 {
@@ -74,13 +75,13 @@ t_vector	*split_vector_p(char **data, int index)
 	newvector->x = ft_atof(vector[0]);
 	newvector->y = ft_atof(vector[1]);
 	newvector->z = ft_atof(vector[2]);
+	v_normalize(newvector);
 	tabfree(vector);
 	if (vector_is_in_range(*newvector))
 	{
 		if (newvector != NULL)
 			free(newvector);
-		tabfree(data);
-		error_exit("Error\nVector data not in range -1 to 1 or is 0,0,0");
+		tabfree_exit("Error\nVector not in range -1 to 1 or is 0,0,0", data);
 	}
 	return (newvector);
 }
@@ -121,6 +122,7 @@ t_vector	split_vector(char **data, int index)
 	newvector.x = ft_atof(vector[0]);
 	newvector.y = ft_atof(vector[1]);
 	newvector.z = ft_atof(vector[2]);
+	v_normalize(&newvector);
 	tabfree(vector);
 	if (vector_is_in_range(newvector))
 	{
