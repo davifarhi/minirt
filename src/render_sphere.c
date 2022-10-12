@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/04 12:08:19 by davifah          ###   ########.fr       */
+/*   Updated: 2022/10/12 13:52:32 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,14 @@ t_quadratic_equation	sphere_get_quad_abc(
 		const t_obj *obj, const t_parse *data, const t_vector *v_ray)
 {
 	t_quadratic_equation	abc;
+	t_vector				a_plus_o;
 
-	abc.a = pow(v_ray->x, 2) + pow(v_ray->y, 2) + pow(v_ray->z, 2);
-	abc.b = 2.0 * (
-			v_ray->x * (data->cam_coord.x - obj->coord->x)
-			+ v_ray->y * (data->cam_coord.y - obj->coord->y)
-			+ v_ray->z * (data->cam_coord.z - obj->coord->z));
-	abc.c = pow(data->cam_coord.x + obj->coord->x, 2)
-		+ pow(data->cam_coord.y + obj->coord->y, 2)
-		+ pow(data->cam_coord.z + obj->coord->z, 2)
-		- pow(*((double *)obj->param), 2);
+	a_plus_o = v_add(*(t_vector *)&data->cam_coord, *(t_vector *)obj->coord);
+	print_v(a_plus_o);
+	abc.a = dot_product(*v_ray, *v_ray);
+	abc.b = 2 * (dot_product(*(t_vector *)&data->cam_coord, *v_ray)
+			- dot_product(*v_ray, *(t_vector *)obj->coord));
+	abc.c = dot_product(a_plus_o, a_plus_o) - pow(*(double *)obj->param, 2);
 	return (abc);
 }
 
