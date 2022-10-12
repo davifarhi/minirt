@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/04 12:08:19 by davifah          ###   ########.fr       */
+/*   Updated: 2022/10/12 13:57:42 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,22 @@
  *	Po = A + bt : parametric equation of a line
  *
  *	(bx² + by² + bz²)t² + 2(Ax*bx - bx*x + Ay*by - by*y + Azbz - bz*z)t +
- *		(Ax + x)² + (Ay + y)² + (Az + z)² - r² = 0
+ *		(Ax - x)² + (Ay - y)² + (Az - z)² - r² = 0
+ *
+ *	(b.b)t² + 2[(A.b) - (b.O)]t + ||A - O||² - r² = 0
 */
 
 t_quadratic_equation	sphere_get_quad_abc(
 		const t_obj *obj, const t_parse *data, const t_vector *v_ray)
 {
 	t_quadratic_equation	abc;
+	t_vector				v;
 
-	abc.a = pow(v_ray->x, 2) + pow(v_ray->y, 2) + pow(v_ray->z, 2);
-	abc.b = 2.0 * (
-			v_ray->x * (data->cam_coord.x - obj->coord->x)
-			+ v_ray->y * (data->cam_coord.y - obj->coord->y)
-			+ v_ray->z * (data->cam_coord.z - obj->coord->z));
-	abc.c = pow(data->cam_coord.x + obj->coord->x, 2)
-		+ pow(data->cam_coord.y + obj->coord->y, 2)
-		+ pow(data->cam_coord.z + obj->coord->z, 2)
-		- pow(*((double *)obj->param), 2);
+	v = v_sub(*(t_vector *)&data->cam_coord, *(t_vector *)obj->coord);
+	abc.a = dot_product(*v_ray, *v_ray);
+	abc.b = 2 * (dot_product(*(t_vector *)&data->cam_coord, *v_ray)
+			- dot_product(*v_ray, *(t_vector *)obj->coord));
+	abc.c = dot_product(v, v) - pow(*(double *)obj->param, 2);
 	return (abc);
 }
 
