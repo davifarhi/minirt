@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/10/11 22:29:10 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/12 14:11:14 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,6 @@ t_vector	split_vector(char **data, int index)
 	v_normalize(&newvector);
 	tabfree(vector);
 	if (vector_is_in_range(newvector))
-	{
-		tabfree(data);
-		error_exit("Error\nVector data not in range -1 to 1 or is 0,0,0");
-	}
+		tabfree_exit("Error\nVector not in range -1 to 1 or is 0,0,0", data);
 	return (newvector);
 }

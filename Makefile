@@ -6,15 +6,15 @@
 #    By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/11 12:17:38 by dfarhi            #+#    #+#              #
-#    Updated: 2022/10/11 22:25:40 by mreymond         ###   ########.fr        #
+#    Updated: 2022/10/12 14:46:53 by mreymond         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FILES		= minirt
 
-FILES_D		= mlx_setup mlx_utils colors_utils render_loop vector_rotation math_utils render_setup render_sphere render_per_pixel render_plane vector_op1 vector_op2
+FILES_D		= mlx_setup mlx_utils colors_utils render_loop vector_rotation math_utils render_setup render_sphere render_per_pixel render_plane render_cylinder vector_op1 vector_op2
 FILES_M		= 	parsing parsing_setup parsing_tab parsing_volumes errors free \
-				display parsing_utils parsing_range render_lights
+				display parsing_utils parsing_range render_lights render_shadows
 
 FILES		:= $(FILES) $(FILES_D) $(FILES_M)
 FILES		:= $(addprefix src/, ${FILES})

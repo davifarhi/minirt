@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 19:14:53 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/03 20:47:38 by davifah          ###   ########.fr       */
+/*   Updated: 2022/10/10 12:53:56 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,5 @@ t_vector	render_get_camera_direction(
 	if (DEBUG_SHIFTED_VECTOR)
 		printf("%dx%d - shifted\n(%f,%f,%f) - pos x %.1lf; y %.1lf\n",
 			x, y, v2.x, v2.y, v2.z, x_pos, y_pos);
-	return (v2);
+	return (v_normalize(&v2));
 }
