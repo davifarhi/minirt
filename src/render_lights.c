@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/11 23:39:53 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/12 14:08:16 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int	additive_light(int obj_color, float intensity, int ambiant_color)
 	int	b;
 	int	mix;
 
-	r = (get_r(obj_color) + get_r(ambiant_color)) * intensity;
-	g = (get_g(obj_color) + get_g(ambiant_color)) * intensity;
-	b = (get_b(obj_color) + get_b(ambiant_color)) * intensity;
+	r = get_r(obj_color) + get_r(ambiant_color) * intensity;
+	g = get_g(obj_color) + get_g(ambiant_color) * intensity;
+	b = get_b(obj_color) + get_b(ambiant_color) * intensity;
 	if (r > 255)
 		r = 255;
 	if (g > 255)
@@ -61,9 +61,9 @@ t_vector	find_normal_vector(t_coord point, t_obj_ray_hit *obj_hit)
 	}
 	else if (obj_hit->obj->type == Plan)
 	{
-		normal.x = ((t_vector *)obj_hit->obj->param)->x;
-		normal.y = ((t_vector *)obj_hit->obj->param)->y;
-		normal.z = ((t_vector *)obj_hit->obj->param)->z;
+		normal.x = point.x - ((t_vector *)obj_hit->obj->param)->x;
+		normal.y = point.y - ((t_vector *)obj_hit->obj->param)->y;
+		normal.z = point.z - ((t_vector *)obj_hit->obj->param)->z;
 	}
 	else
 	{
@@ -147,7 +147,7 @@ int	render_light(t_parse *data, t_obj_ray_hit *obj_hit, t_vector v_ray)
 	add_light = spot_light(data, obj_hit, v_ray);
 	// (void) v_ray;
 	// add_light = obj_hit->obj->color;
-	add_ambiant = multiply_light(add_light,
+	add_ambiant = additive_light(add_light,
 			data->ambient_intensity, data->ambient_color);
 	return (add_ambiant);
 }
