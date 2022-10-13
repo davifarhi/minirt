@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/12 13:57:42 by davifah          ###   ########.fr       */
+/*   Updated: 2022/10/13 12:40:06 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@
  *	(b.b)t² + 2[(A.b) - (b.O)]t + ||A - O||² - r² = 0
 */
 
-t_quadratic_equation	sphere_get_quad_abc(
-		const t_obj *obj, const t_parse *data, const t_vector *v_ray)
+static t_quadratic_equation	sphere_get_quad_abc(
+		const t_obj *obj, const t_coord *ray_origin, const t_vector *v_ray)
 {
 	t_quadratic_equation	abc;
 	t_vector				v;
 
-	v = v_sub(*(t_vector *)&data->cam_coord, *(t_vector *)obj->coord);
+	v = v_sub(*(t_vector *)ray_origin, *(t_vector *)obj->coord);
 	abc.a = dot_product(*v_ray, *v_ray);
-	abc.b = 2 * (dot_product(*(t_vector *)&data->cam_coord, *v_ray)
+	abc.b = 2 * (dot_product(*(t_vector *)ray_origin, *v_ray)
 			- dot_product(*v_ray, *(t_vector *)obj->coord));
 	abc.c = dot_product(v, v) - pow(*(double *)obj->param, 2);
 	return (abc);
@@ -66,14 +66,14 @@ int	calculate_t_param_hit(const t_quadratic_equation *abc,
 }
 
 t_obj_ray_hit	*render_sphere(const t_obj *obj,
-		const t_parse *data, const t_vector *v_ray)
+		const t_coord *ray_origin, const t_vector *v_ray)
 {
 	t_quadratic_equation	abc;
 	t_obj_ray_hit			*obj_hit;
 	double					dis;
 	double					t_param;
 
-	abc = sphere_get_quad_abc(obj, data, v_ray);
+	abc = sphere_get_quad_abc(obj, ray_origin, v_ray);
 	dis = calculate_discriminant(&abc);
 	if (dis < 0 || !calculate_t_param_hit(&abc, dis, &t_param))
 		return (0);
