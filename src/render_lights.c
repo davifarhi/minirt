@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/13 12:27:55 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:44:35 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,6 @@
 #include "lights.h"
 #include "minirt_math.h"
 #include <math.h>
-
-int	additive_light(int obj_color, float intensity, int ambiant_color)
-{
-	int	r;
-	int	g;
-	int	b;
-	int	mix;
-
-	r = get_r(obj_color) + get_r(ambiant_color) * intensity;
-	g = get_g(obj_color) + get_g(ambiant_color) * intensity;
-	b = get_b(obj_color) + get_b(ambiant_color) * intensity;
-	if (r > 255)
-		r = 255;
-	if (g > 255)
-		g = 255;
-	if (b > 255)
-		b = 255;
-	mix = create_trgb(1, r, g, b);
-	return (mix);
-}
 
 t_coord	sphere_hit_point(t_parse *data, t_obj_ray_hit *obj_hit, t_vector v_ray)
 {
@@ -83,20 +63,6 @@ float	make_light_len(t_coord point, t_coord light)
 	return (len);
 }
 
-int	mix_color(int color, float i)
-{
-	int	r;
-	int	g;
-	int	b;
-	int	mix;
-
-	r = get_r(color) * i;
-	g = get_g(color) * i;
-	b = get_b(color) * i;
-	mix = create_trgb(1, r, g, b);
-	return (mix);
-}
-
 int	spot_light(t_parse *data, t_obj_ray_hit *obj_hit, t_vector v_ray)
 {
 	t_coord		point;
@@ -141,20 +107,6 @@ int	spot_light(t_parse *data, t_obj_ray_hit *obj_hit, t_vector v_ray)
 		}
 	}
 	return (mix_color(obj_hit->obj->color, i) * is_in_shadow(light, point, data, normal));
-}
-
-int	multiply_light(int obj_color, float intensity, int ambiant_color)
-{
-	int	r;
-	int	g;
-	int	b;
-	int	mix;
-
-	r = ((get_r(obj_color) * get_r(ambiant_color)) / 255) * intensity;
-	g = ((get_g(obj_color) * get_g(ambiant_color)) / 255) * intensity;
-	b = ((get_b(obj_color) * get_b(ambiant_color)) / 255) * intensity;
-	mix = create_trgb(1, r, g, b);
-	return (mix);
 }
 
 int	render_light(t_parse *data, t_obj_ray_hit *obj_hit, t_vector v_ray)

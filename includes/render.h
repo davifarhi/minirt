@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:49 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/05 17:40:35 by davifah          ###   ########.fr       */
+/*   Updated: 2022/10/13 12:40:32 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,10 @@ unsigned int	render_per_pixel(int x, int y, t_parse *data);
 t_render_data	*render_setup_data(t_parse *setup);
 void			free_render_data(t_render_data *r);
 
-//render sphere test
-t_obj			*create_sphere(t_coord coord, double radius, int color);
 t_obj_ray_hit	*render_sphere(const t_obj *obj,
-					const t_parse *data, const t_vector *v_ray);
+					const t_coord *ray_origin, const t_vector *v_ray);
 t_obj_ray_hit	*render_plane(const t_obj *obj,
-					const t_parse *data, const t_vector *v_ray);
+					const t_coord *ray_origin, const t_vector *v_ray);
 t_obj_ray_hit	*render_cylinder(const t_obj *obj,
 					const t_parse *data, const t_vector *v_ray);
 
