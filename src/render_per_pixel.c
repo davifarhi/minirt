@@ -6,13 +6,14 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 12:58:52 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/13 14:50:49 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/13 22:01:42 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "render.h"
 #include "lights.h"
+#include "debug.h"
 
 static void	new_obj_hit(t_obj_ray_hit **obj_hit, t_obj_ray_hit *obj_new)
 {
@@ -58,6 +59,8 @@ unsigned int	render_per_pixel(int x, int y, t_parse *data)
 	if (obj_hit)
 	{
 		color = render_light(data, obj_hit, v_ray);
+		if (DEBUG_LIGHT_OFF)
+			color = obj_hit->obj->color;
 		free(obj_hit);
 	}
 	return (color);

@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:26:52 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/12 14:12:30 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/13 23:21:03 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,6 @@
 # define DEBUG_LOOP_FINISHED	0
 # define DEBUG_SHIFTED_VECTOR	0
 # define DEBUG_PRINT_SETUP		0
+# define DEBUG_LIGHT_OFF		0
 
 #endif

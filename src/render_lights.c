@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/13 15:44:35 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/13 23:40:16 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "minirt_math.h"
 #include <math.h>
 
-t_coord	sphere_hit_point(t_parse *data, t_obj_ray_hit *obj_hit, t_vector v_ray)
+t_coord	hit_point(t_parse *data, t_obj_ray_hit *obj_hit, t_vector v_ray)
 {
 	t_coord		point;
 
@@ -73,7 +73,7 @@ int	spot_light(t_parse *data, t_obj_ray_hit *obj_hit, t_vector v_ray)
 	float		len;
 
 	i = 0.0;
-	point = sphere_hit_point(data, obj_hit, v_ray);
+	point = hit_point(data, obj_hit, v_ray);
 	normal = find_normal_vector(data, point, obj_hit);
 	v_normalize(&normal);
 	light.x = data->light_coord.x - point.x;
@@ -106,7 +106,8 @@ int	spot_light(t_parse *data, t_obj_ray_hit *obj_hit, t_vector v_ray)
 				i = 1;
 		}
 	}
-	return (mix_color(obj_hit->obj->color, i) * is_in_shadow(light, point, data, normal));
+	return (mix_color(obj_hit->obj->color, i)
+		* is_in_shadow(light, point, data, normal, obj_hit));
 }
 
 int	render_light(t_parse *data, t_obj_ray_hit *obj_hit, t_vector v_ray)
