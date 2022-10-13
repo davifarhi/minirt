@@ -6,12 +6,14 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 15:34:01 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/04 12:09:47 by davifah          ###   ########.fr       */
+/*   Updated: 2022/10/13 12:33:46 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "render.h"
+#include "minirt_math.h"
+#include <math.h>
 
 /*
  *	Plane Math:
@@ -30,15 +32,12 @@ t_obj_ray_hit	*render_plane(const t_obj *obj,
 	double			t_param;
 	double			denominator;
 
-	denominator = ((t_vector *)obj->param)->x * v_ray->x
-		+ ((t_vector *)obj->param)->y * v_ray->y
-		+ ((t_vector *)obj->param)->z * v_ray->z;
+	denominator = dot_product(*(t_vector *)obj->param, *v_ray);
 	if (!denominator)
 		return (0);
-	t_param = ((t_vector *)obj->param)->x * (obj->coord->x - data->cam_coord.x)
-		+ ((t_vector *)obj->param)->y * (obj->coord->y - data->cam_coord.y)
-		+ ((t_vector *)obj->param)->z * (obj->coord->z - data->cam_coord.z);
-	t_param = t_param / denominator;
+	t_param = dot_product(*(t_vector *)obj->param,
+			v_sub(*(t_vector *)obj->coord, *(t_vector *)&data->cam_coord))
+		/ denominator;
 	if (t_param < 0)
 		return (0);
 	obj_hit = malloc(sizeof(t_obj_ray_hit));
