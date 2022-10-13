@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 12:58:52 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/05 17:41:21 by davifah          ###   ########.fr       */
+/*   Updated: 2022/10/13 12:41:17 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ unsigned int	render_per_pixel(int x, int y, t_parse *data)
 	while (tmp)
 	{
 		if (((t_obj *)tmp->content)->type == Sphere)
-			new_obj_hit(&obj_hit, render_sphere(tmp->content, data, &v_ray));
+			new_obj_hit(&obj_hit, render_sphere(tmp->content,
+					&data->cam_coord, &v_ray));
 		if (((t_obj *)tmp->content)->type == Plan)
-			new_obj_hit(&obj_hit, render_plane(tmp->content, data, &v_ray));
+			new_obj_hit(&obj_hit, render_plane(tmp->content,
+					&data->cam_coord, &v_ray));
 		if (((t_obj *)tmp->content)->type == Cylinder)
 			new_obj_hit(&obj_hit, render_cylinder(tmp->content, data, &v_ray));
 		tmp = tmp->next;

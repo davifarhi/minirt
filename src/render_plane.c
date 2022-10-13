@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 15:34:01 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/13 12:33:46 by davifah          ###   ########.fr       */
+/*   Updated: 2022/10/13 12:37:14 by davifah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 */
 
 t_obj_ray_hit	*render_plane(const t_obj *obj,
-		const t_parse *data, const t_vector *v_ray)
+		const t_coord *ray_origin, const t_vector *v_ray)
 {
 	t_obj_ray_hit	*obj_hit;
 	double			t_param;
@@ -36,7 +36,7 @@ t_obj_ray_hit	*render_plane(const t_obj *obj,
 	if (!denominator)
 		return (0);
 	t_param = dot_product(*(t_vector *)obj->param,
-			v_sub(*(t_vector *)obj->coord, *(t_vector *)&data->cam_coord))
+			v_sub(*(t_vector *)obj->coord, *(t_vector *)ray_origin))
 		/ denominator;
 	if (t_param < 0)
 		return (0);
