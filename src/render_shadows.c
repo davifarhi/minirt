@@ -6,9 +6,10 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/13 15:41:54 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/13 19:21:58 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minirt.h"
 #include "render.h"
