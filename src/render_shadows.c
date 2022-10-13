@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/13 19:21:58 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/13 19:28:22 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	is_in_shadow(t_vector light, t_coord point, t_parse *data, t_vector normal)
 	{
 		obj_hit = 0;
 		if (((t_obj *)tmp->content)->type == Sphere)
-			obj_hit = render_sphere_s(tmp->content, &light, point);
+			obj_hit = render_sphere(tmp->content, &point, &light);
 		if (((t_obj *)tmp->content)->type == Plan)
 			obj_hit = render_plane_s(tmp->content, &light, point);
 		if (obj_hit != 0 && (*obj_hit).t > 0 && (*obj_hit).t < t)
