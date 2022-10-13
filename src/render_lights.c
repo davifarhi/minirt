@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/12 19:57:34 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/13 12:27:55 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ int	spot_light(t_parse *data, t_obj_ray_hit *obj_hit, t_vector v_ray)
 		r.x = (2 * normal.x * scalaire) - light.x;
 		r.y = (2 * normal.y * scalaire) - light.y;
 		r.z = (2 * normal.z * scalaire) - light.z;
-		// printf("--------%f\n", i);
 		v_normalize(&r);
 		double scalaire_s = dot_product(v_ray, r);
 		if (scalaire_s < 0)
@@ -141,7 +140,7 @@ int	spot_light(t_parse *data, t_obj_ray_hit *obj_hit, t_vector v_ray)
 				i = 1;
 		}
 	}
-	return (mix_color(obj_hit->obj->color, i) * closest_obj(light, point, data, normal));
+	return (mix_color(obj_hit->obj->color, i) * is_in_shadow(light, point, data, normal));
 }
 
 int	multiply_light(int obj_color, float intensity, int ambiant_color)
@@ -164,8 +163,6 @@ int	render_light(t_parse *data, t_obj_ray_hit *obj_hit, t_vector v_ray)
 	int	add_light;
 
 	add_light = spot_light(data, obj_hit, v_ray);
-	// (void) v_ray;
-	// add_light = obj_hit->obj->color;
 	add_ambiant = additive_light(add_light,
 			data->ambient_intensity, data->ambient_color);
 	return (add_ambiant);

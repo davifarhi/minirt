@@ -1,7 +1,7 @@
 #	Ambient light
 #	-------------
 #	intensity				color
-A 	0.1						0,0,255
+A 	0,5						0,0,255
 
 #	Camera
 #	------
