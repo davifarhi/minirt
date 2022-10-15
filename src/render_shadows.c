@@ -6,10 +6,9 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/14 00:42:16 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/15 11:54:59 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minirt.h"
 #include "render.h"
@@ -17,13 +16,8 @@
 #include "lights.h"
 #include <math.h>
 
-// light ok a droite 0.061723 (pas de hit)
-// light ok mais proche du plan -0.001291 (pas de hit)
-// light pas ok a gauche -0.45054 (hit)
-// light pas ok mais proche du plan -0.070018 (hit)
-
-
-t_obj_ray_hit	*render_plane_s(const t_obj *obj, const t_vector *v_ray, t_coord point)
+static t_obj_ray_hit	*render_plane_s(const t_obj *obj,
+	const t_vector *v_ray, t_coord point)
 {
 	t_obj_ray_hit	*obj_hit;
 	double			t_param;
@@ -35,32 +29,7 @@ t_obj_ray_hit	*render_plane_s(const t_obj *obj, const t_vector *v_ray, t_coord p
 	denominator = ((t_vector *)obj->param)->x * v_ray->x
 		+ ((t_vector *)obj->param)->y * v_ray->y
 		+ ((t_vector *)obj->param)->z * v_ray->z;
-	if (denominator > 0)
-		return (0);
-	t_param = ((t_vector *)obj->param)->x * (obj->coord->x - point.x)
-		+ ((t_vector *)obj->param)->y * (obj->coord->y - point.y)
-		+ ((t_vector *)obj->param)->z * (obj->coord->z - point.z);
-	t_param = t_param / denominator;
-	if (t_param < 0)
-		return (0);
-	obj_hit = malloc(sizeof(t_obj_ray_hit));
-	if (!obj_hit)
-		return (0);
-	obj_hit->t = t_param;
-	obj_hit->obj = obj;
-	return (obj_hit);
-}
-
-t_obj_ray_hit	*render_plane_s_test(const t_obj *obj, const t_vector *v_ray, t_coord point)
-{
-	t_obj_ray_hit	*obj_hit;
-	double			t_param;
-	double			denominator;
-
-	denominator = ((t_vector *)obj->param)->x * v_ray->x
-		+ ((t_vector *)obj->param)->y * v_ray->y
-		+ ((t_vector *)obj->param)->z * v_ray->z;
-	if (denominator == 0)
+	if (denominator < 1)
 		return (0);
 	t_param = ((t_vector *)obj->param)->x * (obj->coord->x - point.x)
 		+ ((t_vector *)obj->param)->y * (obj->coord->y - point.y)
@@ -77,44 +46,31 @@ t_obj_ray_hit	*render_plane_s_test(const t_obj *obj, const t_vector *v_ray, t_co
 }
 
 // This function determines if the pixel is in shadow
-int	is_in_shadow(t_vector light, t_coord point, t_parse *data, t_vector normal, t_obj_ray_hit *obj)
+int	is_in_shadow(t_vector light, t_coord point, t_parse *data, t_vector normal)
 {
 	t_list			*tmp;
 	t_obj_ray_hit	*obj_hit;
 	float			t;
-	float			dist;
 
-	(void)obj;
 	tmp = data->volumes;
 	v_normalize(&light);
 	point.x = point.x + normal.x;
 	point.y = point.y + normal.y;
 	point.z = point.z + normal.z;
-	dist = distance(&(data->light_coord), &point);
-	if (obj->obj->type == Plan)
-		t = MAXFLOAT;
-	else
-		t = dist;
+	t = MAXFLOAT;
 	while (tmp)
 	{
 		obj_hit = 0;
 		if (((t_obj *)tmp->content)->type == Sphere)
 			obj_hit = render_sphere(tmp->content, &point, &light);
 		if (((t_obj *)tmp->content)->type == Plan)
-		{
-			if (tmp->content == obj->obj)
-				obj_hit = render_plane_s(tmp->content, &light, point);
-			else
-				obj_hit = render_plane_s_test(tmp->content, &light, point);
-		}
+			obj_hit = render_plane_s(tmp->content, &light, point);
 		if (obj_hit != 0 && obj_hit->t > 0 && obj_hit->t < t)
 			t = obj_hit->t;
 		tmp = tmp->next;
 		free(obj_hit);
 	}
-	if (obj->obj->type == Plan && t < MAXFLOAT)
-		return (0);
-	if (obj->obj->type == Sphere && t + 3.5 <= dist)
+	if (t < MAXFLOAT)
 		return (0);
 	return (1);
 }
