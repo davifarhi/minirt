@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/18 13:20:36 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/18 17:57:12 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 #include "minirt_math.h"
 #include <math.h>
 
-t_coord	hit_point(t_parse *data, t_obj_ray_hit *obj_hit, t_vector v_ray)
+t_coord	hit_point(t_coord origin, t_obj_ray_hit *obj_hit, t_vector v_ray)
 {
 	t_coord		point;
 
-	point.x = data->cam_coord.x + (obj_hit->t * v_ray.x);
-	point.y = data->cam_coord.y + (obj_hit->t * v_ray.y);
-	point.z = data->cam_coord.z + (obj_hit->t * v_ray.z);
+	point.x = origin.x + (obj_hit->t * v_ray.x);
+	point.y = origin.y + (obj_hit->t * v_ray.y);
+	point.z = origin.z + (obj_hit->t * v_ray.z);
 	return (point);
 }
 
@@ -45,9 +45,9 @@ t_vector	find_normal_vector(t_parse *data,
 	}
 	else
 	{
-		normal.x = point.x - ((t_cylinder *)obj_hit->obj->param)->vector->x;
-		normal.y = point.y - ((t_cylinder *)obj_hit->obj->param)->vector->y;
-		normal.z = point.z - ((t_cylinder *)obj_hit->obj->param)->vector->z;
+		normal.x = point.x - obj_hit->obj->coord->x;
+		normal.y = point.y - obj_hit->obj->coord->y;
+		normal.z = point.z - obj_hit->obj->coord->z;
 	}
 	return (normal);
 }
