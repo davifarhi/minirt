@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/18 18:33:35 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/18 18:34:31 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ float	specular_light(t_parse *data, t_obj_ray_hit *obj_hit,
 				* (pow(scalaire / (distance(NULL, (t_coord *)(&r))
 							* distance(NULL, (t_coord *)(&v_ray))), 50)));
 	}
-	// if (obj_hit->obj->type == Plan)
-	// 	light_value = 0.0;
+	if (obj_hit->obj->type == Plan)
+		light_value = 0.0;
 	return (light_value);
 }
 
