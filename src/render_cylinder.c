@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 16:17:20 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/18 17:36:22 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/10/18 18:03:08 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include "render.h"
 #include <math.h>
 #include "debug.h"
+
+void	cy_set_is_cap(t_obj *obj, int i);
 
 static t_quadratic_equation	cylinder_get_quad_abc(const t_obj *obj,
 		const t_coord *ray_origin, const t_vector *v_ray)
@@ -35,7 +37,7 @@ static t_quadratic_equation	cylinder_get_quad_abc(const t_obj *obj,
 	return (abc);
 }
 
-double	cylinder_limit_height(const t_coord *ray_origin,
+static double	cylinder_limit_height(const t_coord *ray_origin,
 		const t_obj *obj, const t_vector *v_ray, double t_int)
 {
 	t_vector	po;
@@ -55,7 +57,7 @@ double	cylinder_limit_height(const t_coord *ray_origin,
 	return (-1);
 }
 
-void	cylinder_caps(double t[2], const t_obj *obj,
+static void	cylinder_caps(double t[2], const t_obj *obj,
 		const t_coord *ray_origin, const t_vector *v_ray)
 {
 	t_vector	po;
@@ -80,7 +82,7 @@ void	cylinder_caps(double t[2], const t_obj *obj,
 		t[1] = pl_t;
 }
 
-int	cylinder_calc_t_param_hit(const double t[2])
+static int	cylinder_calc_t_param_hit(const double t[2])
 {
 	double	t_1;
 	double	t_2;
@@ -124,6 +126,7 @@ t_obj_ray_hit	*render_cylinder(const t_obj *obj,
 	obj_hit = malloc(sizeof(t_obj_ray_hit));
 	if (!obj_hit)
 		return (0);
+	cy_set_is_cap((t_obj *)obj, cylinder_calc_t_param_hit(t_param));
 	obj_hit->t = t_param[cylinder_calc_t_param_hit(t_param)];
 	obj_hit->obj = obj;
 	return (obj_hit);
