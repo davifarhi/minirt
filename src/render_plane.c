@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 15:34:01 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/13 12:37:14 by davifah          ###   ########.fr       */
+/*   Updated: 2022/10/18 16:47:43 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,29 @@
  * t = (a(x - Ax) + b(y - Ay) + c(z - Az)) / ((a * bx) + (b + by) + (c + bz))
 */
 
+double	plane_intersection(t_vector pl_dir, t_coord pl_origin,
+		t_vector ray_dir, t_coord ray_origin)
+{
+	double			t_param;
+	double			denominator;
+
+	denominator = dot_product(pl_dir, ray_dir);
+	if (!denominator)
+		return (-1000);
+	t_param = dot_product(pl_dir, v_sub(*(t_vector *)&pl_origin,
+				*(t_vector *)&ray_origin))
+		/ denominator;
+	return (t_param);
+}
+
 t_obj_ray_hit	*render_plane(const t_obj *obj,
 		const t_coord *ray_origin, const t_vector *v_ray)
 {
 	t_obj_ray_hit	*obj_hit;
 	double			t_param;
-	double			denominator;
 
-	denominator = dot_product(*(t_vector *)obj->param, *v_ray);
-	if (!denominator)
-		return (0);
-	t_param = dot_product(*(t_vector *)obj->param,
-			v_sub(*(t_vector *)obj->coord, *(t_vector *)ray_origin))
-		/ denominator;
+	t_param = plane_intersection(*(t_vector *)obj->param,
+			*obj->coord, *v_ray, *ray_origin);
 	if (t_param < 0)
 		return (0);
 	obj_hit = malloc(sizeof(t_obj_ray_hit));

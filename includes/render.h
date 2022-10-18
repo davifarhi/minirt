@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:49 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/18 14:02:49 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/10/18 16:48:37 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void			free_render_data(t_render_data *r);
 
 t_obj_ray_hit	*render_sphere(const t_obj *obj,
 					const t_coord *ray_origin, const t_vector *v_ray);
+double			plane_intersection(t_vector pl_dir, t_coord pl_origin,
+					t_vector ray_dir, t_coord ray_origin);
 t_obj_ray_hit	*render_plane(const t_obj *obj,
 					const t_coord *ray_origin, const t_vector *v_ray);
 t_obj_ray_hit	*render_cylinder(const t_obj *obj,
