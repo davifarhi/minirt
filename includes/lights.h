@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:49 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/15 11:53:37 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/18 13:53:28 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "minirt.h"
 # include "render.h"
+
+# define WHITE 33554431
 
 //render_lights
 int			render_light(t_parse *data, t_obj_ray_hit *obj_hit, t_vector v_ray);

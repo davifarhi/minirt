@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/15 11:54:44 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/18 14:08:56 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ int	render_light(t_parse *data, t_obj_ray_hit *obj_hit, t_vector v_ray)
 	light.y = data->light_coord.y - point.x;
 	light.z = data->light_coord.z - point.z;
 	light_indice = spot_light(data, point, normal, light);
-	light_indice += specular_light(data, obj_hit, v_ray, light);
-	if (light_indice > 1)
-			light_indice = 1;
-	light_value = mix_color(obj_hit->obj->color, light_indice)
+	light_value = multiply_light(obj_hit->obj->color,
+			light_indice, data->light_color);
+	light_indice = specular_light(data, obj_hit, v_ray, light);
+	light_value = additive_light(light_value, light_indice, data->light_color)
 		* is_in_shadow(light, point, data, normal);
 	light_value = additive_light(light_value,
 			data->ambient_intensity, data->ambient_color);

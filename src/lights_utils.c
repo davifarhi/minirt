@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/15 11:51:46 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/18 13:20:36 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ t_vector	find_normal_vector(t_parse *data,
 	}
 	else
 	{
-		normal.x = 0;
-		normal.y = 0;
-		normal.z = 0;
+		normal.x = point.x - ((t_cylinder *)obj_hit->obj->param)->vector->x;
+		normal.y = point.y - ((t_cylinder *)obj_hit->obj->param)->vector->y;
+		normal.z = point.z - ((t_cylinder *)obj_hit->obj->param)->vector->z;
 	}
 	return (normal);
 }
