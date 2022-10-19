@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 12:58:52 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/13 22:01:42 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/18 14:02:19 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ unsigned int	render_per_pixel(int x, int y, t_parse *data)
 			new_obj_hit(&obj_hit, render_plane(tmp->content,
 					&data->cam_coord, &v_ray));
 		if (((t_obj *)tmp->content)->type == Cylinder)
-			new_obj_hit(&obj_hit, render_cylinder(tmp->content, data, &v_ray));
+			new_obj_hit(&obj_hit, render_cylinder(tmp->content,
+					&data->cam_coord, &v_ray));
 		tmp = tmp->next;
 	}
 	color = 0;
