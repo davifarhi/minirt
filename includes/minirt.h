@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/09/30 14:26:41 by davifah          ###   ########.fr       */
+/*   Updated: 2022/10/18 17:54:19 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_cylinder
 	t_vector	*vector;
 	double		diameter;
 	double		height;
+	char		is_cap;
 }	t_cylinder;
 
 typedef struct s_data
