@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   render_plane.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
+/*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 15:34:01 by davifah           #+#    #+#             */
 /*   Updated: 2022/10/18 16:47:43 by dfarhi           ###   ########.fr       */

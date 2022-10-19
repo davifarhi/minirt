@@ -16,7 +16,8 @@
 # define DEBUG_LOOP_PIXEL		0
 # define DEBUG_LOOP_FINISHED	0
 # define DEBUG_SHIFTED_VECTOR	0
-# define DEBUG_PRINT_SETUP		1
+# define DEBUG_PRINT_SETUP		0
+# define DEBUG_LIGHT_OFF		0
 # define DEBUG_INFINITE_CY		0
 
 #endif
