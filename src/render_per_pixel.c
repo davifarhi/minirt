@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 12:58:52 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/18 14:02:19 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/10/20 13:11:01 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,36 +33,43 @@ static void	new_obj_hit(t_obj_ray_hit **obj_hit, t_obj_ray_hit *obj_new)
 	}
 }
 
-unsigned int	render_per_pixel(int x, int y, t_parse *data)
+void	calculate_intersection(
+		t_vector *v_ray, t_parse *data, unsigned int *color)
 {
 	t_list			*tmp;
-	t_vector		v_ray;
 	t_obj_ray_hit	*obj_hit;
-	int				color;
 
 	tmp = data->volumes;
-	v_ray = render_get_camera_direction(data->cam_v, data->render, x, y);
 	obj_hit = 0;
 	while (tmp)
 	{
 		if (((t_obj *)tmp->content)->type == Sphere)
 			new_obj_hit(&obj_hit, render_sphere(tmp->content,
-					&data->cam_coord, &v_ray));
+					&data->cam_coord, v_ray));
 		if (((t_obj *)tmp->content)->type == Plan)
 			new_obj_hit(&obj_hit, render_plane(tmp->content,
-					&data->cam_coord, &v_ray));
+					&data->cam_coord, v_ray));
 		if (((t_obj *)tmp->content)->type == Cylinder)
 			new_obj_hit(&obj_hit, render_cylinder(tmp->content,
-					&data->cam_coord, &v_ray));
+					&data->cam_coord, v_ray));
 		tmp = tmp->next;
 	}
-	color = 0;
 	if (obj_hit)
 	{
-		color = render_light(data, obj_hit, v_ray);
+		*color = render_light(data, obj_hit, *v_ray);
 		if (DEBUG_LIGHT_OFF)
-			color = obj_hit->obj->color;
+			*color = obj_hit->obj->color;
 		free(obj_hit);
 	}
+}
+
+unsigned int	render_per_pixel(int x, int y, t_parse *data)
+{
+	t_vector		v_ray;
+	unsigned int	color;
+
+	v_ray = render_get_camera_direction(data->cam_v, data->render, x, y);
+	color = 0;
+	calculate_intersection(&v_ray, data, &color);
 	return (color);
 }
