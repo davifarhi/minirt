@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/19 13:10:28 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/20 13:24:08 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,25 @@ t_vector	find_normal_vector(t_parse *data,
 		normal.y = point.y - ((t_vector *)obj_hit->obj->param)->y;
 		normal.z = point.z - ((t_vector *)obj_hit->obj->param)->z;
 	}
+	else if (obj_hit->obj->type == Cylinder
+		&& ((t_cylinder *)obj_hit->obj->param)->is_cap == 0)
+	{
+		normal.x = point.x * -((t_cylinder *)obj_hit->obj->param)->vector->y;
+		normal.y = point.y * ((t_cylinder *)obj_hit->obj->param)->vector->x;
+		normal.z = point.z * ((t_cylinder *)obj_hit->obj->param)->vector->z;
+	}
+	else if (obj_hit->obj->type == Cylinder
+		&& ((t_cylinder *)obj_hit->obj->param)->is_cap == 1)
+	{
+		normal.x = point.x + ((t_cylinder *)obj_hit->obj->param)->vector->z;
+		normal.y = point.y;
+		normal.z = point.z - ((t_cylinder *)obj_hit->obj->param)->vector->x;
+	}
 	else
 	{
-		normal.x = point.x - obj_hit->obj->coord->x;
-		normal.y = point.y - obj_hit->obj->coord->y;
-		normal.z = point.z - obj_hit->obj->coord->z;
+		normal.x = 0;
+		normal.y = 0;
+		normal.z = 0;
 	}
 	return (normal);
 }
