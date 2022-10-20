@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/18 18:34:31 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/20 18:45:04 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,12 @@ float	specular_light(t_parse *data, t_obj_ray_hit *obj_hit,
 
 	light_value = 0.0;
 	point = hit_point(data->cam_coord, obj_hit, v_ray);
-	normal = find_normal_vector(data, point, obj_hit);
+	normal = find_normal_vector(point, obj_hit);
 	v_normalize(&normal);
 	scalaire = dot_product(normal, light);
 	r.x = (2 * normal.x * scalaire) - light.x;
 	r.y = (2 * normal.y * scalaire) - light.y;
 	r.z = (2 * normal.z * scalaire) - light.z;
-	v_normalize(&r);
 	scalaire = dot_product(v_ray, r);
 	if (scalaire < 0)
 	{
@@ -41,8 +40,6 @@ float	specular_light(t_parse *data, t_obj_ray_hit *obj_hit,
 				* (pow(scalaire / (distance(NULL, (t_coord *)(&r))
 							* distance(NULL, (t_coord *)(&v_ray))), 50)));
 	}
-	if (obj_hit->obj->type == Plan)
-		light_value = 0.0;
 	return (light_value);
 }
 
@@ -72,7 +69,7 @@ int	render_light(t_parse *data, t_obj_ray_hit *obj_hit, t_vector v_ray)
 
 	point = hit_point(data->cam_coord, obj_hit, v_ray);
 	light = v_sub(*(t_vector *)&data->light_coord, *(t_vector *)&point);
-	normal = find_normal_vector(data, point, obj_hit);
+	normal = find_normal_vector(point, obj_hit);
 	v_normalize(&normal);
 	point.x = point.x - v_ray.x * LEN;
 	point.y = point.y - v_ray.y * LEN;
