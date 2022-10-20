@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 19:14:53 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/12 15:48:59 by davifah          ###   ########.fr       */
+/*   Updated: 2022/10/20 13:24:17 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,6 @@
 #include "debug.h"
 #include "minirt_math.h"
 #include <math.h>
-
-static void	vector_rotate_x(t_vector *v, double x_angle)
-{
-	t_vector	v2;
-
-	x_angle = calculate_degree_to_radians(x_angle);
-	v2.x = v->x;
-	v2.y = v->y * cos(x_angle) - v->z * sin(x_angle);
-	v2.z = v->y * sin(x_angle) + v->z * cos(x_angle);
-	*v = v2;
-}
-
-static void	vector_rotate_y(t_vector *v, double y_angle)
-{
-	t_vector	v2;
-
-	y_angle = calculate_degree_to_radians(y_angle);
-	v2.x = v->x * cos(y_angle) + v->z * sin(y_angle);
-	v2.y = v->y;
-	v2.z = -v->x * sin(y_angle) + v->z * cos(y_angle);
-	*v = v2;
-}
 
 static void	setup_x_y_pos(
 		const t_render_data *render, double *x_pos, double *y_pos)
