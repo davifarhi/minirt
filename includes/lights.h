@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:49 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/20 18:44:26 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/20 23:12:14 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@
 
 # define WHITE 33554431
 # define LEN 0.0000001
+
+typedef struct s_l_data
+{
+	t_light			light;
+	t_coord			hit_point;
+	t_vector		normal;
+	t_vector		v_ray;
+	int				previus;
+	t_vector		v_light;
+	int				color;
+	t_obj_ray_hit	*obj_hit;
+}	t_l_data;
 
 //render_lights
 int			render_light(t_parse *data, t_obj_ray_hit *obj_hit, t_vector v_ray);

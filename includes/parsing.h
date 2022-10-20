@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/10/11 11:20:00 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/20 21:43:23 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void		color_errors(char **splitted, char **rgb);
 void		add_ambiant(char *line, t_parse *setup);
 void		add_cam(char *line, t_parse *setup);
 void		add_light(char *line, t_parse *setup);
+void    	add_lights(char *line, t_parse *setup);
 void		add_volume(char *line, t_parse *setup, int type);
 void		create_volume(char **line, t_parse *setup, t_obj *volume, int type);
 char		*enum_to_name(int type);

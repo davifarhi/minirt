@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/20 21:27:14 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/20 23:59:09 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ float	specular_light(t_parse *data, t_obj_ray_hit *obj_hit,
 	return (light_value);
 }
 
-static float	spot_light(t_parse *data,
+float	spot_light(t_parse *data,
 	t_coord point, t_vector normal, t_vector light)
 {
 	double		scalaire;
@@ -59,85 +59,95 @@ static float	spot_light(t_parse *data,
 	return (light_value);
 }
 
-float	spot_light_test(t_coord l_coord, double l_brightness,
-	t_coord point, t_vector normal, t_vector light)
+float	spot_light_test(t_l_data l)
 {
 	double		scalaire;
 	float		light_value;
 
 	light_value = 0.0;
-	scalaire = dot_product(normal, light);
+	scalaire = dot_product(l.normal, l.v_light);
 	if (scalaire > 0)
 	{
-		light_value = (l_brightness * scalaire)
-			/ distance(&point, &l_coord);
+		light_value = (l.light.intensity * scalaire)
+			/ distance(&(l.hit_point), l.light.coord);
 	}
+	return (light_value);
+}
+
+float	specular_light_test(t_l_data l)
+{
+	t_vector	r;
+	double		scalaire;
+	float		light_value;
+
+	light_value = 0.0;
+	scalaire = dot_product(l.normal, l.v_light);
+	r.x = (2 * l.normal.x * scalaire) - l.v_light.x;
+	r.y = (2 * l.normal.y * scalaire) - l.v_light.y;
+	r.z = (2 * l.normal.z * scalaire) - l.v_light.z;
+	scalaire = dot_product(l.v_ray, r);
+	if (scalaire < 0)
+	{
+		light_value = (l.light.intensity
+				* (pow(scalaire / (distance(NULL, (t_coord *)(&r))
+							* distance(NULL, (t_coord *)(&(l.v_ray)))), 50)));
+	}
+	return (light_value);
+}
+
+int	render_one_light(t_parse *data, t_l_data l, int i)
+{
+	int			light_value;
+	float		light_indice;
+
+	(void) i;
+	(void) data;
+	l.v_light = v_sub(*(t_vector *)&(l.light.coord),
+			*(t_vector *)&(l.hit_point));
+	// light_indice = spot_light_test(l);
+	light_indice = spot_light_test(l);
+	// if (i == 0)
+		light_value = multiply_light(l.color, light_indice, l.light.color);
+	// else
+	// 	light_value = additive_light(l.color, light_indice, l.light.color);
+	// light_indice = specular_light_test(l);
+	// light_indice = specular_light(data, l.obj_hit, l.v_ray, l.v_light);
+	// if (is_in_shadow(l.v_light, l.hit_point, data) != 0)
+	// 	light_value = additive_light(light_value, light_indice, l.light.color);
+	// else
+	// 	light_value = l.previus;
 	return (light_value);
 }
 
 int	render_light(t_parse *data, t_obj_ray_hit *obj_hit, t_vector v_ray)
 {
 	int			light_value;
-	float		light_indice;
-	t_coord		point;
-	t_vector	normal;
-	t_vector	light;
+	t_l_data	l;
+	t_list		*tmp;
+	int			i;
 
-	point = hit_point(data->cam_coord, obj_hit, v_ray);
-	light = v_sub(*(t_vector *)&data->light_coord, *(t_vector *)&point);
-	normal = find_normal_vector(point, obj_hit);
-	v_normalize(&normal);
-	point.x = point.x - v_ray.x * LEN;
-	point.y = point.y - v_ray.y * LEN;
-	point.z = point.z - v_ray.z * LEN;
-	light_indice = spot_light(data, point, normal, light);
-	light_value = multiply_light(obj_hit->obj->color,
-			light_indice, data->light_color);
-	light_indice = specular_light(data, obj_hit, v_ray, light);
-	if (is_in_shadow(light, point, data) != 0)
-		light_value = additive_light(light_value, light_indice, data->light_color);
-	else	
-		light_value = 0;
-
-	t_coord			l_coord;
-	double			l_brightness;
-	int				l_color;
-	int			old_value;
-	old_value = light_value;
-	l_coord.x = 25;
-	l_coord.y = 75;
-	l_coord.z = -95;
-	l_brightness = 1;
-	l_color = create_trgb(1, 0, 0, 255);
-	light = v_sub(*(t_vector *)&l_coord, *(t_vector *)&point);
-	light_indice = spot_light_test(l_coord, l_brightness, point, normal, light);
-	light_value = additive_light(light_value, light_indice, l_color);
-	light_indice = specular_light(data, obj_hit, v_ray, light);
-	if (is_in_shadow(light, point, data) != 0)
-		light_value = additive_light(light_value, light_indice, l_color);
-	else	
-		light_value = old_value;
-
-
-
-	old_value = light_value;
-	l_coord.x = 0;
-	l_coord.y = 75;
-	l_coord.z = -25;
-	l_brightness = 1;
-	l_color = create_trgb(1, 0, 255, 0);
-	light = v_sub(*(t_vector *)&l_coord, *(t_vector *)&point);
-	light_indice = spot_light_test(l_coord, l_brightness, point, normal, light);
-	light_value = additive_light(light_value, light_indice, l_color);
-	light_indice = specular_light(data, obj_hit, v_ray, light);
-	if (is_in_shadow(light, point, data) != 0)
-		light_value = additive_light(light_value, light_indice, l_color);
-	else	
-		light_value = old_value;
-
-
-			
-	
+	tmp = data->lights;
+	i = 0;
+	l.hit_point = hit_point(data->cam_coord, obj_hit, v_ray);
+	l.normal = find_normal_vector(l.hit_point, obj_hit);
+	v_normalize(&(l.normal));
+	l.hit_point.x = l.hit_point.x - v_ray.x * LEN;
+	l.hit_point.y = l.hit_point.y - v_ray.y * LEN;
+	l.hit_point.z = l.hit_point.z - v_ray.z * LEN;
+	l.v_ray = v_ray;
+	l.obj_hit = obj_hit;
+	l.previus = 0;
+	l.color = obj_hit->obj->color;
+	light_value = 0;
+	while (tmp)
+	{
+		l.light = *(t_light *)(tmp->content);
+		light_value = render_one_light(data, l, i);
+		l.previus = light_value;
+		l.color = light_value;
+		tmp = tmp->next;
+		i++;
+	}
 	light_value = additive_light(light_value,
 			data->ambient_intensity, data->ambient_color);
 	return (light_value);

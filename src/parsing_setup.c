@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/10/11 22:20:44 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/20 23:13:02 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +112,39 @@ void	add_light(char *line, t_parse *setup)
 	else
 		tabfree_exit("Error\nLight parameters are not conform",
 			splitted);
+}
+
+void	create_light(char **line, t_parse *setup, t_light *light)
+{
+	light->color = make_light_color(line, tab_len(line));
+	light->coord = split_coord_p(line, 1);
+	light->intensity = ft_atof(line[2]);
+	if (light_is_in_range(light->intensity))
+		error_exit("Error\nLight parameters are not in range 0-1");
+	if (!setup->lights)
+		setup->lights = ft_lstnew(light);
+	else
+		ft_lstadd_back(&(setup->lights), ft_lstnew(light));
+}
+
+void	add_lights(char *line, t_parse *setup)
+{
+	char	**splitted;
+	t_light	*light;
+
+	splitted = ft_split(line, ' ');
+	light = malloc(sizeof(t_light));
+	if (splitted == NULL || light == NULL || tab_len(splitted) != 4)
+	{
+		if (light != NULL)
+			free(light);
+		tabfree(splitted);
+		printf("Error\nLight \n");
+		error_exit("parameters are not conform");
+	}
+	else
+	{
+		create_light(splitted, setup, light);
+		tabfree(splitted);
+	}
 }

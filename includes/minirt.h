@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/10/18 17:54:19 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/10/20 23:12:29 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,13 @@ typedef struct s_data
 	int		endian;
 }	t_data;
 
+typedef struct s_light
+{
+	t_coord		*coord;
+	double		intensity;
+	int			color;
+}	t_light;
+
 typedef struct s_mlx
 {
 	void	*mlx;
@@ -88,6 +95,7 @@ typedef struct s_render_data
 typedef struct s_parse
 {
 	t_list			*volumes;
+	t_list			*lights;
 	unsigned char	is_there_cam;
 	t_coord			cam_coord;
 	t_vector		cam_v;
