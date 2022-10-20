@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:49 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/20 13:11:31 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/10/20 18:00:01 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # include "minirt.h"
 
-# define LINE_BY_LINE_RENDER 1
+# define LINE_BY_LINE_RENDER	1
+# define ANTIALIASING			1
 
 typedef struct s_quadratic_equation
 {
@@ -34,7 +35,7 @@ int				looper_mlx(void *param);
 t_vector		render_get_camera_direction(const t_vector v,
 					const t_render_data *render, int x, int y);
 void			calculate_intersection(
-					t_vector *v_ray, t_parse *data, unsigned int *color);
+					const t_vector *v_ray, t_parse *data, unsigned int *color);
 unsigned int	render_per_pixel(int x, int y, t_parse *data);
 
 //render_setup
@@ -49,5 +50,11 @@ t_obj_ray_hit	*render_plane(const t_obj *obj,
 					const t_coord *ray_origin, const t_vector *v_ray);
 t_obj_ray_hit	*render_cylinder(const t_obj *obj,
 					const t_coord *ray_origin, const t_vector *v_ray);
+
+// ANTIALIASING
+void			render_antialiasing(
+					int x, int y, const t_vector *v_ray, t_parse *data);
+unsigned int	aa_color_average(unsigned int color,
+					const t_render_data *render, int x, int y);
 
 #endif

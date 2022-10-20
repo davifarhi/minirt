@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 12:58:52 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/20 13:11:01 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/10/20 17:49:40 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	new_obj_hit(t_obj_ray_hit **obj_hit, t_obj_ray_hit *obj_new)
 }
 
 void	calculate_intersection(
-		t_vector *v_ray, t_parse *data, unsigned int *color)
+		const t_vector *v_ray, t_parse *data, unsigned int *color)
 {
 	t_list			*tmp;
 	t_obj_ray_hit	*obj_hit;
@@ -71,5 +71,6 @@ unsigned int	render_per_pixel(int x, int y, t_parse *data)
 	v_ray = render_get_camera_direction(data->cam_v, data->render, x, y);
 	color = 0;
 	calculate_intersection(&v_ray, data, &color);
-	return (color);
+	render_antialiasing(x, y, &v_ray, data);
+	return (aa_color_average(color, data->render, x, y));
 }

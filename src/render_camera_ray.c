@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector_rotation.c                                  :+:      :+:    :+:   */
+/*   render_camera_ray.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 19:14:53 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/20 13:24:17 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/10/20 14:57:47 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
-#include "mlx_config.h"
 #include "minirt.h"
 #include "debug.h"
 #include "minirt_math.h"
