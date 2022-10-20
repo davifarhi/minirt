@@ -6,12 +6,13 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 12:58:52 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/18 14:02:19 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/10/21 00:12:41 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "render.h"
+#include "minirt_math.h"
 #include "lights.h"
 #include "debug.h"
 

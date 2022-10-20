@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/10/20 23:13:02 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/21 00:33:01 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	setup_init(t_parse	*setup)
 	setup->is_there_cam = 0;
 	setup->is_there_amb = 0;
 	setup->is_there_light = 0;
+	setup->lights = NULL;
 	setup->volumes = NULL;
 }
 
@@ -116,7 +117,7 @@ void	add_light(char *line, t_parse *setup)
 
 void	create_light(char **line, t_parse *setup, t_light *light)
 {
-	light->color = make_light_color(line, tab_len(line));
+	light->color = make_light_color(line, 4);
 	light->coord = split_coord_p(line, 1);
 	light->intensity = ft_atof(line[2]);
 	if (light_is_in_range(light->intensity))
