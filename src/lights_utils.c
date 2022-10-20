@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/20 13:24:08 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/20 13:38:14 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,12 @@ t_vector	find_normal_vector(t_parse *data,
 	else if (obj_hit->obj->type == Cylinder
 		&& ((t_cylinder *)obj_hit->obj->param)->is_cap == 0)
 	{
-		normal.x = point.x * -((t_cylinder *)obj_hit->obj->param)->vector->y;
-		normal.y = point.y * ((t_cylinder *)obj_hit->obj->param)->vector->x;
-		normal.z = point.z * ((t_cylinder *)obj_hit->obj->param)->vector->z;
+		// normal.x = (point.x - obj_hit->obj->coord->x) -((t_cylinder *)obj_hit->obj->param)->vector->y;
+		// normal.y = (point.y - obj_hit->obj->coord->y) + ((t_cylinder *)obj_hit->obj->param)->vector->x;
+		// normal.z = (point.z - obj_hit->obj->coord->z) + ((t_cylinder *)obj_hit->obj->param)->vector->z;
+		normal.x = point.x - obj_hit->obj->coord->x;
+		normal.y = point.y - obj_hit->obj->coord->y;
+		normal.z = point.z - obj_hit->obj->coord->z;
 	}
 	else if (obj_hit->obj->type == Cylinder
 		&& ((t_cylinder *)obj_hit->obj->param)->is_cap == 1)
@@ -59,9 +62,9 @@ t_vector	find_normal_vector(t_parse *data,
 	}
 	else
 	{
-		normal.x = 0;
-		normal.y = 0;
-		normal.z = 0;
+		normal.x = point.x - obj_hit->obj->coord->x;
+		normal.y = point.y - obj_hit->obj->coord->y;
+		normal.z = point.z - obj_hit->obj->coord->z;
 	}
 	return (normal);
 }
