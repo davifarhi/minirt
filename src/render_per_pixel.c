@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 12:58:52 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/21 00:12:41 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:04:23 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,36 +34,46 @@ static void	new_obj_hit(t_obj_ray_hit **obj_hit, t_obj_ray_hit *obj_new)
 	}
 }
 
-unsigned int	render_per_pixel(int x, int y, t_parse *data)
+t_obj_ray_hit	*hit_obj(t_vector m_ray, t_parse *data, t_coord origin)
 {
 	t_list			*tmp;
-	t_vector		v_ray;
 	t_obj_ray_hit	*obj_hit;
-	int				color;
 
 	tmp = data->volumes;
-	v_ray = render_get_camera_direction(data->cam_v, data->render, x, y);
 	obj_hit = 0;
 	while (tmp)
 	{
 		if (((t_obj *)tmp->content)->type == Sphere)
 			new_obj_hit(&obj_hit, render_sphere(tmp->content,
-					&data->cam_coord, &v_ray));
+					&origin, &m_ray));
 		if (((t_obj *)tmp->content)->type == Plan)
 			new_obj_hit(&obj_hit, render_plane(tmp->content,
-					&data->cam_coord, &v_ray));
+					&origin, &m_ray));
 		if (((t_obj *)tmp->content)->type == Cylinder)
 			new_obj_hit(&obj_hit, render_cylinder(tmp->content,
-					&data->cam_coord, &v_ray));
+					&origin, &m_ray));
 		tmp = tmp->next;
 	}
+	return (obj_hit);
+}
+
+unsigned int	render_per_pixel(int x, int y, t_parse *data)
+{
+	t_ray			ray;
+	t_obj_ray_hit	*obj_hit;
+	int				color;
+
+	ray.vector = render_get_camera_direction(data->cam_v, data->render, x, y);
+	obj_hit = hit_obj(ray.vector, data, data->cam_coord);
 	color = 0;
 	if (obj_hit)
 	{
-		color = render_light(data, obj_hit, v_ray);
+		ray.origin = data->cam_coord;
+		color = render_light(data, obj_hit, ray, obj_hit->obj->color);
 		if (DEBUG_LIGHT_OFF)
 			color = obj_hit->obj->color;
 		free(obj_hit);
+		data->mirror_depth = DEPTH;
 	}
 	return (color);
 }

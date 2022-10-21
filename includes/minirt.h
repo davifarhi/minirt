@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/10/20 23:12:29 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:49:03 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include "expanded.h"
+
+// nbr of mirror recursions
+# define DEPTH 1
 
 typedef enum e_types
 {
@@ -48,6 +51,7 @@ typedef struct s_obj
 	t_types	type;
 	t_coord	*coord;
 	int		color;
+	int		mirror;
 	void	*param;
 }	t_obj;
 
@@ -104,9 +108,7 @@ typedef struct s_parse
 	double			ambient_intensity;
 	int				ambient_color;
 	unsigned char	is_there_light;
-	t_coord			light_coord;
-	double			light_brightness;
-	int				light_color;
+	int				mirror_depth;
 	t_mlx			mlx;
 	t_render_data	*render;
 }	t_parse;

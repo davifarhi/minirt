@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/10/21 00:33:01 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:08:00 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,9 @@ void	setup_init(t_parse	*setup)
 	setup->is_there_cam = 0;
 	setup->is_there_amb = 0;
 	setup->is_there_light = 0;
+	setup->mirror_depth = DEPTH;
 	setup->lights = NULL;
 	setup->volumes = NULL;
-}
-
-int	make_light_color(char **line, int len)
-{
-	char	**rgb;
-	int		new;
-
-	if (len == 3)
-		new = create_trgb(1, 255, 255, 255);
-	else if (len == 4)
-	{
-		rgb = ft_split(line[len - 1], ',');
-		if (rgb == NULL || tab_len(rgb) != 3 || colors_are_in_range(rgb))
-			color_errors(line, rgb);
-		new = create_trgb(1, ft_atoi(rgb[0]),
-				ft_atoi(rgb[1]), ft_atoi(rgb[2]));
-		tabfree(rgb);
-	}
-	else
-		new = -1;
-	return (new);
 }
 
 void	add_ambiant(char *line, t_parse *setup)
@@ -91,61 +71,4 @@ void	add_cam(char *line, t_parse *setup)
 	else
 		tabfree_exit("Error\nCamera parameters are not conform",
 			splitted);
-}
-
-void	add_light(char *line, t_parse *setup)
-{
-	char	**splitted;
-
-	if (setup->is_there_light != 0)
-		error_exit("Error\nToo much lights in scene");
-	setup->is_there_light = 1;
-	splitted = ft_split(line, ' ');
-	if (splitted != NULL && (tab_len(splitted) == 3 || tab_len(splitted) == 4))
-	{
-		setup->light_color = make_light_color(splitted, tab_len(splitted));
-		setup->light_coord = split_coord(splitted, 1);
-		setup->light_brightness = ft_atof(splitted[2]);
-		tabfree(splitted);
-		if (light_is_in_range(setup->light_brightness))
-			error_exit("Error\nLight parameters are not in range 0-1");
-	}
-	else
-		tabfree_exit("Error\nLight parameters are not conform",
-			splitted);
-}
-
-void	create_light(char **line, t_parse *setup, t_light *light)
-{
-	light->color = make_light_color(line, 4);
-	light->coord = split_coord_p(line, 1);
-	light->intensity = ft_atof(line[2]);
-	if (light_is_in_range(light->intensity))
-		error_exit("Error\nLight parameters are not in range 0-1");
-	if (!setup->lights)
-		setup->lights = ft_lstnew(light);
-	else
-		ft_lstadd_back(&(setup->lights), ft_lstnew(light));
-}
-
-void	add_lights(char *line, t_parse *setup)
-{
-	char	**splitted;
-	t_light	*light;
-
-	splitted = ft_split(line, ' ');
-	light = malloc(sizeof(t_light));
-	if (splitted == NULL || light == NULL || tab_len(splitted) != 4)
-	{
-		if (light != NULL)
-			free(light);
-		tabfree(splitted);
-		printf("Error\nLight \n");
-		error_exit("parameters are not conform");
-	}
-	else
-	{
-		create_light(splitted, setup, light);
-		tabfree(splitted);
-	}
 }
