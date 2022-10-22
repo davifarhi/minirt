@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/18 18:00:31 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/22 10:58:28 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "minirt_math.h"
 #include "lights.h"
 #include <math.h>
+#include <float.h>
 
 t_obj_ray_hit	*render_plane_s(const t_obj *obj,
 	t_coord *point, const t_vector *v_ray)
@@ -52,7 +53,7 @@ int	is_in_shadow(t_vector light, t_coord point, t_parse *data)
 
 	tmp = data->volumes;
 	v_normalize(&light);
-	t = MAXFLOAT;
+	t = FLT_MAX;
 	dist = distance(&point, &data->light_coord);
 	while (tmp)
 	{
@@ -66,7 +67,7 @@ int	is_in_shadow(t_vector light, t_coord point, t_parse *data)
 		tmp = tmp->next;
 		free(obj_hit);
 	}
-	if (t < MAXFLOAT)
+	if (t < FLT_MAX)
 		return (0);
 	return (1);
 }

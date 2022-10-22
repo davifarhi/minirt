@@ -6,7 +6,7 @@
 /*   By: dfarhi <dfarhi@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 13:21:15 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/10/20 17:59:37 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/10/22 11:03:34 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 #include "minirt_math.h"
 #include <math.h>
 
-t_vector	v_rotate_x_y_copy(const t_vector *v_ray, double x_deg, double y_deg)
+static t_vector	v_rotate_x_y_copy(
+		const t_vector *v_ray, double x_deg, double y_deg)
 {
 	t_vector	v;
 
@@ -38,29 +39,29 @@ unsigned int	aa_color_average(
 	t = (get_t(color) + get_t(render->aa_image[y * render->res_width + x])
 			+ get_t(render->aa_image[y * render->res_width + x + 1])
 			+ get_t(render->aa_image[(y + 1) * render->res_width + x])
-			+ get_t(render->aa_image[(y + 1) * render->res_width + x + 1]) / 5);
+			+ get_t(render->aa_image[(y + 1) * render->res_width + x + 1])) / 5;
 	r = (get_r(color) + get_r(render->aa_image[y * render->res_width + x])
 			+ get_r(render->aa_image[y * render->res_width + x + 1])
 			+ get_r(render->aa_image[(y + 1) * render->res_width + x])
-			+ get_r(render->aa_image[(y + 1) * render->res_width + x + 1]) / 5);
+			+ get_r(render->aa_image[(y + 1) * render->res_width + x + 1])) / 5;
 	g = (get_g(color) + get_g(render->aa_image[y * render->res_width + x])
 			+ get_g(render->aa_image[y * render->res_width + x + 1])
 			+ get_g(render->aa_image[(y + 1) * render->res_width + x])
-			+ get_g(render->aa_image[(y + 1) * render->res_width + x + 1]) / 5);
+			+ get_g(render->aa_image[(y + 1) * render->res_width + x + 1])) / 5;
 	b = (get_b(color) + get_b(render->aa_image[y * render->res_width + x])
 			+ get_b(render->aa_image[y * render->res_width + x + 1])
 			+ get_b(render->aa_image[(y + 1) * render->res_width + x])
-			+ get_b(render->aa_image[(y + 1) * render->res_width + x + 1]) / 5);
+			+ get_b(render->aa_image[(y + 1) * render->res_width + x + 1])) / 5;
 	return (create_trgb(t, r, g, b));
 }
+
+static void	render_antialiasing2(
+					int x, int y, const t_vector *v_ray, t_parse *data);
 
 //pixel 1 (top-left) create if x = 0 && y = 0
 //pixel 2 (top-right) create if y = 0
 //pixel 3 (bottom-left) create if x = 0
 //pixel 4 (bottom-right) create always
-void	render_antialiasing2(
-				int x, int y, const t_vector *v_ray, t_parse *data);
-
 void	render_antialiasing(int x, int y, const t_vector *v_ray, t_parse *data)
 {
 	t_vector	v;
@@ -84,7 +85,8 @@ void	render_antialiasing(int x, int y, const t_vector *v_ray, t_parse *data)
 	render_antialiasing2(x, y, v_ray, data);
 }
 
-void	render_antialiasing2(int x, int y, const t_vector *v_ray, t_parse *data)
+static void	render_antialiasing2(
+		int x, int y, const t_vector *v_ray, t_parse *data)
 {
 	t_vector	v;
 
