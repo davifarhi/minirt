@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/20 18:40:05 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/22 10:49:47 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "minirt_math.h"
 #include "lights.h"
 #include <math.h>
+#include <float.h>
 
 // This function determines if the pixel is in shadow
 int	is_in_shadow(t_vector light, t_coord point, t_parse *data)
@@ -25,7 +26,7 @@ int	is_in_shadow(t_vector light, t_coord point, t_parse *data)
 
 	tmp = data->volumes;
 	v_normalize(&light);
-	t = MAXFLOAT;
+	t = FLT_MAX;
 	while (tmp)
 	{
 		obj_hit = 0;
@@ -41,7 +42,7 @@ int	is_in_shadow(t_vector light, t_coord point, t_parse *data)
 		tmp = tmp->next;
 		free(obj_hit);
 	}
-	if (t < MAXFLOAT)
+	if (t < FLT_MAX)
 		return (0);
 	return (1);
 }
