@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:49 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/21 17:05:18 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/22 11:49:52 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "render.h"
 
 # define WHITE 33554431
-# define LEN 0.0000001
+# define LEN 0.0001
 
 typedef struct s_l_data
 {

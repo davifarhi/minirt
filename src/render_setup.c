@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_setup.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
+/*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 11:18:39 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/30 14:38:37 by davifah          ###   ########.fr       */
+/*   Updated: 2022/10/22 11:13:23 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_render_data	*render_setup_data(t_parse *setup)
 	r = ft_calloc(sizeof(t_render_data), 1);
 	if (!r)
 		return (0);
-	r->res_width = 854;
+	r->res_width = 1500;
 	r->aspect_ratio = 16.0 / 9.0;
 	r->res_height = r->res_width / r->aspect_ratio;
 	r->aspp = get_angle_shift_per_pixel(setup->cam_fov, r->res_width);

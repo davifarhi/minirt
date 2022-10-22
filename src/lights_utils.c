@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/20 18:58:24 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/22 14:28:20 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ t_vector	find_normal_vector(t_coord point, t_obj_ray_hit *obj_hit)
 	{
 		if (dot_product(v_sub(*(t_vector *)&point,
 					*(t_vector *)&obj_hit->obj->coord),
-				*((t_cylinder *)obj_hit->obj->param)->vector) < 0)
-			normal = v_invert(((t_cylinder *)obj_hit->obj->param)->vector);
-		else
+				*((t_cylinder *)obj_hit->obj->param)->vector) < 1)
 			normal = *((t_cylinder *)obj_hit->obj->param)->vector;
+		else
+			normal = v_invert(((t_cylinder *)obj_hit->obj->param)->vector);
 	}
 	else
 		normal = vector_init();
