@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:49 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/22 11:49:52 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/23 20:08:50 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ float		specular_light(t_l_data l, t_parse *data);
 float		spot_light(t_l_data l);
 int			mirror_light(t_parse *data,
 				t_l_data l, int old_value, t_vector v_ray);
+void		display_lights(t_light *light);
 
 #endif

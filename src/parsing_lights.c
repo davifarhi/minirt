@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/10/21 17:08:36 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/23 20:08:30 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,20 @@
 #include "free.h"
 #include "parsing.h"
 #include "minirt_math.h"
+
+void	display_lights(t_light *light)
+{
+	if (light != NULL)
+	{
+		printf("––––––––––––––––––––––––––\n");
+		printf("Coordonnées:\n");
+		printf("	x: %f\n", light->coord->x);
+		printf("	y: %f\n", light->coord->y);
+		printf("	z: %f\n", light->coord->z);
+		printf("Color: %d\n", light->color);
+		printf("Intensity: %f\n", light->intensity);
+	}
+}
 
 int	make_light_color(char **line, int len)
 {
