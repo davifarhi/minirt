@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/22 15:16:16 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/23 12:02:13 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ int	render_one_light(t_parse *data, t_l_data l, int i)
 		light_value = multiply_light(l.obj_hit->obj->color, 1, light_value);
 	}
 	light_indice = specular_light(l, data);
-	if (is_in_shadow(l.v_light, l.hit_point, data, *l.light.coord) != 0)
-		light_value = additive_light(light_value, light_indice, l.light.color);
-	else
+	if (is_in_shadow(l.v_light, l.hit_point, data, *l.light.coord) == 0
+		&& l.obj_hit->obj->mirror != 1)
 		light_value = l.previus;
+	light_value = additive_light(light_value, light_indice, l.light.color);
 	light_value = additive_light(light_value,
 			data->ambient_intensity, data->ambient_color);
 	return (light_value);

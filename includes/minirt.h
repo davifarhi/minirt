@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/10/22 15:22:52 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/22 16:16:08 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "expanded.h"
 
 // nbr of mirror recursions
-# define DEPTH 1
+# define DEPTH 2
 
 typedef enum e_types
 {

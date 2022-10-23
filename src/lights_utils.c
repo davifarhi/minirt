@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/22 14:28:20 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/23 12:43:05 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,21 @@ static t_vector	vector_init(void)
 	return (vector);
 }
 
+t_vector	cylinder_normal(t_coord point, t_obj_ray_hit *obj_hit)
+{
+	double		hypothenus;
+	double		radius;
+	double		dist;
+	t_vector	c;
+
+	radius = ((t_cylinder *)(obj_hit->obj->param))->diameter / 2;
+	hypothenus = distance(&point, obj_hit->obj->coord);
+	dist = sqrt(pow(hypothenus, 2) - pow(radius, 2));
+	c = v_add(*(t_vector *)&obj_hit->obj->coord,
+			v_mult(*((t_cylinder *)(obj_hit->obj->param))->vector, dist));
+	return (v_sub(*(t_vector *)&point, c));
+}
+
 t_vector	find_normal_vector(t_coord point, t_obj_ray_hit *obj_hit)
 {
 	t_vector	normal;
@@ -45,16 +60,16 @@ t_vector	find_normal_vector(t_coord point, t_obj_ray_hit *obj_hit)
 		normal = *((t_vector *)obj_hit->obj->param);
 	else if (obj_hit->obj->type == Cylinder
 		&& ((t_cylinder *)obj_hit->obj->param)->is_cap == 0)
-		normal = v_sub(*(t_vector *)&point, *(t_vector *)(obj_hit->obj->coord));
+		normal = cylinder_normal(point, obj_hit);
 	else if (obj_hit->obj->type == Cylinder
 		&& ((t_cylinder *)obj_hit->obj->param)->is_cap == 1)
 	{
 		if (dot_product(v_sub(*(t_vector *)&point,
 					*(t_vector *)&obj_hit->obj->coord),
-				*((t_cylinder *)obj_hit->obj->param)->vector) < 1)
-			normal = *((t_cylinder *)obj_hit->obj->param)->vector;
-		else
+				*((t_cylinder *)obj_hit->obj->param)->vector) < -1)
 			normal = v_invert(((t_cylinder *)obj_hit->obj->param)->vector);
+		else
+			normal = *((t_cylinder *)obj_hit->obj->param)->vector;
 	}
 	else
 		normal = vector_init();
