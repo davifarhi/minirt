@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/10/12 14:11:14 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/23 18:33:25 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ t_vector	*split_vector_p(char **data, int index)
 	newvector->x = ft_atof(vector[0]);
 	newvector->y = ft_atof(vector[1]);
 	newvector->z = ft_atof(vector[2]);
-	v_normalize(newvector);
 	tabfree(vector);
 	if (vector_is_in_range(*newvector))
 	{
@@ -83,6 +82,7 @@ t_vector	*split_vector_p(char **data, int index)
 			free(newvector);
 		tabfree_exit("Error\nVector not in range -1 to 1 or is 0,0,0", data);
 	}
+	v_normalize(newvector);
 	return (newvector);
 }
 
@@ -122,9 +122,9 @@ t_vector	split_vector(char **data, int index)
 	newvector.x = ft_atof(vector[0]);
 	newvector.y = ft_atof(vector[1]);
 	newvector.z = ft_atof(vector[2]);
-	v_normalize(&newvector);
 	tabfree(vector);
 	if (vector_is_in_range(newvector))
 		tabfree_exit("Error\nVector not in range -1 to 1 or is 0,0,0", data);
+	v_normalize(&newvector);
 	return (newvector);
 }

@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 21:44:41 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/26 17:57:07 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/23 18:41:24 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,17 @@ void	free_volumes(t_obj *volume)
 	}
 }
 
+void	free_lights(t_light *light)
+{
+	if (light != NULL)
+	{
+		free(light->coord);
+		free(light);
+	}
+}
+
 void	free_setup(t_parse *setup)
 {
 	ft_lstclear(&(setup->volumes), (void *)free_volumes);
+	ft_lstclear(&(setup->lights), (void *)free_lights);
 }
