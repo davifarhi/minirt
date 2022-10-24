@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 12:58:52 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/20 17:49:40 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/10/22 11:56:25 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,11 @@ unsigned int	render_per_pixel(int x, int y, t_parse *data)
 	unsigned int	color;
 
 	v_ray = render_get_camera_direction(data->cam_v, data->render, x, y);
-	color = 0;
-	calculate_intersection(&v_ray, data, &color);
-	render_antialiasing(x, y, &v_ray, data);
-	return (aa_color_average(color, data->render, x, y));
+	if (!ANTIALIASING)
+	{
+		color = 0;
+		calculate_intersection(&v_ray, data, &color);
+		return (color);
+	}
+	return (render_antialiasing(&v_ray, data));
 }
