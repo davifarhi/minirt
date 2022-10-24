@@ -33,6 +33,8 @@ typedef struct s_obj_ray_hit
 int				looper_mlx(void *param);
 t_vector		render_get_camera_direction(const t_vector v,
 					const t_render_data *render, int x, int y);
+void			calculate_intersection(
+					t_vector *v_ray, t_parse *data, unsigned int *color);
 unsigned int	render_per_pixel(int x, int y, t_parse *data);
 
 //render_setup

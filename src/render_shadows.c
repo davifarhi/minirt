@@ -15,6 +15,7 @@
 #include "minirt_math.h"
 #include "lights.h"
 #include <math.h>
+#include <float.h>
 
 // This function determines if the pixel is in shadow
 int	is_in_shadow(t_vector light, t_coord point, t_parse *data, t_coord l_coord)
@@ -25,7 +26,7 @@ int	is_in_shadow(t_vector light, t_coord point, t_parse *data, t_coord l_coord)
 
 	tmp = data->volumes;
 	v_normalize(&light);
-	t = MAXFLOAT;
+	t = FLT_MAX;
 	while (tmp)
 	{
 		obj_hit = 0;
@@ -41,7 +42,7 @@ int	is_in_shadow(t_vector light, t_coord point, t_parse *data, t_coord l_coord)
 		tmp = tmp->next;
 		free(obj_hit);
 	}
-	if (t < MAXFLOAT)
+	if (t < FLT_MAX)
 		return (0);
 	return (1);
 }

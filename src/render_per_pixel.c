@@ -57,23 +57,32 @@ t_obj_ray_hit	*hit_obj(t_vector m_ray, t_parse *data, t_coord origin)
 	return (obj_hit);
 }
 
-unsigned int	render_per_pixel(int x, int y, t_parse *data)
+void	calculate_intersection(
+		t_vector *v_ray, t_parse *data, unsigned int *color)
 {
-	t_ray			ray;
+  t_ray			ray;
 	t_obj_ray_hit	*obj_hit;
-	int				color;
 
-	ray.vector = render_get_camera_direction(data->cam_v, data->render, x, y);
-	obj_hit = hit_obj(ray.vector, data, data->cam_coord);
-	color = 0;
+	obj_hit = hit_obj(v_ray, data, data->cam_coord);
 	if (obj_hit)
 	{
-		ray.origin = data->cam_coord;
-		color = render_light(data, obj_hit, ray, obj_hit->obj->color);
+    ray.vector = v_ray;
+    ray.origin = data->cam_coord;
+		*color = render_light(data, obj_hit, ray, obj_hit->obj->color);
 		if (DEBUG_LIGHT_OFF)
-			color = obj_hit->obj->color;
+			*color = obj_hit->obj->color;
 		free(obj_hit);
 		data->mirror_depth = DEPTH;
 	}
+}
+
+unsigned int	render_per_pixel(int x, int y, t_parse *data)
+{
+	t_vector		v_ray;
+	unsigned int	color;
+
+	v_ray = render_get_camera_direction(data->cam_v, data->render, x, y);
+	color = 0;
+	calculate_intersection(&v_ray, data, &color);
 	return (color);
 }
