@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/22 10:49:47 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/10/21 01:03:54 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <float.h>
 
 // This function determines if the pixel is in shadow
-int	is_in_shadow(t_vector light, t_coord point, t_parse *data)
+int	is_in_shadow(t_vector light, t_coord point, t_parse *data, t_coord l_coord)
 {
 	t_list			*tmp;
 	t_obj_ray_hit	*obj_hit;
@@ -37,7 +37,7 @@ int	is_in_shadow(t_vector light, t_coord point, t_parse *data)
 		else if (((t_obj *)tmp->content)->type == Cylinder)
 			obj_hit = render_cylinder(tmp->content, &point, &light);
 		if (obj_hit != 0 && obj_hit->t < t
-			&& obj_hit->t < distance(&point, &data->light_coord) - 0.0001)
+			&& obj_hit->t < distance(&point, &l_coord) - 0.0001)
 			t = obj_hit->t;
 		tmp = tmp->next;
 		free(obj_hit);
