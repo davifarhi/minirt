@@ -19,6 +19,9 @@
 # include <fcntl.h>
 # include "expanded.h"
 
+// nbr of mirror recursions
+# define DEPTH 2
+
 typedef enum e_types
 {
 	Ambiant,
@@ -48,6 +51,7 @@ typedef struct s_obj
 	t_types	type;
 	t_coord	*coord;
 	int		color;
+	int		mirror;
 	void	*param;
 }	t_obj;
 
@@ -67,6 +71,13 @@ typedef struct s_data
 	int		line_len;
 	int		endian;
 }	t_data;
+
+typedef struct s_light
+{
+	t_coord		*coord;
+	double		intensity;
+	int			color;
+}	t_light;
 
 typedef struct s_mlx
 {
@@ -88,6 +99,7 @@ typedef struct s_render_data
 typedef struct s_parse
 {
 	t_list			*volumes;
+	t_list			*lights;
 	unsigned char	is_there_cam;
 	t_coord			cam_coord;
 	t_vector		cam_v;
@@ -96,9 +108,7 @@ typedef struct s_parse
 	double			ambient_intensity;
 	int				ambient_color;
 	unsigned char	is_there_light;
-	t_coord			light_coord;
-	double			light_brightness;
-	int				light_color;
+	int				mirror_depth;
 	t_mlx			mlx;
 	t_render_data	*render;
 }	t_parse;

@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/18 17:57:12 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/23 12:43:05 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,30 +25,54 @@ t_coord	hit_point(t_coord origin, t_obj_ray_hit *obj_hit, t_vector v_ray)
 	return (point);
 }
 
-t_vector	find_normal_vector(t_parse *data,
-	t_coord point, t_obj_ray_hit *obj_hit)
+static t_vector	vector_init(void)
+{
+	t_vector	vector;
+
+	vector.x = 0;
+	vector.y = 0;
+	vector.z = 0;
+	return (vector);
+}
+
+t_vector	cylinder_normal(t_coord point, t_obj_ray_hit *obj_hit)
+{
+	double		hypothenus;
+	double		radius;
+	double		dist;
+	t_vector	c;
+
+	radius = ((t_cylinder *)(obj_hit->obj->param))->diameter / 2;
+	hypothenus = distance(&point, obj_hit->obj->coord);
+	dist = sqrt(pow(hypothenus, 2) - pow(radius, 2));
+	c = v_add(*(t_vector *)&obj_hit->obj->coord,
+			v_mult(*((t_cylinder *)(obj_hit->obj->param))->vector, dist));
+	return (v_sub(*(t_vector *)&point, c));
+}
+
+t_vector	find_normal_vector(t_coord point, t_obj_ray_hit *obj_hit)
 {
 	t_vector	normal;
 
-	(void)data;
 	if (obj_hit->obj->type == Sphere)
-	{
-		normal.x = point.x - obj_hit->obj->coord->x;
-		normal.y = point.y - obj_hit->obj->coord->y;
-		normal.z = point.z - obj_hit->obj->coord->z;
-	}
+		normal = v_sub(*(t_vector *)&point, *(t_vector *)(obj_hit->obj->coord));
 	else if (obj_hit->obj->type == Plan)
+		normal = *((t_vector *)obj_hit->obj->param);
+	else if (obj_hit->obj->type == Cylinder
+		&& ((t_cylinder *)obj_hit->obj->param)->is_cap == 0)
+		normal = cylinder_normal(point, obj_hit);
+	else if (obj_hit->obj->type == Cylinder
+		&& ((t_cylinder *)obj_hit->obj->param)->is_cap == 1)
 	{
-		normal.x = point.x - ((t_vector *)obj_hit->obj->param)->x;
-		normal.y = point.y - ((t_vector *)obj_hit->obj->param)->y;
-		normal.z = point.z - ((t_vector *)obj_hit->obj->param)->z;
+		if (dot_product(v_sub(*(t_vector *)&point,
+					*(t_vector *)&obj_hit->obj->coord),
+				*((t_cylinder *)obj_hit->obj->param)->vector) < -1)
+			normal = v_invert(((t_cylinder *)obj_hit->obj->param)->vector);
+		else
+			normal = *((t_cylinder *)obj_hit->obj->param)->vector;
 	}
 	else
-	{
-		normal.x = point.x - obj_hit->obj->coord->x;
-		normal.y = point.y - obj_hit->obj->coord->y;
-		normal.z = point.z - obj_hit->obj->coord->z;
-	}
+		normal = vector_init();
 	return (normal);
 }
 

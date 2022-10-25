@@ -6,12 +6,13 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 12:58:52 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/22 11:56:25 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/10/24 20:23:23 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "render.h"
+#include "minirt_math.h"
 #include "lights.h"
 #include "debug.h"
 
@@ -33,8 +34,7 @@ static void	new_obj_hit(t_obj_ray_hit **obj_hit, t_obj_ray_hit *obj_new)
 	}
 }
 
-void	calculate_intersection(
-		const t_vector *v_ray, t_parse *data, unsigned int *color)
+t_obj_ray_hit	*hit_obj(t_vector m_ray, t_parse *data, t_coord origin)
 {
 	t_list			*tmp;
 	t_obj_ray_hit	*obj_hit;
@@ -45,21 +45,34 @@ void	calculate_intersection(
 	{
 		if (((t_obj *)tmp->content)->type == Sphere)
 			new_obj_hit(&obj_hit, render_sphere(tmp->content,
-					&data->cam_coord, v_ray));
+					&origin, &m_ray));
 		if (((t_obj *)tmp->content)->type == Plan)
 			new_obj_hit(&obj_hit, render_plane(tmp->content,
-					&data->cam_coord, v_ray));
+					&origin, &m_ray));
 		if (((t_obj *)tmp->content)->type == Cylinder)
 			new_obj_hit(&obj_hit, render_cylinder(tmp->content,
-					&data->cam_coord, v_ray));
+					&origin, &m_ray));
 		tmp = tmp->next;
 	}
+	return (obj_hit);
+}
+
+void	calculate_intersection(
+		t_vector *v_ray, t_parse *data, unsigned int *color)
+{
+	t_ray			ray;
+	t_obj_ray_hit	*obj_hit;
+
+	obj_hit = hit_obj(*v_ray, data, data->cam_coord);
 	if (obj_hit)
 	{
-		*color = render_light(data, obj_hit, *v_ray);
+		ray.vector = *v_ray;
+		ray.origin = data->cam_coord;
+		*color = render_light(data, obj_hit, ray, obj_hit->obj->color);
 		if (DEBUG_LIGHT_OFF)
 			*color = obj_hit->obj->color;
 		free(obj_hit);
+		data->mirror_depth = DEPTH;
 	}
 }
 

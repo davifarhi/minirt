@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/09/28 10:24:43 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/21 00:28:56 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	parse_line(char *line, t_parse *setup)
 	else if (ft_strnstr(line, "C ", 2))
 		add_cam(line, setup);
 	else if (ft_strnstr(line, "L ", 2))
-		add_light(line, setup);
+		add_lights(line, setup);
 	else
 	{
 		printf("Error\nUnknown type of object in file! Use:\n");

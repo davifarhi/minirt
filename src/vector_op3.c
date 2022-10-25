@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_op3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfarhi <dfarhi@student.42lausanne.ch>      +#+  +:+       +#+        */
+/*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:52:14 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/10/20 13:22:41 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/10/20 18:54:22 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,14 @@ void	vector_rotate_y(t_vector *v, double y_angle)
 	v2.y = v->y;
 	v2.z = -v->x * sin(y_angle) + v->z * cos(y_angle);
 	*v = v2;
+}
+
+t_vector	v_invert(const t_vector *v1)
+{
+	t_vector	v;
+
+	v.x = -v1->x;
+	v.y = -v1->y;
+	v.z = -v1->z;
+	return (v);
 }

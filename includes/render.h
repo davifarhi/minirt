@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
+/*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:49 by davifah           #+#    #+#             */
 /*   Updated: 2022/10/22 12:05:28 by dfarhi           ###   ########.fr       */
@@ -50,6 +50,7 @@ t_obj_ray_hit	*render_plane(const t_obj *obj,
 					const t_coord *ray_origin, const t_vector *v_ray);
 t_obj_ray_hit	*render_cylinder(const t_obj *obj,
 					const t_coord *ray_origin, const t_vector *v_ray);
+t_obj_ray_hit	*hit_obj(t_vector m_ray, t_parse *data, t_coord origin);
 
 // ANTIALIASING
 unsigned int	render_antialiasing(const t_vector *v_ray, t_parse *data);
