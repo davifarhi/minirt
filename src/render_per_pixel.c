@@ -82,7 +82,11 @@ unsigned int	render_per_pixel(int x, int y, t_parse *data)
 	unsigned int	color;
 
 	v_ray = render_get_camera_direction(data->cam_v, data->render, x, y);
-	color = 0;
-	calculate_intersection(&v_ray, data, &color);
-	return (color);
+	if (!ANTIALIASING)
+	{
+		color = 0;
+		calculate_intersection(&v_ray, data, &color);
+		return (color);
+	}
+	return (render_antialiasing(&v_ray, data));
 }
