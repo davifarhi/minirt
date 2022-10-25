@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/25 14:12:33 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/25 15:10:08 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_vector	cylinder_normal(t_coord point, t_obj_ray_hit *obj_hit)
 	radius = ((t_cylinder *)(obj_hit->obj->param))->diameter / 2;
 	hypothenus = distance(&point, obj_hit->obj->coord);
 	dist = sqrt(pow(hypothenus, 2) - pow(radius, 2));
-	c = v_add(*(t_vector *)&obj_hit->obj->coord,
+	c = v_add(*(t_vector *)obj_hit->obj->coord,
 			v_mult(*((t_cylinder *)(obj_hit->obj->param))->vector, dist));
 	return (v_sub(*(t_vector *)&point, c));
 }
@@ -65,7 +65,7 @@ t_vector	find_normal_vector(t_coord point, t_obj_ray_hit *obj_hit)
 		&& ((t_cylinder *)obj_hit->obj->param)->is_cap == 1)
 	{
 		if (dot_product(v_sub(*(t_vector *)&point,
-					*(t_vector *)&obj_hit->obj->coord),
+					*(t_vector *)obj_hit->obj->coord),
 				*((t_cylinder *)obj_hit->obj->param)->vector) < -1)
 			normal = v_invert(((t_cylinder *)obj_hit->obj->param)->vector);
 		else
