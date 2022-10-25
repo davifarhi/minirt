@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/25 15:10:08 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/25 16:30:24 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ t_vector	cylinder_normal(t_coord point, t_obj_ray_hit *obj_hit)
 t_vector	find_normal_vector(t_coord point, t_obj_ray_hit *obj_hit)
 {
 	t_vector	normal;
+	float		dot;
 
 	if (obj_hit->obj->type == Sphere)
 		normal = v_sub(*(t_vector *)&point, *(t_vector *)(obj_hit->obj->coord));
@@ -64,9 +65,10 @@ t_vector	find_normal_vector(t_coord point, t_obj_ray_hit *obj_hit)
 	else if (obj_hit->obj->type == Cylinder
 		&& ((t_cylinder *)obj_hit->obj->param)->is_cap == 1)
 	{
-		if (dot_product(v_sub(*(t_vector *)&point,
+		dot = dot_product(v_sub(*(t_vector *)&point,
 					*(t_vector *)obj_hit->obj->coord),
-				*((t_cylinder *)obj_hit->obj->param)->vector) < -1)
+				*((t_cylinder *)obj_hit->obj->param)->vector);
+		if (dot > -0.001 && dot < 0.001)
 			normal = v_invert(((t_cylinder *)obj_hit->obj->param)->vector);
 		else
 			normal = *((t_cylinder *)obj_hit->obj->param)->vector;
@@ -74,16 +76,4 @@ t_vector	find_normal_vector(t_coord point, t_obj_ray_hit *obj_hit)
 	else
 		normal = vector_init();
 	return (normal);
-}
-
-float	make_light_len(t_coord point, t_coord light)
-{
-	float			additions;
-	float			len;
-
-	additions = pow((light.x - point.x), 2)
-		+ pow((light.y - point.y), 2)
-		+ pow((light.z - point.z), 2);
-	len = sqrt(additions);
-	return (len);
 }

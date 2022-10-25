@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:49 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/25 10:18:06 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/25 16:30:31 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "render.h"
 
 # define WHITE 33554431
-# define LEN 0.0001
+# define LEN 0.001
 
 typedef struct s_l_data
 {
@@ -47,7 +47,6 @@ int			mix_color(int color, float i);
 int			multiply_light(int obj_color, float intensity, int ambiant_color);
 t_coord		hit_point(t_coord origin, t_obj_ray_hit *obj_hit, t_vector v_ray);
 t_vector	find_normal_vector(t_coord point, t_obj_ray_hit *obj_hit);
-float		make_light_len(t_coord point, t_coord light);
 float		specular_light(t_l_data l, t_parse *data);
 float		spot_light(t_l_data l);
 int			mirror_light(t_parse *data,
