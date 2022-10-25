@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/25 15:23:44 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/25 17:05:15 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ int	render_light(t_parse *data, t_obj_ray_hit *obj_hit, t_ray ray, int color)
 	t_l_data	l;
 
 	l.hit_point = hit_point(ray.origin, obj_hit, ray.vector);
-	l.normal = find_normal_vector(l.hit_point, obj_hit);
-	v_normalize(&(l.normal));
 	l.hit_point.x = l.hit_point.x - ray.vector.x * LEN;
 	l.hit_point.y = l.hit_point.y - ray.vector.y * LEN;
 	l.hit_point.z = l.hit_point.z - ray.vector.z * LEN;
+	l.normal = find_normal_vector(l.hit_point, obj_hit);
+	v_normalize(&(l.normal));
 	l.obj_hit = obj_hit;
 	l.previus = 0;
 	l.color = color;

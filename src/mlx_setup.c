@@ -6,13 +6,14 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:04:14 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/06 14:20:18 by davifah          ###   ########.fr       */
+/*   Updated: 2022/10/25 17:59:56 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "mlx_config.h"
 #include "render.h"
+#include "free.h"
 
 static int	on_win_close(void *param);
 static int	deal_key(int key, void *param);
