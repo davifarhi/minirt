@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 11:16:13 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/20 18:55:05 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/25 11:59:28 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_vector	v_add(const t_vector v1, const t_vector v2);
 t_vector	v_normalize(t_vector *v);
 t_vector	coord_to_vector(t_coord c);
 double		dot_product(const t_vector v1, const t_vector v2);
+t_vector	cross_product(const t_vector *v1, const t_vector *v2);
 double		distance(const t_coord *c1, const t_coord *c2);
 void		print_v(const t_vector v);
 t_vector	v_invert(const t_vector *v1);

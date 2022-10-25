@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 12:58:52 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/24 20:23:23 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/25 11:58:46 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_obj_ray_hit	*hit_obj(t_vector m_ray, t_parse *data, t_coord origin)
 }
 
 void	calculate_intersection(
-		t_vector *v_ray, t_parse *data, unsigned int *color)
+		const t_vector *v_ray, t_parse *data, unsigned int *color)
 {
 	t_ray			ray;
 	t_obj_ray_hit	*obj_hit;
