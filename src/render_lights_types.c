@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/22 16:04:06 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/25 14:12:48 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ float	spot_light(t_l_data l)
 
 	light_value = 0.0;
 	scalaire = dot_product(l.normal, l.v_light);
+	if (l.obj_hit->obj->coord->z > 0)
+		scalaire = -scalaire;
 	if (scalaire > 0)
 	{
 		light_value = (l.light.intensity * scalaire)
