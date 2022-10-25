@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/23 12:43:05 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/25 13:56:04 by mreymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ t_vector	cylinder_normal(t_coord point, t_obj_ray_hit *obj_hit)
 	double		radius;
 	double		dist;
 	t_vector	c;
+
+	print_v(*(t_vector *)&*((t_vector *)obj_hit->obj->coord));
 
 	radius = ((t_cylinder *)(obj_hit->obj->param))->diameter / 2;
 	hypothenus = distance(&point, obj_hit->obj->coord);
