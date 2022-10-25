@@ -12,7 +12,7 @@
 
 FILES		= minirt
 
-FILES_D		= mlx_setup mlx_utils colors_utils render_loop vector_rotation math_utils render_setup render_sphere render_per_pixel render_plane render_cylinder render_cylinder_utils vector_op1 vector_op2 vector_op3
+FILES_D		= mlx_setup mlx_utils colors_utils render_loop render_camera_ray math_utils render_setup render_sphere render_per_pixel render_plane render_cylinder render_cylinder_utils vector_op1 vector_op2 vector_op3 render_antialiasing
 FILES_M		= 	parsing parsing_setup parsing_tab parsing_volumes errors free \
 				display parsing_utils parsing_range render_lights render_shadows \
 				lights_combinations lights_utils render_lights_types parsing_lights \
