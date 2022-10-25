@@ -6,7 +6,7 @@
 /*   By: dfarhi <dfarhi@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 13:21:15 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/10/22 12:00:57 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/10/25 11:50:13 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "render.h"
 #include "minirt_math.h"
 #include <math.h>
+
+#define AA_SPP_MULTIPLIER 2.5f
 
 static t_vector	v_rotate_x_y_copy(
 		const t_vector *v_ray, double x_deg, double y_deg)
@@ -61,17 +63,17 @@ unsigned int	render_antialiasing(const t_vector *v_ray, t_parse *data)
 	aa_p[1] = 0;
 	aa_p[2] = 0;
 	aa_p[3] = 0;
-	v = v_rotate_x_y_copy(v_ray, data->render->aspp / 3,
-			data->render->aspp / 3);
+	v = v_rotate_x_y_copy(v_ray, data->render->aspp / AA_SPP_MULTIPLIER,
+			data->render->aspp / AA_SPP_MULTIPLIER);
 	calculate_intersection(&v, data, &aa_p[0]);
-	v = v_rotate_x_y_copy(v_ray, data->render->aspp / 3,
-			-data->render->aspp / 3);
+	v = v_rotate_x_y_copy(v_ray, data->render->aspp / AA_SPP_MULTIPLIER,
+			-data->render->aspp / AA_SPP_MULTIPLIER);
 	calculate_intersection(&v, data, &aa_p[1]);
-	v = v_rotate_x_y_copy(v_ray, -data->render->aspp / 3,
-			data->render->aspp / 3);
+	v = v_rotate_x_y_copy(v_ray, -data->render->aspp / AA_SPP_MULTIPLIER,
+			data->render->aspp / AA_SPP_MULTIPLIER);
 	calculate_intersection(&v, data, &aa_p[2]);
-	v = v_rotate_x_y_copy(v_ray, -data->render->aspp / 3,
-			-data->render->aspp / 3);
+	v = v_rotate_x_y_copy(v_ray, -data->render->aspp / AA_SPP_MULTIPLIER,
+			-data->render->aspp / AA_SPP_MULTIPLIER);
 	calculate_intersection(&v, data, &aa_p[3]);
 	return (aa_color_average(aa_p));
 }
