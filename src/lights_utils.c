@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/25 16:30:24 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/10/26 12:04:49 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,23 @@ t_vector	cylinder_normal(t_coord point, t_obj_ray_hit *obj_hit)
 	return (v_sub(*(t_vector *)&point, c));
 }
 
+t_vector	sphere_normal(t_coord point, const t_obj *obj)
+{
+	t_vector	v;
+
+	v = v_sub(*(t_vector *)&point, *(t_vector *)obj->coord);
+	if (distance(&point, obj->coord) < *(double *)obj->param)
+		v = v_invert(&v);
+	return (v);
+}
+
 t_vector	find_normal_vector(t_coord point, t_obj_ray_hit *obj_hit)
 {
 	t_vector	normal;
 	float		dot;
 
 	if (obj_hit->obj->type == Sphere)
-		normal = v_sub(*(t_vector *)&point, *(t_vector *)(obj_hit->obj->coord));
+		normal = sphere_normal(point, obj_hit->obj);
 	else if (obj_hit->obj->type == Plan)
 		normal = *((t_vector *)obj_hit->obj->param);
 	else if (obj_hit->obj->type == Cylinder
