@@ -6,7 +6,7 @@
 /*   By: dfarhi <dfarhi@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 10:38:27 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/11/09 16:07:58 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/11/09 16:10:37 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,11 @@ int	thread_n_function(t_thread_n action, unsigned int n)
 {
 	static pthread_t		*lst = 0;
 	static unsigned int		size;
-	static pthread_mutex_t	update;
 
 	if (action == get && lst)
 		return (tid_get_n(lst, size));
 	if (action == create && n > 0)
 	{
-		pthread_mutex_init(&update, NULL);
 		size = n;
 		lst = ft_calloc(sizeof(pthread_t), n);
 		if (!lst)
@@ -62,16 +60,11 @@ int	thread_n_function(t_thread_n action, unsigned int n)
 	}
 	else if (action == del && lst)
 	{
-		pthread_mutex_destroy(&update);
 		free(lst);
 		lst = 0;
 	}
 	else if (action == add && lst)
-	{
-		pthread_mutex_lock(&update);
 		lst[n] = pthread_self();
-		pthread_mutex_unlock(&update);
-	}
 	return (0);
 }
 
