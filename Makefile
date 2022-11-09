@@ -6,7 +6,7 @@
 #    By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/11 12:17:38 by dfarhi            #+#    #+#              #
-#    Updated: 2022/11/09 13:29:36 by dfarhi           ###   ########.fr        #
+#    Updated: 2022/11/09 17:32:22 by dfarhi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,13 @@ MINILIBX_V	= minilibx_macos
 MINILIBX	= $(MINILIBX_V)/libmlx.a
 LIB			:= $(LIB) -framework OpenGL -framework AppKit -L./$(MINILIBX_V) -lmlx
 endif
+
 INCLUDES	:= $(INCLUDES) -I./$(MINILIBX_V)
+
+ifndef T
+T			:= $(shell getconf _NPROCESSORS_ONLN)
+endif
+INCLUDES		:= $(INCLUDES) -D THREAD_N=$(T)
 
 ${NAME}:	${LIBFT} ${OBJS} ${MINILIBX}
 			${CC} ${INCLUDES} -o ${NAME} ${OBJS} ${LIB}

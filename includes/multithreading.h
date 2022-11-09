@@ -6,7 +6,7 @@
 /*   By: dfarhi <dfarhi@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 10:37:19 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/11/09 16:51:52 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/11/09 17:16:48 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "minirt.h"
 
 # ifndef THREAD_N
-#  define THREAD_N 99
+#  define THREAD_N 8
 # endif
 
 typedef enum e_thread_n

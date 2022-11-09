@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 11:18:39 by davifah           #+#    #+#             */
-/*   Updated: 2022/11/09 13:54:17 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/11/09 17:33:04 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ t_render_data	*render_setup_data(t_parse *setup)
 	r->res_height = r->res_width / r->aspect_ratio;
 	r->aspp = get_angle_shift_per_pixel(setup->cam_fov, r->res_width);
 	r->thread_n = THREAD_N;
+	if (THREAD_N < 0)
+		r->thread_n = r->res_height;
 	r->threads = create_thread_list(r->thread_n, setup);
 	setup->mirror_depth = create_mirrordepthlst(r->thread_n);
 	if ((r->thread_n && !r->threads) || !setup->mirror_depth
