@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:32:26 by mreymond          #+#    #+#             */
-/*   Updated: 2022/10/23 18:33:36 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/11/09 13:48:30 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	setup_init(t_parse	*setup)
 	setup->is_there_cam = 0;
 	setup->is_there_amb = 0;
 	setup->is_there_light = 0;
-	setup->mirror_depth = DEPTH;
 	setup->lights = NULL;
 	setup->volumes = NULL;
 }

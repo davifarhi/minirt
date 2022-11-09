@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/10/26 12:27:29 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/11/09 16:24:51 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_cylinder
 	t_vector	*vector;
 	double		diameter;
 	double		height;
-	char		is_cap;
+	char		*is_cap;
 }	t_cylinder;
 
 typedef struct s_data
@@ -88,12 +88,16 @@ typedef struct s_mlx
 
 //resolutions of mlx window
 //aspp = angle shift per pixel [x, y]
+typedef struct s_thread	t_thread;
+
 typedef struct s_render_data
 {
 	unsigned int	res_width;
 	unsigned int	res_height;
 	double			aspect_ratio;
 	double			aspp;
+	unsigned int	thread_n;
+	t_thread		*threads;
 }	t_render_data;
 
 typedef struct s_parse
@@ -108,7 +112,7 @@ typedef struct s_parse
 	double			ambient_intensity;
 	int				ambient_color;
 	unsigned char	is_there_light;
-	int				mirror_depth;
+	int				*mirror_depth;
 	t_mlx			mlx;
 	t_render_data	*render;
 }	t_parse;
