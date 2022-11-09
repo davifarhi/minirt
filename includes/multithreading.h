@@ -6,7 +6,7 @@
 /*   By: dfarhi <dfarhi@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 10:37:19 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/11/09 16:33:15 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/11/09 16:51:52 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int			*create_mirrordepthlst(unsigned int n);
 t_thread	*create_thread_list(unsigned int n, t_parse *parse);
 int			looper_multithreaded(void *param);
 void		*thread_start(void *param);
-void		threads_wait(t_render_data *r);
+void		threads_wait(t_render_data *r, t_parse *parse);
 void		kill_threads(t_render_data *r);
 void		ft_wait_ms(int n);
 

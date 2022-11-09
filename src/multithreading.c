@@ -6,7 +6,7 @@
 /*   By: dfarhi <dfarhi@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:36:40 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/11/09 16:34:43 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/11/09 16:48:53 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "render.h"
 #include "multithreading.h"
 
-void	threads_wait(t_render_data *r)
+void	threads_wait(t_render_data *r, t_parse *parse)
 {
 	unsigned int	i;
 	int				is_dead;
@@ -29,8 +29,8 @@ void	threads_wait(t_render_data *r)
 			if (r->threads[i].state == dead)
 				is_dead = 1;
 			pthread_mutex_unlock(&r->threads[i].update);
-			if (!is_dead)
-				ft_wait_ms(100);
+			if (parse)
+				put_img_to_win(&parse->mlx);
 		}
 	}
 }
@@ -49,7 +49,7 @@ void	kill_threads(t_render_data *r)
 			r->threads[i].state = to_die;
 		pthread_mutex_unlock(&r->threads[i].update);
 	}
-	threads_wait(r);
+	threads_wait(r, 0);
 }
 
 t_thread	*create_thread_list(unsigned int n, t_parse *parse)
@@ -98,7 +98,7 @@ int	looper_multithreaded(void *param)
 	{
 		if (y >= parse->render->res_height)
 		{
-			threads_wait(parse->render);
+			threads_wait(parse->render, parse);
 			render_time();
 			break ;
 		}
