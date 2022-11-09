@@ -5,73 +5,70 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfarhi <dfarhi@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 10:38:27 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/11/09 11:14:02 by dfarhi           ###   ########.fr       */
+/*   Created: 2022/11/09 12:36:40 by dfarhi            #+#    #+#             */
+/*   Updated: 2022/11/09 13:25:58 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "multithreading.h"
 #include "minirt.h"
+#include "render.h"
+#include "multithreading.h"
 
-static int tid_get_n(pthread_t *lst)
+t_thread	*create_thread_list(unsigned int n, t_parse *parse)
 {
-	pthread_t 	self;
-	int			i;
+	unsigned int	i;
+	t_thread		*lst;
 
-	self = pthread_self();
+	if (n <= 0)
+		return (0);
+	lst = ft_calloc(sizeof(t_thread), n);
+	if (!lst)
+		return (0);
 	i = -1;
-	while (lst[++i])
+	while (++i < n)
 	{
-		if (lst[i] == self)
-			return (i);
+		lst[i].n = i;
+		lst[i].parse = parse;
+		lst[i].state = dead;
+		pthread_mutex_init(&lst[i].update, NULL);
 	}
-	return (-1);
+	return (lst);
 }
 
-int	thread_n_function(t_thread_n action, unsigned int n)
+static int	launch_thread(
+		unsigned int y, t_thread *t)
 {
-	static pthread_t	*lst = 0;
-
-	if (action == create && n > 0)
-	{
-		lst = ft_calloc(sizeof(pthread_t), n);
-		if (!lst)
-			return (1);
-	}
-	else if (action == del && lst)
-	{
-		free(lst);
-		lst = 0;
-	}
-	else if (action == add && lst)
-		lst[n] = pthread_self();
-	else if (action == get && lst)
-	{
-		return (tid_get_n(lst));
-	}
+	t->y = y;
+	t->state = alive;
+	if (pthread_create(&t->tid, NULL, &thread_start, t))
+		return (1);
+	pthread_detach(t->tid);
 	return (0);
 }
 
-void	iscaplst_destroy(t_list *item)
+int	looper_multithreaded(void *param)
 {
-	if (!item)
-		return ;
-	if (((t_obj *)item->content)->type == Cylinder)
-		free(((t_cylinder *)((t_obj *)item->content)->param)->is_cap);
-	iscaplst_destroy(item->next);
-}
+	t_parse				*parse;
+	unsigned int		i;
+	static unsigned int	y = 0;
 
-int	iscaplst_create(t_list *item, int size)
-{
-	if (!item)
-		return 0;
-	if (size <= 0)
-		size = 1;
-	if (((t_obj *)item->content)->type == Cylinder)
+	parse = param;
+	if (!y)
+		render_time();
+	i = -1;
+	while (++i < parse->render->thread_n)
 	{
-		((t_cylinder *)((t_obj *)item->content)->param)->is_cap = ft_calloc(sizeof(char), size);
-		if (!((t_cylinder *)((t_obj *)item->content)->param)->is_cap)
+		if (y >= parse->render->res_height)
+		{
+			render_time();
+			break ;
+		}
+		pthread_mutex_lock(&parse->render->threads[i].update);
+		if (parse->render->threads[i].state == dead
+				&& launch_thread(y++, &parse->render->threads[i]))
 			return (1);
+		pthread_mutex_unlock(&parse->render->threads[i].update);
 	}
-	return (iscaplst_create(item->next, size));
+	put_img_to_win(&parse->mlx);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/11/09 11:08:35 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/11/09 12:56:49 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ typedef struct s_mlx
 
 //resolutions of mlx window
 //aspp = angle shift per pixel [x, y]
+typedef struct s_thread t_thread;
+
 typedef struct s_render_data
 {
 	unsigned int	res_width;
@@ -95,6 +97,7 @@ typedef struct s_render_data
 	double			aspect_ratio;
 	double			aspp;
 	unsigned int	thread_n;
+	t_thread		*threads;
 }	t_render_data;
 
 typedef struct s_parse

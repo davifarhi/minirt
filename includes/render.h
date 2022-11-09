@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:49 by davifah           #+#    #+#             */
-/*   Updated: 2022/11/09 10:15:32 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/11/09 13:20:12 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_vector		render_get_camera_direction(const t_vector v,
 void			calculate_intersection(
 					const t_vector *v_ray, t_parse *data, unsigned int *color);
 unsigned int	render_per_pixel(int x, int y, t_parse *data);
+void			put_img_to_win(t_mlx *mlx);
 void			render_time(void);
 
 //render_setup

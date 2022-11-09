@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 11:18:39 by davifah           #+#    #+#             */
-/*   Updated: 2022/11/09 11:20:44 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/11/09 13:09:31 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,24 @@ t_render_data	*render_setup_data(t_parse *setup)
 	r->res_height = r->res_width / r->aspect_ratio;
 	r->aspp = get_angle_shift_per_pixel(setup->cam_fov, r->res_width);
 	r->thread_n = THREAD_N;
-	if (iscaplst_create(setup->volumes, r->thread_n)
-			|| thread_n_function(create, r->thread_n))
+	r->threads = create_thread_list(r->thread_n, setup);
+	if ((r->thread_n && !r->threads)
+		|| iscaplst_create(setup->volumes, r->thread_n)
+		|| thread_n_function(create, r->thread_n))
 		return (0);
 	return (r);
 }
 
 void	free_render_data(t_render_data *r)
 {
+	unsigned int	i;
+
+	if (r->threads)
+	{
+		i = -1;
+		while (++i < r->thread_n)
+			pthread_mutex_destroy(&r->threads[i].update);
+		free(r->threads);
+	}
 	free(r);
 }

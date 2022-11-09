@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:17 by davifah           #+#    #+#             */
-/*   Updated: 2022/11/09 10:15:18 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/11/09 13:19:51 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include "render.h"
 
 static int	render_loop(t_parse *data);
-static void	put_img_to_win(t_mlx *mlx);
 
 int	looper_mlx(void *param)
 {
@@ -57,7 +56,7 @@ static int	render_loop(t_parse *data)
 	return (0);
 }
 
-static void	put_img_to_win(t_mlx *mlx)
+void	put_img_to_win(t_mlx *mlx)
 {
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.img, 0, 0);
 }

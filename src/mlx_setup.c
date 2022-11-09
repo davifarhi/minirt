@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:04:14 by davifah           #+#    #+#             */
-/*   Updated: 2022/11/09 11:18:28 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/11/09 13:33:33 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ int	mlx_setup(t_parse *data)
 		data->mlx.mlx, data->mlx.win, data->mlx.img.img, 0, 0);
 	mlx_hook(data->mlx.win, 17, 1L << 0, on_win_close, data);
 	mlx_key_hook(data->mlx.win, deal_key, data);
-	if (data->render->thread_n == 0)
-	{
-		thread_n_function(add, 0);
+	thread_n_function(add, 0);
+	if (!data->render->thread_n)
 		mlx_loop_hook(data->mlx.mlx, looper_mlx, data);
-	}
+	else
+		mlx_loop_hook(data->mlx.mlx, looper_multithreaded, data);
 	return (0);
 }
 
