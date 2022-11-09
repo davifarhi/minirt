@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/10/26 12:27:29 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/11/09 11:08:35 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_cylinder
 	t_vector	*vector;
 	double		diameter;
 	double		height;
-	char		is_cap;
+	char		*is_cap;
 }	t_cylinder;
 
 typedef struct s_data
@@ -94,6 +94,7 @@ typedef struct s_render_data
 	unsigned int	res_height;
 	double			aspect_ratio;
 	double			aspp;
+	unsigned int	thread_n;
 }	t_render_data;
 
 typedef struct s_parse

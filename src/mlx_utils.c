@@ -6,7 +6,7 @@
 /*   By: davifah <dfarhi@student.42lausanne.ch      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:44:22 by davifah           #+#    #+#             */
-/*   Updated: 2022/09/30 14:41:35 by davifah          ###   ########.fr       */
+/*   Updated: 2022/11/09 11:16:08 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "mlx_config.h"
 #include "render.h"
 #include "free.h"
+#include "multithreading.h"
 
 int	print_key(int key, void *param)
 {
@@ -46,6 +47,8 @@ void	ft_pixel_put(t_mlx *mlx, int x, int y, unsigned int color)
 
 void	on_quit_free(t_parse *data)
 {
+	thread_n_function(del, 0);
+	iscaplst_destroy(data->volumes);
 	mlx_destroy_image(data->mlx.mlx, data->mlx.img.img);
 	mlx_destroy_window(data->mlx.mlx, data->mlx.win);
 	if (ISLINUX)

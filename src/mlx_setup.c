@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:04:14 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/25 17:59:56 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/11/09 11:18:28 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "mlx_config.h"
 #include "render.h"
 #include "free.h"
+#include "multithreading.h"
 
 static int	on_win_close(void *param);
 static int	deal_key(int key, void *param);
@@ -41,7 +42,11 @@ int	mlx_setup(t_parse *data)
 		data->mlx.mlx, data->mlx.win, data->mlx.img.img, 0, 0);
 	mlx_hook(data->mlx.win, 17, 1L << 0, on_win_close, data);
 	mlx_key_hook(data->mlx.win, deal_key, data);
-	mlx_loop_hook(data->mlx.mlx, looper_mlx, data);
+	if (data->render->thread_n == 0)
+	{
+		thread_n_function(add, 0);
+		mlx_loop_hook(data->mlx.mlx, looper_mlx, data);
+	}
 	return (0);
 }
 

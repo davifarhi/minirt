@@ -6,12 +6,13 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 11:18:39 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/24 13:54:00 by davifah          ###   ########.fr       */
+/*   Updated: 2022/11/09 11:20:44 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "render.h"
+#include "multithreading.h"
 
 static double	get_angle_shift_per_pixel(unsigned char fov, int width)
 {
@@ -34,6 +35,10 @@ t_render_data	*render_setup_data(t_parse *setup)
 	r->aspect_ratio = 16.0 / 9.0;
 	r->res_height = r->res_width / r->aspect_ratio;
 	r->aspp = get_angle_shift_per_pixel(setup->cam_fov, r->res_width);
+	r->thread_n = THREAD_N;
+	if (iscaplst_create(setup->volumes, r->thread_n)
+			|| thread_n_function(create, r->thread_n))
+		return (0);
 	return (r);
 }
 
