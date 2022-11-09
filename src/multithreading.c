@@ -6,7 +6,7 @@
 /*   By: dfarhi <dfarhi@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:36:40 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/11/09 15:51:05 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/11/09 16:34:43 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,30 @@
 #include "render.h"
 #include "multithreading.h"
 
-void	kill_threads(t_render_data *r)
+void	threads_wait(t_render_data *r)
 {
 	unsigned int	i;
 	int				is_dead;
+
+	i = -1;
+	while (++i < r->thread_n)
+	{
+		is_dead = 0;
+		while (!is_dead)
+		{
+			pthread_mutex_lock(&r->threads[i].update);
+			if (r->threads[i].state == dead)
+				is_dead = 1;
+			pthread_mutex_unlock(&r->threads[i].update);
+			if (!is_dead)
+				ft_wait_ms(100);
+		}
+	}
+}
+
+void	kill_threads(t_render_data *r)
+{
+	unsigned int	i;
 
 	if (!r->threads)
 		return ;
@@ -29,18 +49,7 @@ void	kill_threads(t_render_data *r)
 			r->threads[i].state = to_die;
 		pthread_mutex_unlock(&r->threads[i].update);
 	}
-	i = -1;
-	while (++i < r->thread_n)
-	{
-		is_dead = 0;
-		while (!is_dead)
-		{
-			pthread_mutex_lock(&r->threads[i].update);
-			if (r->threads[i].state == dead)
-				is_dead = 1;
-			pthread_mutex_unlock(&r->threads[i].update);
-		}
-	}
+	threads_wait(r);
 }
 
 t_thread	*create_thread_list(unsigned int n, t_parse *parse)
@@ -89,12 +98,13 @@ int	looper_multithreaded(void *param)
 	{
 		if (y >= parse->render->res_height)
 		{
+			threads_wait(parse->render);
 			render_time();
 			break ;
 		}
 		pthread_mutex_lock(&parse->render->threads[i].update);
 		if (parse->render->threads[i].state == dead
-				&& launch_thread(y++, &parse->render->threads[i]))
+			&& launch_thread(y++, &parse->render->threads[i]))
 			return (1);
 		pthread_mutex_unlock(&parse->render->threads[i].update);
 	}

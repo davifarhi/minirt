@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/11/09 15:56:39 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/11/09 16:20:40 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ int	render_light(t_parse *data, t_obj_ray_hit *obj_hit, t_ray ray, int color)
 	l.color = color;
 	l.v_ray = ray.vector;
 	light_value = lights_loop(data, l);
-	if ((obj_hit->obj->mirror == 1 && data->mirror_depth[thread_n_function(get, 0)] > 0))
+	if ((obj_hit->obj->mirror == 1
+			&& data->mirror_depth[thread_n_function(get, 0)] > 0))
 		light_value = mirror_light(data, l, light_value, ray.vector);
 	return (light_value);
 }

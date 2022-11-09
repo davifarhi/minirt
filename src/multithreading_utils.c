@@ -6,7 +6,7 @@
 /*   By: dfarhi <dfarhi@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 10:38:27 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/11/09 16:10:37 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/11/09 16:18:37 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	*create_mirrordepthlst(unsigned int n)
 	return (lst);
 }
 
-static int tid_get_n(pthread_t *lst, unsigned int size)
+static int	tid_get_n(pthread_t *lst, unsigned int size)
 {
 	pthread_t		self;
 	unsigned int	i;
@@ -80,12 +80,13 @@ void	iscaplst_destroy(t_list *item)
 int	iscaplst_create(t_list *item, int size)
 {
 	if (!item)
-		return 0;
+		return (0);
 	if (size <= 0)
 		size = 1;
 	if (((t_obj *)item->content)->type == Cylinder)
 	{
-		((t_cylinder *)((t_obj *)item->content)->param)->is_cap = ft_calloc(sizeof(char), size);
+		((t_cylinder *)((t_obj *)item->content)->param)->is_cap
+			= ft_calloc(sizeof(char), size);
 		if (!((t_cylinder *)((t_obj *)item->content)->param)->is_cap)
 			return (1);
 	}

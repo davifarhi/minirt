@@ -6,15 +6,16 @@
 /*   By: dfarhi <dfarhi@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 10:03:13 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/11/09 10:21:13 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/11/09 16:32:57 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "debug.h"
-#include "stdio.h"
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/time.h>
 
 #if DBG_PRINT_RENDER_TIME == 1
-# include <sys/time.h>
 
 static long long	get_time_ms(void)
 {
@@ -46,3 +47,14 @@ void	render_time(void)
 }
 
 #endif
+
+void	ft_wait_ms(int n)
+{
+	long long	start;
+
+	if (n <= 0)
+		return ;
+	start = get_time_ms();
+	while (get_time_ms() - start < n)
+		usleep(1000);
+}

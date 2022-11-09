@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/11/09 11:21:47 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/11/09 16:22:35 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,15 @@ t_vector	find_normal_vector(t_coord point, t_obj_ray_hit *obj_hit)
 	else if (obj_hit->obj->type == Plan)
 		normal = *((t_vector *)obj_hit->obj->param);
 	else if (obj_hit->obj->type == Cylinder
-		&& ((t_cylinder *)obj_hit->obj->param)->is_cap[thread_n_function(get, 0)] == 0)
+		&& ((t_cylinder *)obj_hit->obj->param)
+		->is_cap[thread_n_function(get, 0)] == 0)
 		normal = cylinder_normal(point, obj_hit);
 	else if (obj_hit->obj->type == Cylinder
-		&& ((t_cylinder *)obj_hit->obj->param)->is_cap[thread_n_function(get, 0)] == 1)
+		&& ((t_cylinder *)obj_hit->obj->param)
+		->is_cap[thread_n_function(get, 0)] == 1)
 	{
-		dot = dot_product(v_sub(*(t_vector *)&point,
-					*(t_vector *)obj_hit->obj->coord),
-				*((t_cylinder *)obj_hit->obj->param)->vector);
+		dot = dot_product(v_sub(*(t_vector *)&point, *(t_vector *)obj_hit->obj
+					->coord), *((t_cylinder *)obj_hit->obj->param)->vector);
 		if (dot > -0.001 && dot < 0.001)
 			normal = v_invert(((t_cylinder *)obj_hit->obj->param)->vector);
 		else

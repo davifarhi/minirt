@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:04:14 by davifah           #+#    #+#             */
-/*   Updated: 2022/11/09 13:33:33 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/11/09 16:14:56 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 static int	on_win_close(void *param);
 static int	deal_key(int key, void *param);
+static void	multithreading_setup(t_parse *data);
 
 int	mlx_setup(t_parse *data)
 {
@@ -42,12 +43,19 @@ int	mlx_setup(t_parse *data)
 		data->mlx.mlx, data->mlx.win, data->mlx.img.img, 0, 0);
 	mlx_hook(data->mlx.win, 17, 1L << 0, on_win_close, data);
 	mlx_key_hook(data->mlx.win, deal_key, data);
-	thread_n_function(add, 0);
+	multithreading_setup(data);
+	return (0);
+}
+
+static void	multithreading_setup(t_parse *data)
+{
 	if (!data->render->thread_n)
+	{
+		thread_n_function(add, 0);
 		mlx_loop_hook(data->mlx.mlx, looper_mlx, data);
+	}
 	else
 		mlx_loop_hook(data->mlx.mlx, looper_multithreaded, data);
-	return (0);
 }
 
 t_data	create_mlx_image(void *mlx, int width, int height)
