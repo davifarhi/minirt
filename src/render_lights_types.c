@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:52:30 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/25 17:04:27 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/11/09 14:02:11 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "lights.h"
 #include "render.h"
 #include "minirt_math.h"
+#include "multithreading.h"
 #include <math.h>
 #include <float.h>
 
@@ -65,7 +66,7 @@ int	mirror_light(t_parse *data, t_l_data l, int old_value, t_vector v_ray)
 	t_obj_ray_hit	*new_obj_hit;
 	int				light_value;
 
-	data->mirror_depth -= 1;
+	data->mirror_depth[thread_n_function(get, 0)] -= 1;
 	scalaire = dot_product(l.normal, v_invert(&v_ray));
 	mirror.vector.x = (2 * l.normal.x * scalaire) + v_ray.x;
 	mirror.vector.y = (2 * l.normal.y * scalaire) + v_ray.y;

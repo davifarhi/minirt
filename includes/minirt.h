@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:07:09 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/11/09 12:56:49 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/11/09 13:53:55 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ typedef struct s_parse
 	double			ambient_intensity;
 	int				ambient_color;
 	unsigned char	is_there_light;
-	int				mirror_depth;
+	int				*mirror_depth;
 	t_mlx			mlx;
 	t_render_data	*render;
 }	t_parse;

@@ -6,13 +6,42 @@
 /*   By: dfarhi <dfarhi@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:36:40 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/11/09 13:25:58 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/11/09 15:51:05 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "render.h"
 #include "multithreading.h"
+
+void	kill_threads(t_render_data *r)
+{
+	unsigned int	i;
+	int				is_dead;
+
+	if (!r->threads)
+		return ;
+	i = -1;
+	while (++i < r->thread_n)
+	{
+		pthread_mutex_lock(&r->threads[i].update);
+		if (r->threads[i].state == alive)
+			r->threads[i].state = to_die;
+		pthread_mutex_unlock(&r->threads[i].update);
+	}
+	i = -1;
+	while (++i < r->thread_n)
+	{
+		is_dead = 0;
+		while (!is_dead)
+		{
+			pthread_mutex_lock(&r->threads[i].update);
+			if (r->threads[i].state == dead)
+				is_dead = 1;
+			pthread_mutex_unlock(&r->threads[i].update);
+		}
+	}
+}
 
 t_thread	*create_thread_list(unsigned int n, t_parse *parse)
 {

@@ -6,7 +6,7 @@
 /*   By: dfarhi <dfarhi@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 10:37:19 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/11/09 13:39:17 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/11/09 15:51:48 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "minirt.h"
 
 # ifndef THREAD_N
-#  define THREAD_N 2
+#  define THREAD_N 8
 # endif
 
 typedef enum e_thread_n
@@ -34,6 +34,7 @@ typedef enum e_thread_n
 typedef enum e_state
 {
 	alive,
+	to_die,
 	dead,
 }	t_state;
 
@@ -50,8 +51,10 @@ typedef struct s_thread
 int			thread_n_function(t_thread_n action, unsigned int n);
 int			iscaplst_create(t_list *item, int size);
 void		iscaplst_destroy(t_list *item);
+int			*create_mirrordepthlst(unsigned int n);
 t_thread	*create_thread_list(unsigned int n, t_parse* parse);
 int			looper_multithreaded(void *param);
 void		*thread_start(void *param);
+void		kill_threads(t_render_data *r);
 
 #endif

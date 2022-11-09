@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 12:58:52 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/25 18:00:16 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/11/09 13:55:44 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "minirt_math.h"
 #include "lights.h"
 #include "debug.h"
+#include "multithreading.h"
 
 static void	new_obj_hit(t_obj_ray_hit **obj_hit, t_obj_ray_hit *obj_new)
 {
@@ -72,7 +73,7 @@ void	calculate_intersection(
 		if (DEBUG_LIGHT_OFF)
 			*color = obj_hit->obj->color;
 		free(obj_hit);
-		data->mirror_depth = DEPTH;
+		data->mirror_depth[thread_n_function(get, 0)] = DEPTH;
 	}
 }
 

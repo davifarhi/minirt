@@ -1,26 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   multithreading.c                                   :+:      :+:    :+:   */
+/*   multithreading_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfarhi <dfarhi@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 10:38:27 by dfarhi            #+#    #+#             */
-/*   Updated: 2022/11/09 11:14:02 by dfarhi           ###   ########.fr       */
+/*   Updated: 2022/11/09 16:07:58 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "multithreading.h"
 #include "minirt.h"
 
-static int tid_get_n(pthread_t *lst)
+int	*create_mirrordepthlst(unsigned int n)
 {
-	pthread_t 	self;
-	int			i;
+	int				*lst;
+	unsigned int	i;
+
+	i = -1;
+	if (!n)
+		n = 1;
+	lst = malloc(sizeof(int) * n);
+	if (!lst)
+		return (0);
+	while (++i < n)
+		lst[i] = DEPTH;
+	return (lst);
+}
+
+static int tid_get_n(pthread_t *lst, unsigned int size)
+{
+	pthread_t		self;
+	unsigned int	i;
 
 	self = pthread_self();
 	i = -1;
-	while (lst[++i])
+	while (++i < size)
 	{
 		if (lst[i] == self)
 			return (i);
@@ -30,24 +46,31 @@ static int tid_get_n(pthread_t *lst)
 
 int	thread_n_function(t_thread_n action, unsigned int n)
 {
-	static pthread_t	*lst = 0;
+	static pthread_t		*lst = 0;
+	static unsigned int		size;
+	static pthread_mutex_t	update;
 
+	if (action == get && lst)
+		return (tid_get_n(lst, size));
 	if (action == create && n > 0)
 	{
+		pthread_mutex_init(&update, NULL);
+		size = n;
 		lst = ft_calloc(sizeof(pthread_t), n);
 		if (!lst)
 			return (1);
 	}
 	else if (action == del && lst)
 	{
+		pthread_mutex_destroy(&update);
 		free(lst);
 		lst = 0;
 	}
 	else if (action == add && lst)
-		lst[n] = pthread_self();
-	else if (action == get && lst)
 	{
-		return (tid_get_n(lst));
+		pthread_mutex_lock(&update);
+		lst[n] = pthread_self();
+		pthread_mutex_unlock(&update);
 	}
 	return (0);
 }
