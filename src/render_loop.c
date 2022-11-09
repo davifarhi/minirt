@@ -6,7 +6,7 @@
 /*   By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:12:17 by davifah           #+#    #+#             */
-/*   Updated: 2022/10/25 18:00:36 by mreymond         ###   ########.fr       */
+/*   Updated: 2022/11/09 10:15:18 by dfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,12 @@ static int	render_loop(t_parse *data)
 			return (1);
 		if (!LINE_BY_LINE_RENDER)
 			put_img_to_win(&data->mlx);
-		if (DEBUG_LOOP_FINISHED)
-			ft_putstr_fd("Finished\n", 2);
+		render_time();
 		x = -3;
 		return (1);
 	}
-	if (DEBUG_LOOP_PIXEL)
-		printf("rendering pixel x %d - y %d\n", x, y);
+	if (!x && !y)
+		render_time();
 	ft_pixel_put(&data->mlx, x, y, render_per_pixel(x, y, data));
 	return (0);
 }

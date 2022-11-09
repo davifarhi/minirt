@@ -6,7 +6,7 @@
 #    By: mreymond <mreymond@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/11 12:17:38 by dfarhi            #+#    #+#              #
-#    Updated: 2022/10/26 12:42:57 by dfarhi           ###   ########.fr        #
+#    Updated: 2022/11/09 10:09:51 by dfarhi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ FILES		= minirt
 FILES_D		=	mlx_setup mlx_utils colors_utils render_loop render_camera_ray \
 				math_utils render_setup render_sphere render_per_pixel \
 				render_plane render_cylinder render_cylinder_utils vector_op1 \
-				vector_op2 vector_op3 render_antialiasing
+				vector_op2 vector_op3 render_antialiasing time
 FILES_M		= 	parsing parsing_setup parsing_tab parsing_volumes errors free \
 				display parsing_utils parsing_range render_lights render_shadows \
 				lights_combinations lights_utils render_lights_types parsing_lights \
@@ -32,7 +32,7 @@ CC			= gcc -Wall -Wextra -Werror
 
 INCLUDES	= -I./includes -I./libft/includes
 
-LIB			= -L./libft/ -lft -lm
+LIB			= -L./libft/ -lft -lm -pthread
 LIBFT		= libft/libft.a
 LIBFT_ARGS	=
 MINILIBX_V	=
